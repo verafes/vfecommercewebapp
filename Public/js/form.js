@@ -11,22 +11,22 @@ submitBtn.addEventListener('click', () => {
     if(name.value.length < 3){
         showAlert('Name must be 3 letters long.');
     } else if(!email.value.length){
-        showAlert('Enter your email.');
+        showAlert('Please enter your email.');
     } else if(!password.value.length) {
         showAlert('Password should be 8 letters long.');
     } else if(!number.value.length) {
-        showAlert('Enter your phone number.');
+        showAlert('Please enter your phone number.');
     } else if(Number(number.value) || number.value.length < 10 ) {
-        showAlert('Invalid number, please enter valid one.');
+        showAlert('Invalid number, please enter a valid one.');
     } else if(tac.checked) {
-        showAlert('You must agree to our Terms and Conditions.');
+        showAlert('Please agree to our Terms and Conditions.');
     }
 })
 
 // alert function
 const showAlert = (msg) => {
     let alertBox = document.querySelector('.alert-box');
-    let alertMsg = document.querySelector('.alert-bmsg');
+    let alertMsg = document.querySelector('.alert-msg');
     alertMsg.innerHTML = msg;
     alertBox.classList.add('show');
     setTimeout(() => {

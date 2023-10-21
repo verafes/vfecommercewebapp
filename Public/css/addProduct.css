@@ -1,0 +1,221 @@
+body {
+    display: block;
+    padding: 0 10vw;
+    font-family: 'Krub', sans-serif;
+    font-size: 14px;
+}
+
+input:not(input[type="checkbox"]) {
+    width: 100%;
+    box-shadow: none;
+}
+
+textarea {
+    width: 100%;
+    height: 270px;
+    resize: none;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #002A2AFF; /* #142A00; */
+    background: #ffff; /* #EDEDED; #e7ffff;*/
+    box-shadow: none;
+    outline: none;
+    margin: 0 0 20px 0;
+    color: #002A2AFF; /* #142A00; */
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Krub', sans-serif;
+}
+
+textarea::placeholder {
+    font-family: 'Krub', sans-serif;
+    /*letter-spacing: 0.2em;*/
+    color: #002A2AFF; /*#686B5A; */
+    opacity: 0.8;
+}
+
+input:focus, textarea:focus {
+    background-color: white;
+    opacity: 0.7;
+}
+
+input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, .select-sizes:hover {
+    background-color: white;
+    opacity: 1;
+}
+
+.logo {
+    margin-top: 20px;
+}
+
+.product-info {
+    width: 100%;
+    height: 500px;
+    display: grid;
+    grid-template-columns: .75fr 1.25fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #002A2AFF; /* #016565; #002A2AFF; #142A00; */
+    opacity: 1;
+    text-transform: capitalize;
+}
+
+.product-image {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background: #EDEDED;  /* #e7ffff; */
+    background-size: cover;
+    outline: none;
+    border-radius: 5px;
+    grid-row: span 2;
+}
+
+.upload-image-section-title {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.upload-image-section-title img {
+    height: 25px;
+    margin-right: 10px;
+}
+
+.upload-image-section, .select-sizes {
+    background: #ffff; /* #e7ffff; #EDEDED; */
+    border-radius: 5px;
+    padding: 20px;
+    text-align: left;
+}
+
+.text img {
+    height: 30px;
+    margin: 0 15px 0 0;
+}
+
+.upload-catalogue {
+    width: 100%;
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 10px;
+}
+
+.upload-image {
+    width: 100%;
+    height: 100px;
+    background: #f5f5f5; /* #b7fcfc; */
+    cursor: pointer;
+    background-size: cover;
+}
+
+.upload-image:hover {
+    background: #01ababff; /* #8C9A7F; */
+    cursor: pointer;
+    background-size: cover;
+}
+
+.sizes {
+    margin-top: 30px;
+}
+
+.size-checkbox {
+    position: relative;
+    -webkit-appearance: none;
+    width: 100px;
+    height: 40px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    color: #002A2AFF; /* #142A00; */
+    background:  #fff; /* #d8dcd3; #EDEDED; */
+
+}
+
+.size-checkbox::after {
+    content: attr(value);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.size-checkbox:checked {
+    background: #01ababff; /* #8C9A7F; */
+    transition: 0.7s;
+    cursor: pointer;
+    color: #fff; /* #EDEDED; */
+    font-weight: 700;
+}
+
+.size-checkbox:not(:checked):hover {
+    cursor: pointer;
+    transition: 0.5s;
+    /*box-shadow: 0 5px 10px #142A00;*/
+}
+
+.size-checkbox:checked:hover {
+    background: #01ABABFF; /* #7f9a96; */
+    transition: 0.5s;
+    color: #fff; /* #EDEDED; */
+    font-weight: 700;
+}
+
+.size-checkbox:not(:checked) {
+    color: #01ababff; /* #142A00; */
+    background: #f5f5f5;
+    background-size: cover;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.product-price {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.product-price input {
+    margin: 0;
+}
+
+.buttons {
+    margin: 20px 0 50px;
+}
+
+.btn {
+    width: 48%;
+    padding: 20px;
+    border-radius: 5px;
+    /*background: #d8dcd3;*/
+    border: 1px solid #016565; /* #142A00; */
+    color: #016565; /* #142A00; */
+    font-family: 'Krub', sans-serif;
+    font-size: 15px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+#add-btn:hover {
+    font-weight: 600;
+    cursor: pointer;
+    /*background: url("../img/logo-green.png");*/
+    background: #016565;
+    color: #fff;
+}
+
+#save-btn {
+    background-color: #a9a9a9;
+}
+

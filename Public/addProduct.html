@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> vf Shop | Add Product</title>
+
+    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/addProduct.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/icons/favicon-16x16.png">
+    <link rel="manifest" href="img/icons/site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img src="img/loader.gif" class="loader" alt="">
+
+    <div class="alert-box">
+        <img src="img/error.png" class="alert-img" alt="">
+        <p class="alert-msg">Error message</p>
+    </div>
+
+    <img src="img/logo-green.png" class="logo" alt="">
+
+    <div class="form">
+        <input type="text" id="product-name" maxlength="50" placeholder="product name">
+        <input type="text" id="product-short-des" maxlength="100" placeholder="short product description">
+        <textarea id="product-des" placeholder="detailed product description"></textarea>
+
+        <div class="product-info">
+            <div class="product-image">
+                <p class="text">product image</p>
+            </div>
+            <div class="upload-image-section">
+                <div class="upload-image-section-title">
+                    <img src="img/camera-icon.png" alt="">
+                    <p class="text">upload images</p>
+                </div>
+                <form>
+                    <div class="upload-catalogue">
+                        <input type="file" class="file-upload" id="first-file-upload-btn" hidden>
+                        <label for="first-file-upload-btn" class="upload-image"></label>
+                        <input type="file" class="file-upload" id="second-file-upload-btn" hidden>
+                        <label for="second-file-upload-btn" class="upload-image"></label>
+                        <input type="file" class="file-upload" id="third-file-upload-btn" hidden>
+                        <label for="third-file-upload-btn" class="upload-image"></label>
+                        <input type="file" class="file-upload" id="fourth-file-upload-btn" hidden>
+                        <label for="fourth-file-upload-btn" class="upload-image"></label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="select-sizes">
+                <p class="text">sizes available</p>
+                <div class="sizes">
+                    <input type="checkbox" class="size-checkbox" id="xs-size" value="xs">
+                    <input type="checkbox" class="size-checkbox" id="s-size" value="s">
+                    <input type="checkbox" class="size-checkbox" id="m-size" value="m">
+                    <input type="checkbox" class="size-checkbox" id="l-size" value="l">
+                    <input type="checkbox" class="size-checkbox" id="xl-size" value="xl">
+                    <input type="checkbox" class="size-checkbox" id="xxl-size" value="xxl">
+                    <input type="checkbox" class="size-checkbox" id="xxx-size" value="xxxl">
+                </div>
+            </div>
+        </div>
+
+        <div class="product-price">
+            <input type="number" id="actual-price" placeholder="actual price">
+            <input type="number" id="discount" placeholder="discount percentage">
+            <input type="number" id="sell-price" placeholder="selling price">
+        </div>
+
+        <input type="number" id="stock" min="20" placeholder="Items in stocks (minimum 20)">
+        <textarea id="tags" placeholder="Enter categories here. You should start with Men, Women or Accessories. For example, Men, Jeans, Blue etc..."></textarea>
+        <input type="checkbox" class="checkbox" id="tac" checked>"
+        <label for="tac">VFShop takes 30% from your total sell.</label>
+
+        <div class="buttons">
+            <button class="btn" id="add-btn">Add product</button>
+            <button class="btn" id="save-btn">Save draft</button>
+        </div>
+
+    </div>
+
+<!--    <script type="module">-->
+<!--        // Import the functions you need from the SDKs you need-->
+<!--        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";-->
+<!--        // import firebase from "firebase/compat";-->
+<!--        // TODO: Add SDKs for Firebase products that you want to use-->
+<!--        // https://firebase.google.com/docs/web/setup#available-libraries-->
+
+<!--        // Your web app's Firebase configuration-->
+<!--        const firebaseConfig = {-->
+<!--            apiKey: "AIzaSyCB-JoobxE4Jkyq-HWgfkZFWszZhjTFfXs",-->
+<!--            authDomain: "ajshop-be1e0.firebaseapp.com",-->
+<!--            projectId: "ajshop-be1e0",-->
+<!--            storageBucket: "ajshop-be1e0.appspot.com",-->
+<!--            messagingSenderId: "136800496353",-->
+<!--            appId: "1:136800496353:web:b8972f32172498b3bbe5a0"-->
+<!--        }-->
+
+
+<!--            // Initialize Firebase-->
+<!--       const app = initializeApp(firebaseConfig);-->
+
+<!--        let uploadImages = document.querySelectorAll('.file-upload');-->
+<!--        let fileUploadLabel = document.querySelector('.upload-image');-->
+<!--        const formElem = document.querySelector('form');-->
+<!--        let fileName;-->
+<!--        let imagePaths = [];-->
+
+<!--        function uploadImage(e) {-->
+<!--            let file = e.target.files[0];-->
+<!--            fileName = (e) => e.target.files[0].name;-->
+
+<!--            firebase-->
+<!--                .app()-->
+<!--                .storage()-->
+<!--                .ref('img')-->
+<!--                .child(file.name)-->
+<!--                .put(file)-->
+<!--        }-->
+
+<!--        function getAnImageUrl(filename) {-->
+<!--            let url;-->
+<!--            firebase-->
+<!--                .storage()-->
+<!--                .ref('images')-->
+<!--                .child(filename)-->
+<!--                .getDownloadURL()-->
+<!--                .then(imgUrl => {-->
+<!--                    console.log(imgUrl);-->
+<!--                    url = imgUrl;-->
+<!--                });-->
+<!--            return url;-->
+<!--        }-->
+
+
+<!--        uploadImages.forEach((fileupload, index) => {-->
+<!--            fileupload.addEventListener('change', async (e) => {-->
+<!--                const file = fileupload.files[0];-->
+<!--                let imageUrl;-->
+<!--                console.log(file);-->
+
+<!--                if(file.type.includes('image')) {-->
+<!--                    uploadImage(e);-->
+<!--                    imageUrl = getAnImageUrl(file);-->
+<!--                    imagePaths[index] = imageUrl;-->
+<!--                    console.log(imageUrl);-->
+<!--                    let label = document.querySelector()-->
+
+
+
+<!--                }-->
+
+<!--                if (fileupload.files && fileupload.files.length > 0) {-->
+<!--                    let fileName = '';-->
+<!--                    if (fileupload.files.length === 1) {-->
+<!--                        fileName = fileupload.files[0].name;-->
+<!--                    } else {-->
+<!--                        fileName = fileupload.files.length + ' files selected';-->
+<!--                    }-->
+<!--                    fileUploadLabel.textContent = fileName;-->
+<!--                } else {-->
+<!--                    fileUploadLabel.textContent = 'Select Files';-->
+<!--                }-->
+
+<!--                console.log("file submitting");-->
+
+<!--                e.preventDefault();-->
+<!--                await fetch('/upload', {-->
+<!--                    method: 'POST',-->
+<!--                    body: new FormData(formElem),-->
+<!--                }).then(response => {-->
+<!--                    //document.querySelector('p').textContent = "Successfully uploaded to drive";-->
+<!--                    // document.getElementById("myButton").style.backgroundColor = "green"-->
+<!--                    //document.getElementById('fileInputLabel').textContent = "Select Files";-->
+<!--                    // document.querySelector('p').style.display = 'block';-->
+<!--                    console.log(response);-->
+<!--                }).catch(error => {-->
+<!--                    // document.querySelector('p').textContent = "Was not uploaded" + error;-->
+<!--                    //document.querySelector('p').style.display = 'block';-->
+<!--                    console.error(error);-->
+<!--                });-->
+<!--            });-->
+
+<!--        });-->
+
+
+<!--    </script>-->
+<!--    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>-->
+<!--    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"></script>-->
+
+    <script src="js/addProduct.js"></script>
+    <script src="js/token.js"></script>
+</body>
+</html>

@@ -7,19 +7,23 @@
 }
 
 .image-slider{
+    /*max-width: 100%;*/
     width: 500px;
     height: 500px;
     position: relative;
     background-image: url('../img/product image 1.png');
     background-size: cover;
+    justify-content: center;
 }
 
 .product-images{
     position: absolute;
-    bottom: 20px;
+    /*bottom: 5%;*/
+    /*bottom: 20px;*/
+    top: 75%;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
+    width: 90%; /* 90% */
     background: #fff;
     border-radius: 5px;
     display: grid;
@@ -30,6 +34,7 @@
 }
 
 .product-images img{
+    max-width: 100%;
     width: 100%;
     height: 80px;
     object-fit: cover;
@@ -41,7 +46,8 @@
 }
 
 .details{
-    width: 50%;
+    width: 80%;
+    margin-left: 8%;
 }
 
 .details .product-brand{
@@ -83,30 +89,41 @@
 
 .size-radio-btn{
     display: inline-block;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     border: 1px solid #383838;
     border-radius: 50%;
-    margin: 10px;
-    margin-left: 0;
-    line-height: 80px;
+    margin: 10px 10px 10px 0;
+    line-height: 60px;
     text-transform: uppercase;
-    color: #383838;
+    color: #016565;
     cursor: pointer;
 }
 
 .size-radio-btn.check{
-    background: #383838;
+    background: #016565;
     color: #fff;
 }
 
-.btn{
+.btn-group {
+    margin: 5px;
+}
+
+.btn {
+    max-width: 240px;
     width: 48%;
+    margin: 5px;
     padding: 20px;
     border-radius: 5px;
     background: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #016565;
+    color: #fff;
 }
 
 .detail-des{
@@ -125,3 +142,138 @@
     white-space: pre-wrap;
     margin-bottom: 50px;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+@media (max-width: 1400px)  { /* screen and (min-width: 600px), (min-width: 1100px) */
+    .product-images{
+        /*margin-right: 3px;*/
+        top: 72%;
+    }
+    .image-slider{
+        height: 30rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        display: flex;
+    }
+}
+@media (max-width: 1300px) {
+    .product-images{
+        top: 68%;
+    }
+    .image-slider {
+        background-size: contain;
+        height: 30rem;
+    }
+}
+@media (max-width: 1200px) {
+    .product-images{
+        top: 67%;
+    }
+}
+@media screen and (max-width: 1130px) {
+    .product-images{
+        top: 65%;
+    }
+
+
+}
+@media screen and (max-width: 1100px) {
+    .product-images {
+        top: 66%;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .product-images {
+        top: 65%;
+    }
+}
+@media (max-width: 990px) {
+    .product-images{
+        top: 64%;
+    }
+}
+@media (max-width: 980px) {
+    .product-images{
+        top: 63%;
+    }
+}
+
+@media (max-width: 970px) {
+    .product-images{
+        top: 62%;
+    }
+}
+@media (max-width: 940px) {
+    .product-images{
+        top: 61%;
+    }
+}
+@media (max-width: 920px) {
+    .product-images{
+        top: 60%;
+    }
+}
+@media (max-width: 900px) {
+    .product-images{
+        top: 58%;
+    }
+}
+@media (max-width: 850px) {
+    .product-details {
+        flex-direction: column; /* Stack elements vertically */
+        padding: 20px 10vw;
+
+    }
+
+    .image-slider {
+        width: 500px;
+        height: 30rem;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .product-images {
+        top: 72%;
+        /*max-width: 90%;*/
+        /*transform: translateX(-52%);*/
+        /*top: 10%;*/
+    }
+
+    .details {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .product-details {
+        padding: 20px 10vw; /* Adjust padding */
+    }
+
+    .image-slider{
+        max-width: 500px;
+        width: 100%;
+        height: 30rem;
+        justify-content: center;
+    }
+
+    .product-images {
+        max-width: 90%;
+        width: 100%;
+        transform: translateX(-52%);
+    }
+
+    .details .product-brand{
+        text-transform: capitalize;
+        font-size: 30px;
+        margin-top: 5%;
+    }
+
+}
+

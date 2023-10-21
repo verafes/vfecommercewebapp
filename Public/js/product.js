@@ -101,3 +101,7 @@ if (location.pathname != '/product') {
     console.log(productID); /* remove */
     // fetchProductData();
 }
+
+// setTimeout(() => {
+//     alertBox.classList.remove('show');
+// }, 3000);

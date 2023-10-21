@@ -15,33 +15,19 @@ footer{
     height: 160px;
 }
 
-.footer-ul-container{
-    width: 45%;
+.about-company {
+    margin-right: 20px;
+}
+
+.info-contacts{
     display: flex;
     justify-content: space-between;
- }
-
-.category{
-    width: 400px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-    list-style: none;
+    margin-top: 5px;
 }
 
-.category-title{
-    grid-column: span 2;
-    text-transform: capitalize;
-    color: #fff;
-    font-size: 20px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-}
-
-.category .footer-link{
-    text-decoration: none;
-    text-transform: capitalize;
-    color: rgba(255, 255, 255, 0.75);
+.column {
+    flex: 50%;
+    margin-right: 20px;
 }
 
 .footer-link:hover{
@@ -50,13 +36,18 @@ footer{
 
 .footer-title, .info{
     color: rgba(255, 255, 255, 0.75);
-    margin: 10px 0 0 20px;
-    /*text-transform: capitalize;*/
+    margin: 5px 0 0 30px;
 }
 
 .footer-title{
     margin-top: 10px;
     color: #fff;
+    text-transform: uppercase;
+}
+
+.footer-subtitle{
+    color: #fff;
+    margin: 10px 0 0 30px;
 }
 
 .footer-social-container{
@@ -84,4 +75,41 @@ footer{
     text-align: center;
     color: #fff;
     background: rgba(0, 0, 0, 0.2);
+}
+
+.footer-ul-container{
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.category{
+    width: 400px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    list-style: none;
+}
+
+.category-title{
+    grid-column: span 2;
+    text-transform: capitalize;
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.category .footer-link{
+    text-decoration: none;
+    text-transform: capitalize;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.footer-contacts{
+    width: 400px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    list-style: none;
 }
