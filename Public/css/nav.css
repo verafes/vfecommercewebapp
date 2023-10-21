@@ -2,9 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*font-family: 'roboto', sans-serif;*/
     font-family: 'Krub', sans-serif;
-    /*font-family: 'Ruda', sans-serif;*/
     word-spacing: 1px;
 }
 
@@ -125,9 +123,4 @@
     width: 100%;
     opacity: 1;
 }
-
-
-
-
-
 

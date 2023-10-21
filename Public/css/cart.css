@@ -16,7 +16,6 @@
 
 .checkout-section{
     width: 28%;
-    margin-top: 3rem;
 }
 
 .section-heading{
@@ -85,6 +84,7 @@
     width: 30px;
     height: 30px;
 }
+
 .counter-btn {
     background: #f3f3f3;
     border: 1px solid rgb(216, 216, 216);
@@ -101,7 +101,7 @@
 .sm-price{
     font-size: 50px;
     font-weight: 500;
-    color: #016565; /* #383838; */
+    color: #016565;
 }
 
 .sm-delete{
@@ -124,7 +124,6 @@
     height: 15px;
     margin-left: 2px;
     margin-top: 2px;
-    margin-right: 2px;
 }
 
 .empty-card-img{
@@ -146,7 +145,7 @@
     font-size: 18px;
 }
 
-.checkout-btn .place-order-btn{
+.checkout-btn, .place-order-btn{
     display: block;
     width: 100%;
     border: none;
@@ -166,5 +165,5 @@
     font-size: 60px;
     font-weight: 500;
     margin: 10px 0;
-    color: #016565; /* #383838; */
+    color: #016565;
 }
