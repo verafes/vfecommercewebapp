@@ -102,6 +102,6 @@ if (location.pathname != '/product') {
     // fetchProductData();
 }
 
-// setTimeout(() => {
-//     alertBox.classList.remove('show');
-// }, 3000);
+setTimeout(() => {
+    alertBox.classList.remove('show');
+}, 3000);

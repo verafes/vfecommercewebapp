@@ -108,13 +108,13 @@
 }
 
 .btn-group {
-    margin: 5px;
+    margin-top: 5px;
 }
 
 .btn {
     max-width: 240px;
     width: 48%;
-    margin: 5px;
+    margin: 5px 5px 5px 0;
     padding: 20px;
     border-radius: 5px;
     background: none;

@@ -43,19 +43,18 @@ textarea{
     padding: 20px;
     border-radius: 5px;
     background: #fff;
-    border: none;
+    border: 1px solid #8dcccc; /* none; */
     outline: none;
     margin: 20px 0;
     text-transform: capitalize;
-    color: #016565;
+    color: #002c2c;
     font-size: 14px;
     box-shadow: 0 4px 1010px rgba(0, 0, 0, 0.01);
-    /*font-family: 'roboto', sans-serif;*/
     font-family: 'Krub', sans-serif;
 }
 
 ::placeholder{
-  color: #002A2AFF;
+  color: #2a9898;
 }
 
 .submit-btn{
