@@ -1,22 +1,21 @@
 .four-0-four-image{
     display: block;
-    margin: 60px auto;
+    margin: 30px auto;
     height: 200px;
 }
 
 .content-container{
-    background-image: url('../img/404_background.png');
-    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 80vh;
+    font-family: 'Krub', sans-serif;
 }
 
 .four-0-four-msg{
     text-align: center;
-    color: #fff ; /* #016565 #284448 #383838; */
+    color: #fff ;
     font-size: 25px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -25,4 +24,9 @@
 
 .four-0-four-msg a{
     color: #fff;
+}
+
+.background-image {
+    background-image: url('../img/404_background.png');
+    background-size: cover;
 }

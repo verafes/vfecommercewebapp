@@ -16,22 +16,20 @@ textarea {
     resize: none;
     padding: 20px;
     border-radius: 5px;
-    border: 1px solid #002A2AFF; /* #142A00; */
-    background: #ffff; /* #EDEDED; #e7ffff;*/
+    border: 1px solid #8dcccc;
+    background: #ffff;
     box-shadow: none;
     outline: none;
     margin: 0 0 20px 0;
-    color: #002A2AFF; /* #142A00; */
-    font-weight: 600;
+    color: #002c2c;
+    font-weight: 500;
     font-size: 14px;
     font-family: 'Krub', sans-serif;
 }
 
 textarea::placeholder {
     font-family: 'Krub', sans-serif;
-    /*letter-spacing: 0.2em;*/
-    color: #002A2AFF; /*#686B5A; */
-    opacity: 0.8;
+    color: #2a9898;
 }
 
 input:focus, textarea:focus {
@@ -59,7 +57,7 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
     padding: 0;
     font-size: 16px;
     font-weight: 500;
-    color: #002A2AFF; /* #016565; #002A2AFF; #142A00; */
+    color: #002c2c;
     opacity: 1;
     text-transform: capitalize;
 }
@@ -69,7 +67,7 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
     justify-content: center;
     text-align: center;
     align-items: center;
-    background: #EDEDED;  /* #e7ffff; */
+    background: #EDEDED;
     background-size: cover;
     outline: none;
     border-radius: 5px;
@@ -88,7 +86,7 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
 }
 
 .upload-image-section, .select-sizes {
-    background: #ffff; /* #e7ffff; #EDEDED; */
+    background: #ffff;
     border-radius: 5px;
     padding: 20px;
     text-align: left;
@@ -110,13 +108,13 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
 .upload-image {
     width: 100%;
     height: 100px;
-    background: #f5f5f5; /* #b7fcfc; */
+    background: #f5f5f5;
     cursor: pointer;
     background-size: cover;
 }
 
 .upload-image:hover {
-    background: #01ababff; /* #8C9A7F; */
+    background: #01ababff;
     cursor: pointer;
     background-size: cover;
 }
@@ -132,8 +130,8 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
     height: 40px;
     margin-bottom: 10px;
     margin-right: 10px;
-    color: #002A2AFF; /* #142A00; */
-    background:  #fff; /* #d8dcd3; #EDEDED; */
+    color: #002c2c;
+    background:  #fff;
 
 }
 
@@ -148,28 +146,27 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
 }
 
 .size-checkbox:checked {
-    background: #01ababff; /* #8C9A7F; */
+    background: #01ababff;
     transition: 0.7s;
     cursor: pointer;
-    color: #fff; /* #EDEDED; */
+    color: #fff;
     font-weight: 700;
 }
 
 .size-checkbox:not(:checked):hover {
     cursor: pointer;
     transition: 0.5s;
-    /*box-shadow: 0 5px 10px #142A00;*/
 }
 
 .size-checkbox:checked:hover {
-    background: #01ABABFF; /* #7f9a96; */
+    background: #01ABABFF;
     transition: 0.5s;
-    color: #fff; /* #EDEDED; */
+    color: #fff;
     font-weight: 700;
 }
 
 .size-checkbox:not(:checked) {
-    color: #01ababff; /* #142A00; */
+    color: #01ababff;
     background: #f5f5f5;
     background-size: cover;
 }
@@ -198,9 +195,8 @@ input::-webkit-inner-spin-button {
     width: 48%;
     padding: 20px;
     border-radius: 5px;
-    /*background: #d8dcd3;*/
-    border: 1px solid #016565; /* #142A00; */
-    color: #016565; /* #142A00; */
+    border: 1px solid #016565;
+    color: #016565;
     font-family: 'Krub', sans-serif;
     font-size: 15px;
     margin: 20px 0;
@@ -210,7 +206,6 @@ input::-webkit-inner-spin-button {
 #add-btn:hover {
     font-weight: 600;
     cursor: pointer;
-    /*background: url("../img/logo-green.png");*/
     background: #016565;
     color: #fff;
 }

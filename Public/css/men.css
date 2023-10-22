@@ -1,0 +1,55 @@
+.content-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 80vh;
+    position: relative;
+}
+
+.background-image {
+    background-image: url('../img/men-collection.png');
+    background-size: cover;
+}
+
+.section-image{
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.collection-short-des{
+    position: absolute;
+    bottom: 11%;
+    justify-content: center;
+    text-align: center;
+    color: #982525;
+    font-size: 20px;
+    text-transform: capitalize;
+    padding: 10px;
+    z-index: 1;
+}
+
+.collection-short-des::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 1px;
+    transform: translateX(-50%);
+    width: 355px;
+    height: 125px;
+    background-color: rgba(183, 252, 252, 0.7);
+    border-radius: 5px;
+    z-index: -1; /* color box below the text */
+}
+
+.collection-title{
+    margin: 20px 0 20px 0;
+    text-align: center;
+    color: #fff; /* #016565; */
+    text-transform: capitalize;
+    font-size: 40px;
+    font-weight: 400;
+}
