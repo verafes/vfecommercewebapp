@@ -3,11 +3,14 @@ const createFooter = () => {
 
     footer.innerHTML = `
         <div class="footer-content" id="footer-about">
+            <div>
+                <img src="../img/logo-light.png" class="logo" alt="">
+                <p class="moto">Where Style Meets Elegance <br> And Fashion Knows No Bounds</p>
+            </div>
             
-            <img src="../img/logo-light.png" class="logo" alt="">
             <div>
                 <div class="about-company">
-                    <p class="footer-title">About Company</p>
+                    <p class="footer-title">About Company:</p>
                     <p class="info">Welcome to VF Shop, an educational e-commerce initiative where the worlds of education and technology unite to redefine the world of fashion. This project represents a fusion of knowledge and innovation, offering a fresh perspective on the fashion landscape.</p>
                     <p class="info">As a creative developer at VF Shop, I bring my passion into the project. I am deeply committed to our mission of merging fashion with education and innovation. My vision for this endeavor is to inspire learning, spark creativity, and empower individuals to excel in the realms of both fashion and technology.</p>
                     <p class="footer-title">Contacts:</p>
@@ -31,8 +34,8 @@ const createFooter = () => {
                 </div>
                 <div class="footer-social-container">
                     <div>
-                        <a href="#" class="social-link">Terms and Conditions</a>
-                        <a href="#" class="social-link">Privacy Policy</a>
+                        <a href="/terms" class="social-link">Terms and Conditions</a>
+                        <a href="/privacy" class="social-link">Privacy Policy</a>
                     </div>
                     <div>
                         <a href="#" class="social-link">instagram</a>

@@ -123,19 +123,25 @@ app.post("/add-product", (req, res) => {
         return res.json({'alert': 'Enter few tags to help ranking your product in search.'});
     } else if(!tac) {
         return res.json({'alert': 'You must agree to our Terms and Conditions.'});
+    } else {
+        let docName = `${name.toLowerCase()} - ${Math.floor(Math.random() * 5000)}`;
+        db
+            .collection('products')
+            .doc(docName)
+            .set(req.body)
+            .then(data => {
+                res.json({'product': name});
+            })
+            .catch(err => {
+                return res.json({'alert': 'Some error occurred. Try again.'});
+            })
     }
-
-    let docName = `${name.toLowerCase()} - ${Math.floor(Math.random() * 5000)}`;
-    db
-        .collection('products')
-        .doc(docName)
-        .set(req.body)
-        .then(data => {
-            res.json({'product': name});
-        })
-        .catch(err => {
-            return res.json({'alert': 'Some error occurred. Try again.'});
-        })
+})
+app.get("/terms", (req, res) => {
+    res.sendFile(path.join(staticPath, "terms.html"));
+})
+app.get("/privacy", (req, res) => {
+    res.sendFile(path.join(staticPath, "privacy.html"));
 })
 app.get("/404", (req, res) => {
     res.sendFile(path.join(staticPath, "404.html"));
