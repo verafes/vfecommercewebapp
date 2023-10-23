@@ -15,6 +15,15 @@ footer{
     height: 160px;
 }
 
+.moto{
+    margin-top: 16px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 2.2;
+}
+
 .about-company {
     margin-right: 20px;
 }
@@ -45,6 +54,8 @@ footer{
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 3px;
+    word-spacing: 5px;
+    text-align: center;
 }
 
 .footer-subtitle{
