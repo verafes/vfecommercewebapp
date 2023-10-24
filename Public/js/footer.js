@@ -17,12 +17,12 @@ const createFooter = () => {
                 </div>
                 <div class="info-contacts">
                     <div class="column">
-                        <p class="footer-subtitle">Support emails:</p> 
+                        <p class="footer-subtitle">Email:</p> 
                         <p class="info">help@vfshop.com</p> 
                         <p class="info">customersupport@vfshop.com</p>
                     </div>
                     <div class="column">
-                        <p class="footer-subtitle">Customer support hot line: </p>
+                        <p class="footer-subtitle">Phone: </p>
                         <p class="info">(800) 707-0001</p>
                         <p class="info">(800) 707-0002</p>
                     </div>
@@ -45,7 +45,7 @@ const createFooter = () => {
                 </div>
             </div>
         </div>
-        <p class="footer-credit">Clothing, Best apparels online store</p>
+        <p class="footer-credit">VF SHop, Best apparels online store</p>
     `;
 }
 

@@ -95,6 +95,37 @@ addProductBtn.addEventListener('click', () => {
     }
 })
 
+const sendData = (path, data) => {
+    fetch(path, {
+        method: 'post',
+        headers: new Headers({'Content-Type': 'application/json'}),
+        body: JSON.stringify(data)
+    }).then((res) => res.json())
+        .then((response) => {
+            processData(response);
+            console.log(response)
+        });
+};
+
+const showAlert = (msg) => {
+    let alertBox = document.querySelector('.alert-box');
+    let alertMsg = document.querySelector('.alert-msg');
+    alertMsg.innerHTML = msg;
+    alertBox.classList.add('show');
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+    }, 3000);
+};
+
+const processData = (data) => {
+    loader.style.display = null;
+    if(data.alert) {
+        showAlert(data.alert);
+    } else if (data == true) {
+
+        location.reload()
+    }
+};
 
 // upload image handle
 let uploadImages = document.querySelectorAll('.file-upload');
