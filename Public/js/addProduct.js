@@ -110,11 +110,20 @@ const sendData = (path, data) => {
 const showAlert = (msg) => {
     let alertBox = document.querySelector('.alert-box');
     let alertMsg = document.querySelector('.alert-msg');
+    let alertImg = document.querySelector('.alert-img');
     alertMsg.innerHTML = msg;
     alertBox.classList.add('show');
+    if (type == 'success') {
+        alert.src = `img/success.png`;
+        alert.style.color = "#0ab50a";
+    } else { // means it is an error
+        alert.src = `img/error.png`;
+        alert.style.color = null;
+    }
     setTimeout(() => {
         alertBox.classList.remove('show');
     }, 3000);
+    return false;
 };
 
 const processData = (data) => {
