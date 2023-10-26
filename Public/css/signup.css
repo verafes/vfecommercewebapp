@@ -46,7 +46,7 @@ textarea{
     border: 1px solid #8dcccc; /* none; */
     outline: none;
     margin: 20px 0;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     color: #002c2c;
     font-size: 14px;
     box-shadow: 0 4px 1010px rgba(0, 0, 0, 0.01);
@@ -54,7 +54,8 @@ textarea{
 }
 
 ::placeholder{
-  color: #2a9898;
+    color: #2a9898;
+    text-transform: capitalize;
 }
 
 .submit-btn{
@@ -160,13 +161,4 @@ label a{
     text-align: center;
     line-height: 30px;
     font-weight: 500;
-}
-
-.loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    display: none;
 }
