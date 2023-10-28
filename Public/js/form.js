@@ -1,3 +1,13 @@
+//redirect to home page if user is logged in
+window.onload = () => {
+    if (sessionStorage.user) {
+        user = JSON.parse(sessionStorage.user);
+        if (compareToken(user.authToken, user.email)) {
+            location.replace('/');
+        }
+    }
+}
+
 const loader = document.querySelector('.loader');
 // select inputs
 const submitBtn = document.querySelector('.submit-btn');
@@ -13,6 +23,8 @@ submitBtn.addEventListener('click', () => {
         showAlert('Name must be 3 letters long.');
     } else if(!email.value.length){
         showAlert('Please enter your email.');
+    } else if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+        showAlert('Invalid email address. Please enter a valid one.');
     } else if(!password.value.length) {
         showAlert('Password should be 8 letters long.');
     } else if(!number.value.length) {
@@ -54,8 +66,10 @@ const processData = (data) => {
     if(data.alert) {
         showAlert(data.alert);
     } else if (data == true) {
-        console.log(data);
-        location.reload();
+        // location.reload();
+        data.authToken = generateToken(data.email);
+        sessionStorage.user = JSON.stringify(data);
+        location.replace('/');
     }
 };
 // alert function
