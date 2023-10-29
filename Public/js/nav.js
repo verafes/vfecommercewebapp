@@ -12,7 +12,7 @@ const createNav = () => {
                     <button class="search-btn" data-search-btn-id="search-btn" onclick="window.location.href = '/search'">search</button>
                 </div>
                 <a href="#"><img src="img/user.png" alt=""></a>
-                <a href="#cart"><img src="img/cart.png" alt=""></a>
+                <a href="/cart"><img src="img/cart.png" alt=""></a>
             </div> 
         </div>
         <ul class="links-container">
@@ -49,7 +49,7 @@ window.onload = () => {
         })
     } else {
         //user is logged out
-        popuptext.innerHTML = 'log in to plase order';
+        popuptext.innerHTML = 'log in to place order';
         actionBtn.innerHTML = 'log in';
         actionBtn.addEventListener('click', () => {
             location.href = '/login';

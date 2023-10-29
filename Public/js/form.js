@@ -66,10 +66,11 @@ const processData = (data) => {
     if(data.alert) {
         showAlert(data.alert);
     } else if (data == true) {
-        // location.reload();
-        data.authToken = generateToken(data.email);
-        sessionStorage.user = JSON.stringify(data);
-        location.replace('/');
+        location.reload();
+        // create authToken
+        // data.authToken = generateToken(data.email);
+        // sessionStorage.user = JSON.stringify(data);
+        // location.replace('/');
     }
 };
 // alert function
