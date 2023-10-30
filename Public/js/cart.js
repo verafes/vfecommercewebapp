@@ -45,11 +45,11 @@ const updateBill = () => {
 
 const setupEvents = (name) => {
     // setup counter event
-    const counterMinus = document.querySelector(`,${name} .decrement`);
-    const counterPlus = document.querySelector(`,${name} .increment`);
-    const counts = document.querySelector(`,${name} .item-count`);
-    const price = document.querySelector(`,${name} .sm-price`);
-    const deleteBtn = document.querySelector(`,${name} .sm-delete`);
+    const counterMinus = document.querySelector(`.${name} .decrement`);
+    const counterPlus = document.querySelector(`.${name} .increment`);
+    const counts = document.querySelector(`.${name} .item-count`);
+    const price = document.querySelector(`.${name} .sm-price`);
+    const deleteBtn = document.querySelector(`.${name} .sm-delete`);
 
     let product = JSON.parse(localStorage.getItem(name));
 
@@ -91,5 +91,5 @@ const setupEvents = (name) => {
     })
 }
 
-setProdducts('cart');
-setProdducts('wishlist');
+setProducts('cart');
+setProducts('wishlist');

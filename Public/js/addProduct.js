@@ -26,12 +26,12 @@ discountPercentage.addEventListener('input', () => {
         discountPercentage.value = 90;
     }
     let discount = actualPrice.value * discountPercentage.value / 100;
-    sellingPrice.value = actualPrice.value - discount;
+    sellingPrice.value = (actualPrice.value - discount).toFixed(2);
 })
 
 //calculate discount percentage
 sellingPrice.addEventListener('input', () => {
-    discountPercentage.value = 100 - (sellingPrice.value * 100) / actualPrice.value;
+    discountPercentage.value = (100 - (sellingPrice.value * 100) / actualPrice.value).toFixed(2);
 })
 
 //form submission
@@ -72,15 +72,15 @@ const productData = () => {
         name: productName.value,
         shortDes: shortLine.value,
         des: des.value,
-        // images: imagePaths,
+        images: imagePaths,
         sizes: sizes,
         actualPrice: actualPrice.value,
         discount: discountPercentage.value,
         sellPrice: sellingPrice.value,
         stock: stock.value,
         tags: tags.value,
-        tac: tac.checked
-        // email: user.email
+        tac: tac.checked,
+        email: "" //user.email
     }
 }
 

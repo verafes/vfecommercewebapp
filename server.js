@@ -9,7 +9,7 @@ const nodemailer = require('nodemailer');
 // require('dotenv').config();
 
 //firebase setup
-let serviceAccount = require("./public/credentials/vfecommerseapp-firebase-adminsdk-t8kpe-9406b359b8.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxx-301546xxxx.json");
 // const {initializeApp} = require("firebase/app");
 // const {firebaseConfig} = require("./config/firebaseConfig");
 
@@ -91,6 +91,9 @@ app.get("/women", (req, res) => {
 app.get("/men", (req, res) => {
     res.sendFile(path.join(staticPath, "men.html"));
 })
+app.get("/shoes", (req, res) => {
+    res.sendFile(path.join(staticPath, "shoes.html"));
+})
 app.get("/accessories", (req, res) => {
     res.sendFile(path.join(staticPath, "accessories.html"));
 })
@@ -120,8 +123,9 @@ app.post("/add-product", (req, res) => {
         return res.json({'alert': 'Short line must be between 10 to 100 letters long.'});
     } else if(!des.length) {
         return res.json({'alert': 'Enter detail description about the product.'});
-    }
-    else if(!sizes.length) {
+    // } else if (!downloadImagePaths.length) {
+    //     return showAlert('Upload at least one product image.');
+    } else if(!sizes.length) {
         return res.json({'alert': 'Select at least one size.'});
     } else if(!actualPrice.length || !discount.length || !sellPrice.length) {
         return res.json({'alert': 'Add prices and discount.'});
@@ -143,6 +147,8 @@ app.post("/add-product", (req, res) => {
             .catch(err => {
                 return res.json({'alert': 'Some error occurred. Try again.'});
             })
+
+        return res.json({'alert': 'Submitted Successfully.'});
     }
 })
 app.get("/terms", (req, res) => {

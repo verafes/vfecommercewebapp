@@ -11,7 +11,6 @@ section {
 
 .section-heading {
     padding: 10px 10vw;
-    text-transform: capitalize;
 }
 
 .heading{
@@ -43,5 +42,5 @@ a {
 }
 
 a:hover {
-    color: #982525;
+    color: #c12f2f;
 }
