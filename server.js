@@ -91,6 +91,9 @@ app.get("/women", (req, res) => {
 app.get("/men", (req, res) => {
     res.sendFile(path.join(staticPath, "men.html"));
 })
+app.get("/shoes", (req, res) => {
+    res.sendFile(path.join(staticPath, "shoes.html"));
+})
 app.get("/accessories", (req, res) => {
     res.sendFile(path.join(staticPath, "accessories.html"));
 })
@@ -144,6 +147,8 @@ app.post("/add-product", (req, res) => {
             .catch(err => {
                 return res.json({'alert': 'Some error occurred. Try again.'});
             })
+
+        return res.json({'alert': 'Submitted Successfully.'});
     }
 })
 app.get("/terms", (req, res) => {

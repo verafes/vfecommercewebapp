@@ -19,6 +19,7 @@ const createNav = () => {
             <li class="link-item"><a href="/" class="link">home</a></li>
             <li class="link-item"><a href="/women" class="link">women</a></li>
             <li class="link-item"><a href="/men" class="link">men</a></li>
+            <li class="link-item"><a href="/shoes" class="link">shoes</a></li>
             <li class="link-item"><a href="/accessories" class="link">accessories</a></li>
             <li class="link-item"><a href="#footer-about" class="link">about</a></li>
         </ul>

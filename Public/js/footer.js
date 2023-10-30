@@ -5,7 +5,7 @@ const createFooter = () => {
         <div class="footer-content" id="footer-about">
             <div>
                 <a href="/">
-                    <img src="../img/logo-light.png" class="logo" alt="">
+                    <img src="img/logo-light.png" class="logo" alt="">
                 </a>
                 <p class="moto">Where Style Meets Elegance <br> And Fashion Knows No Bounds</p>
             </div>
