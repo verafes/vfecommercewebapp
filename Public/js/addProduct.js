@@ -1,9 +1,8 @@
 
-// check if user is logged in
-
 let user = JSON.parse(sessionStorage.user || null);
 let loader = document.querySelector('.loader');
 
+// check if user is logged in
 // window.onload = () => {
 //     if(user) {
 //         if(!compareToken(user.authToken)) {
@@ -13,7 +12,6 @@ let loader = document.querySelector('.loader');
 //         location.replace('/login');
 //     }
 // }
-
 
 //calculate actual price
 
@@ -31,7 +29,7 @@ discountPercentage.addEventListener('input', () => {
 
 //calculate discount percentage
 sellingPrice.addEventListener('input', () => {
-    discountPercentage.value = (100 - (sellingPrice.value * 100) / actualPrice.value).toFixed(2);
+    discountPercentage.value = Math.ceil(100 - (sellingPrice.value * 100) / actualPrice.value);
 })
 
 //form submission
@@ -80,17 +78,18 @@ const productData = () => {
         stock: stock.value,
         tags: tags.value,
         tac: tac.checked,
-        email: "" //user.email
+        email: user.email
     }
 }
 
 addProductBtn.addEventListener('click', () => {
     storeSizes();
-    console.log(sizes);
+    console.log('storeSizes', sizes);
 
     if(validateForm()) {
         loader.style.display = 'block';
         let data = productData();
+        console.log('addProductBtn', data);
         sendData('/add-product', data);
     }
 })
@@ -102,8 +101,8 @@ const sendData = (path, data) => {
         body: JSON.stringify(data)
     }).then((res) => res.json())
         .then((response) => {
-            processData(response);
             console.log(response)
+            processData(response);
         });
 };
 
@@ -112,14 +111,15 @@ const showAlert = (msg) => {
     let alertMsg = document.querySelector('.alert-msg');
     let alertImg = document.querySelector('.alert-img');
     alertMsg.innerHTML = msg;
-    alertBox.classList.add('show');
-    if (type == 'success') {
-        alert.src = `img/success.png`;
-        alert.style.color = "#0ab50a";
+    // alertBox.classList.add('show');
+    if (type === 'success') {
+        alertImg.src = `img/success.png`;
+        alertMsg.style.color = "#0ab50a";
     } else { // means it is an error
-        alert.src = `img/error.png`;
-        alert.style.color = null;
+        alertImg.src = `img/error.png`;
+        alertMsg.style.color = null;
     }
+    alertBox.classList.remove('show');
     setTimeout(() => {
         alertBox.classList.remove('show');
     }, 3000);
@@ -131,7 +131,9 @@ const processData = (data) => {
     if(data.alert) {
         showAlert(data.alert);
     } else if (data == true) {
-
+        // let user = JSON.parse(sessionStorage.user);
+        // user.seller = true;
+        // sessionStorage.user = JSON.stringify(user);
         location.reload()
     }
 };
@@ -141,6 +143,8 @@ let uploadImages = document.querySelectorAll('.file-upload');
 let fileUploadLabel = document.querySelector('.upload-image');
 const formElem = document.querySelector('form');
 
+//debugging url
+// fetch('/s3url').then(res => res.json()).then(url => console.log(url));
 
 uploadImages.forEach((fileupload, index) => {
     fileupload.addEventListener('change', async (e) => {
@@ -149,7 +153,36 @@ uploadImages.forEach((fileupload, index) => {
         console.log(file);
 
         if(file.type.includes('image')) {
-            fetch('http://localhost:3000/test-upload', {
+            //means user uploaded an image
+            fetch('/s3url').then(res => res.json())
+                .then(url => {
+                    fetch(url, {
+                        method: 'PUT',
+                        headers: new Headers({'Content-Type': 'multipart/form-data'}),
+                        body: file
+                    }).then(res => {
+                        imageUrl = url.split("?")[0];
+                        imagePaths[index] = imageUrl;
+                        console.log(imageUrl);
+                        let label = document.querySelector(`label[for=@${fileupload.id}]
+                        `);
+                        label.style.backgroundImage = `url(${imageUrl})`;
+                        let productImage = document.querySelector('.product-image');
+                        productImage.style.backgroundImage = `url(${imageUrl})`;
+                    })
+                })
+        } else showAlert('upload immge only');
+    })
+})
+
+uploadImages.forEach((fileupload, index) => {
+    fileupload.addEventListener('change', async (e) => {
+        const file = fileupload.files[0];
+        let imageUrl;
+        console.log(file);
+
+        if(file.type.includes('image')) {
+            fetch('http://localhost:3000/add-product', {
                 method: 'POST',
                 headers: new Headers({'Content-Type': 'multipart/form-data'}),
                 body: {'img': file}

@@ -6,13 +6,9 @@ const nodemailer = require('nodemailer');
 // const { upload, uploadMultiple } = require('./middleware/multer');
 // const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
-// require('dotenv').config();
-
 //firebase setup
 // let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
 let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
-// const {initializeApp} = require("firebase/app");
-// const {firebaseConfig} = require("./config/firebaseConfig");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -20,6 +16,38 @@ admin.initializeApp({
 });
 
 let db = admin.firestore();
+
+//aws config
+const aws = require('aws-sdk');
+require('dotenv').config();
+
+const region = "us-west2"; //us-west-1 -> AWS
+const bucketName = "vfecommerceapp.appspot.com";
+const accessKeyID = process.env.AWS_ACCESS_KEY;
+const secretAccessKey = process.env.AWS_SECRET_KEY;
+
+aws.config.update({
+    region, accessKeyID, secretAccessKey
+})
+//init s3
+const s3 = new aws.S3();
+
+//generate image upload link
+async function generateURL(){
+    let date = new Date();
+    let id = parseInt(Math.random() * 10000000000);
+
+    const imageName = `S{id}${date.getTime().jpg}`
+    const params = ({
+        Bucket: bucketName,
+        Key: imageName,
+        Expires: 300, //300 ms
+        ContentType: 'image/jpeg'
+    })
+
+    const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
+    return uploadUrl;
+}
 
 //declare static path
 let staticPath = path.join(__dirname, "public");
@@ -142,6 +170,11 @@ app.get("/mail", (req, res) => {
 })
 app.get("/add-product", (req, res) => {
     res.sendFile(path.join(staticPath, "addProduct.html"));
+})
+
+// get img upload link
+app.get("/s3url", (req, res) => {
+    generateURL().then(url => res.json(url));
 })
 
 app.post("/add-product", (req, res) => {
