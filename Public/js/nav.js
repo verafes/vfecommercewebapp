@@ -11,7 +11,13 @@ const createNav = () => {
                     <input type="text" class="search-box" placeholder="search brand product">
                     <button class="search-btn" data-search-btn-id="search-btn" onclick="window.location.href = '/search'">search</button>
                 </div>
-                <a href="#"><img src="img/user.png" alt=""></a>
+                <a href="#">
+                    <img src="img/user.png" id="user-img" alt="">
+                    <div class="login-logout-popup hide">
+                        <p class="account-info">Logged as name</p>
+                        <button class="btn" id="user-btn">Log out</button>
+                    </div>
+                </a>
                 <a href="/cart"><img src="img/cart.png" alt=""></a>
             </div> 
         </div>
@@ -42,16 +48,17 @@ userImageButton.addEventListener('click', () => {
 window.onload = () => {
     let user = JSON.parse(sessionStorage.user || null);
     if(user != null) {
-        popuptext.innerHTML = `log in as, ${user.name}`;
-        actionBtn.innerHTML = 'log out';
+        //user is logged in
+        popuptext.innerHTML = `Hi, ${user.name}`;
+        actionBtn.innerHTML = 'Log out';
         actionBtn.addEventListener('click', () => {
             sessionStorage.clear();
             location.reload();
         })
     } else {
         //user is logged out
-        popuptext.innerHTML = 'log in to place order';
-        actionBtn.innerHTML = 'log in';
+        popuptext.innerHTML = 'Log in to place order';
+        actionBtn.innerHTML = 'Log in';
         actionBtn.addEventListener('click', () => {
             location.href = '/login';
         })

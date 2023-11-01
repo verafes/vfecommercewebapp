@@ -9,7 +9,8 @@ const nodemailer = require('nodemailer');
 // require('dotenv').config();
 
 //firebase setup
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxx-301546xxxx.json");
+// let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
 // const {initializeApp} = require("firebase/app");
 // const {firebaseConfig} = require("./config/firebaseConfig");
 
@@ -39,8 +40,6 @@ app.get("/signup", (req, res) => {
     res.sendFile(path.join(staticPath, "signup.html"));
 })
 app.post("/signup", (req, res) => {
-    console.log(req.body);
-    // res.json("data received");
 
     let { name, email, password, number, tac, notification } = req.body;
     //form response validation
@@ -82,6 +81,38 @@ app.post("/signup", (req, res) => {
             }
         })
 })
+// login page
+app.get("/login", (req, res) => {
+    res.sendFile(path.join(staticPath, "login.html"));
+})
+
+app.post("/login", (req, res) => {
+    let { email, password} = req.body;
+    if (!email || !password) {
+        showAlert('Please fill out all the inputs.');
+    }
+
+    db.collection('users').doc(email).get()
+        .then(user => {
+            if(!user.exists){
+                return res.json({'alert': 'user does not exists'})
+            } else {
+                bcrypt.compare(password, user.data().password, (err, result) => {
+                    if(result){
+                        let data = user.data();
+                        return res.json({
+                            name: data.name,
+                            email: data.email,
+                            seller: data.seller
+                        })
+                    } else {
+                        return res.json({'alert': 'Email or password is incorrect'});
+                    }
+                })
+            }
+        })
+})
+
 app.get("/product", (req, res) => {
     res.sendFile(path.join(staticPath, "product.html"));
 })
