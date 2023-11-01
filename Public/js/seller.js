@@ -55,12 +55,3 @@ applyFormButton.addEventListener('click', () => {
         })
     }
 })
-
-
-
-
-
-
-
-
-
