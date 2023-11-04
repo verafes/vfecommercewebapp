@@ -4,55 +4,85 @@
     <meta charset="UTF-8">
     <title>Seller Dashboard</title>
 
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/seller.css">
     <link rel="stylesheet" href="css/signup.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/icons/favicon-16x16.png">
+    <link rel="manifest" href="img/icons/site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-<img src="img/loader.gif" class="loader" alt="">
+    <img src="img/loader.gif" class="loader" alt="">
 
-<div class="alert-box">
-    <img src="img/error.png" class="alert-img" alt="">
-    <p class="alert-msg">Error message</p>
-</div>
-
-<img src="img/dark-logo.png" class="logo" alt="">
-
-<!--become seller element-->
-
-<div class="become-seller hide">
-    <p class="heading">become a seller</p>
-    <p class="des">Are you looking to turn your passion into profit?
-        Join our community of sellers and start sharing your products with the world.
-        Becoming a seller on our platform is easy and rewarding. Whether you create unique handmade crafts,
-        offer specialty services, or have a collection of one-of-a-kind items,
-        our platform is the perfect place to showcase your talents and connect with a global audience.</p>
-    <button class="btn" id="apply-btn">apply for seller account</button>
-</div>
-
-<!--apply form-->
-<div class="apply-form">
-    <input type="text" id="business-name" placeholder="business-name / company name / shop name">
-    <textarea id="business-add" placeholder="address"></textarea>
-    <textarea id="about" placeholder="about"></textarea>
-    <input type="text" id="number" placeholder="number">
-    <input type="checkbox" class="checkbox" checked id="terms-and-cond">
-    <label for="terms-and-cond">agree to our <a href="">Terms and Condition</a>
-    </label>
-    <br>
-    <input type="checkbox" checked class="checkbox" id="legitInfo">
-    <label for="legitInfo"> all information is legit
-    </label>
-    <button class="submit-btn" id="apply-form-btn">apply</button>
-</div>
-
-<!--product list-->
-<div class="product-listing hide">
-    <div class="add-product">
-        <p class="add-product-title">add product</p>
-        <button class="btn">add product</button>
+    <div class="alert-box">
+        <img src="img/error.png" class="alert-img" alt="">
+        <p class="alert-msg">Error message</p>
     </div>
-    <img src="img/no-products.png" class="no-product-image" alt="">
-</div>
+
+    <!--become seller element-->
+    <div class="become-seller hide">
+        <p class="heading">become a seller</p>
+        <p class="des">Are you looking to turn your passion into profit?
+            Join our community of sellers and start sharing your products with the world.
+            Becoming a seller on our platform is easy and rewarding. Whether you create unique handmade crafts,
+            offer specialty services, or have a collection of one-of-a-kind items,
+            our platform is the perfect place to showcase your talents and connect with a global audience.</p>
+        <button class="btn" id="apply-btn">apply for seller account</button>
+    </div>
+
+    <!--apply form-->
+    <div class="apply-form">
+        <a href="/">
+            <img src="img/logo-green.png" class="logo" alt="">
+        </a>
+
+        <input type="text" id="business-name" placeholder="business-name / company / shop name">
+        <textarea id="business-add" placeholder="address"></textarea>
+        <textarea id="about" placeholder="about"></textarea>
+        <input type="text" id="number" placeholder="number">
+        <input type="checkbox" class="checkbox" checked id="terms-and-cond">
+        <label for="terms-and-cond">Agree to our <a href="/terms">Terms and Condition</a>
+        </label>
+        <br>
+        <input type="checkbox" checked class="checkbox" id="legitInfo">
+        <label for="legitInfo">All information is legit
+        </label>
+        <button class="submit-btn" id="apply-form-btn">Apply</button>
+    </div>
+
+    <!--product list-->
+    <div class="product-listing hide">
+        <div class="add-product">
+            <p class="add-product-title">Add product</p>
+            <button class="btn" onclick="location.href ='/add-product'">Add product</button>
+        </div>
+        <img src="img/no-products.png" class="no-product-image hide" alt="">
+
+    <!-- cards -->
+        <div class="product-container">
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="tag">Draft</span>
+                    <img src="img/card5.png" class="product-thumb" alt="">
+                    <button class="card-action-btn edit-btn"><img src="img/edit.png" alt=""></button>
+                    <button class="card-action-btn open-btn"><img src="img/open.png" alt=""></button>
+                    <button class="card-action-btn delete-popup-btn"><img src="img/delete.png" alt=""></button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">brand</h2>
+                    <p class="product-short-des">a short line about the cloth.</p>
+                    <span class="price">$120</span><span class="actual-price">$240</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script src="js/token.js"></script>
 <script src="js/seller.js"></script>

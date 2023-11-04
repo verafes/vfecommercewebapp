@@ -44,13 +44,13 @@
                 </div>
                 <form>
                     <div class="upload-catalogue">
-                        <input type="file" class="file-upload" id="first-file-upload-btn" hidden>
+                        <input type="file" value="upload" class="file-upload" accept="image/*" id="first-file-upload-btn" hidden>
                         <label for="first-file-upload-btn" class="upload-image"></label>
-                        <input type="file" class="file-upload" id="second-file-upload-btn" hidden>
+                        <input type="file" value="upload" class="file-upload" accept="image/*" id="second-file-upload-btn" hidden>
                         <label for="second-file-upload-btn" class="upload-image"></label>
-                        <input type="file" class="file-upload" id="third-file-upload-btn" hidden>
+                        <input type="file" value="upload" class="file-upload" accept="image/*" id="third-file-upload-btn" hidden>
                         <label for="third-file-upload-btn" class="upload-image"></label>
-                        <input type="file" class="file-upload" id="fourth-file-upload-btn" hidden>
+                        <input type="file" value="upload" class="file-upload" accept="image/*" id="fourth-file-upload-btn" hidden>
                         <label for="fourth-file-upload-btn" class="upload-image"></label>
                     </div>
                 </form>
@@ -88,109 +88,6 @@
 
     </div>
 
-<!--    <script type="module">-->
-<!--        // Import the functions you need from the SDKs you need-->
-<!--        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";-->
-<!--        // import firebase from "firebase/compat";-->
-<!--        // TODO: Add SDKs for Firebase products that you want to use-->
-<!--        // https://firebase.google.com/docs/web/setup#available-libraries-->
-
-<!--        // Your web app's Firebase configuration-->
-<!--        const firebaseConfig = {-->
-
-<!--        }-->
-
-
-<!--            // Initialize Firebase-->
-<!--       const app = initializeApp(firebaseConfig);-->
-
-<!--        let uploadImages = document.querySelectorAll('.file-upload');-->
-<!--        let fileUploadLabel = document.querySelector('.upload-image');-->
-<!--        const formElem = document.querySelector('form');-->
-<!--        let fileName;-->
-<!--        let imagePaths = [];-->
-
-<!--        function uploadImage(e) {-->
-<!--            let file = e.target.files[0];-->
-<!--            fileName = (e) => e.target.files[0].name;-->
-
-<!--            firebase-->
-<!--                .app()-->
-<!--                .storage()-->
-<!--                .ref('img')-->
-<!--                .child(file.name)-->
-<!--                .put(file)-->
-<!--        }-->
-
-<!--        function getAnImageUrl(filename) {-->
-<!--            let url;-->
-<!--            firebase-->
-<!--                .storage()-->
-<!--                .ref('images')-->
-<!--                .child(filename)-->
-<!--                .getDownloadURL()-->
-<!--                .then(imgUrl => {-->
-<!--                    console.log(imgUrl);-->
-<!--                    url = imgUrl;-->
-<!--                });-->
-<!--            return url;-->
-<!--        }-->
-
-
-<!--        uploadImages.forEach((fileupload, index) => {-->
-<!--            fileupload.addEventListener('change', async (e) => {-->
-<!--                const file = fileupload.files[0];-->
-<!--                let imageUrl;-->
-<!--                console.log(file);-->
-
-<!--                if(file.type.includes('image')) {-->
-<!--                    uploadImage(e);-->
-<!--                    imageUrl = getAnImageUrl(file);-->
-<!--                    imagePaths[index] = imageUrl;-->
-<!--                    console.log(imageUrl);-->
-<!--                    let label = document.querySelector()-->
-
-
-
-<!--                }-->
-
-<!--                if (fileupload.files && fileupload.files.length > 0) {-->
-<!--                    let fileName = '';-->
-<!--                    if (fileupload.files.length === 1) {-->
-<!--                        fileName = fileupload.files[0].name;-->
-<!--                    } else {-->
-<!--                        fileName = fileupload.files.length + ' files selected';-->
-<!--                    }-->
-<!--                    fileUploadLabel.textContent = fileName;-->
-<!--                } else {-->
-<!--                    fileUploadLabel.textContent = 'Select Files';-->
-<!--                }-->
-
-<!--                console.log("file submitting");-->
-
-<!--                e.preventDefault();-->
-<!--                await fetch('/upload', {-->
-<!--                    method: 'POST',-->
-<!--                    body: new FormData(formElem),-->
-<!--                }).then(response => {-->
-<!--                    //document.querySelector('p').textContent = "Successfully uploaded to drive";-->
-<!--                    // document.getElementById("myButton").style.backgroundColor = "green"-->
-<!--                    //document.getElementById('fileInputLabel').textContent = "Select Files";-->
-<!--                    // document.querySelector('p').style.display = 'block';-->
-<!--                    console.log(response);-->
-<!--                }).catch(error => {-->
-<!--                    // document.querySelector('p').textContent = "Was not uploaded" + error;-->
-<!--                    //document.querySelector('p').style.display = 'block';-->
-<!--                    console.error(error);-->
-<!--                });-->
-<!--            });-->
-
-<!--        });-->
-
-
-<!--    </script>-->
-<!--    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>-->
-<!--    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"></script>-->
 
     <script src="js/addProduct.js"></script>
     <script src="js/token.js"></script>
