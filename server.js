@@ -7,8 +7,7 @@ const nodemailer = require('nodemailer');
 // const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
 //firebase setup
-// let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -17,11 +16,11 @@ admin.initializeApp({
 
 let db = admin.firestore();
 
-//aws config
+// aws config
 const aws = require('aws-sdk');
 require('dotenv').config();
 
-const region = "us-west2"; //us-west-1 -> AWS
+const region = "us-west1"; //us-west-1 -> AWS
 const bucketName = "vfecommerceapp.appspot.com";
 const accessKeyID = process.env.AWS_ACCESS_KEY;
 const secretAccessKey = process.env.AWS_SECRET_KEY;
@@ -178,28 +177,30 @@ app.get("/s3url", (req, res) => {
 })
 
 app.post("/add-product", (req, res) => {
-    let { name, shortDes, des, sizes, actualPrice, discount, sellPrice, stock,
-    tags, tac } = req.body;
-
-    if(!name.length) {
-        return res.json({'alert': 'Enter product name.'});
-    } else if(shortDes.length > 100 || shortDes.length < 10) {
-        return res.json({'alert': 'Short line must be between 10 to 100 letters long.'});
-    } else if(!des.length) {
-        return res.json({'alert': 'Enter detail description about the product.'});
-    // } else if (!downloadImagePaths.length) {
-    //     return showAlert('Upload at least one product image.');
-    } else if(!sizes.length) {
-        return res.json({'alert': 'Select at least one size.'});
-    } else if(!actualPrice.length || !discount.length || !sellPrice.length) {
-        return res.json({'alert': 'Add prices and discount.'});
-    } else if(stock < 20) {
-        return res.json({'alert': 'You should have at least 20 items in stock.'});
-    } else if(!tags.length) {
-        return res.json({'alert': 'Enter few tags to help ranking your product in search.'});
-    } else if(!tac) {
-        return res.json({'alert': 'You must agree to our Terms and Conditions.'});
+    let { name, shortDes, des, sizes, images, actualPrice, discount, sellPrice, stock,
+    tags, tac, email, draft } = req.body;
+    if (!draft) {
+        if (!name.length) {
+            return res.json({'alert': 'Enter product name.'});
+        } else if (shortDes.length > 100 || shortDes.length < 10) {
+            return res.json({'alert': 'Short line must be between 10 to 100 letters long.'});
+        } else if (!des.length) {
+            return res.json({'alert': 'Enter detail description about the product.'});
+            // } else if (!images.length) { //downloadImagePaths
+            //     return showAlert('Upload at least one product image.');
+        } else if (!sizes.length) {
+            return res.json({'alert': 'Select at least one size.'});
+        } else if (!actualPrice.length || !discount.length || !sellPrice.length) {
+            return res.json({'alert': 'Add prices and discount.'});
+        } else if (stock < 20) {
+            return res.json({'alert': 'You should have at least 20 items in stock.'});
+        } else if (!tags.length) {
+            return res.json({'alert': 'Enter few tags to help ranking your product in search.'});
+        } else if (!tac) {
+            return res.json({'alert': 'You must agree to our Terms and Conditions.'});
+        }
     } else {
+        //add product
         let docName = `${name.toLowerCase()} - ${Math.floor(Math.random() * 5000)}`;
         db
             .collection('products')
@@ -214,6 +215,26 @@ app.post("/add-product", (req, res) => {
 
         return res.json({'alert': 'Submitted Successfully.'});
     }
+})
+
+//get products
+app.post('/get-products', (req, res) => {
+    let {email} = req.body;
+    let docRef = db.collection('products').where('email', "==", email);
+
+    docRef.get()
+        .then(products=> {
+        if(products.empty){
+            return res.json('no products');
+        }
+        let productsArr = [];
+        products.forEach(item => {
+            let data = item.data();
+            data.id = item.id;
+            productsArr.push(data);
+        })
+        res.json(productsArr);
+    })
 })
 app.get("/terms", (req, res) => {
     res.sendFile(path.join(staticPath, "terms.html"));
@@ -327,7 +348,7 @@ app.get('/seller', (req, res) => {
 
 app.post('/seller', (req, res) => {
     let { name, about, address, number, tac, legit, email} = req.body;
-    if(!name.length || !address.length || about.length || !number.length < 10 || !Number(number)) {
+    if(!name.length || !address.length || about.length || number.length < 10 || !Number(number)) {
         return res.json({'alert': 'some information(s) is/are invalid'})
     } else if(!tac || !legit) {
         return  res.json({'alert': 'you must agree to our terms and conditions'})
