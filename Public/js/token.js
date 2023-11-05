@@ -20,7 +20,6 @@ const compareToken = (token, key) => {
         let index2 = char.indexOf(token[i + 1]);
         string += char[index1 + index2];
     }
-    console.log (string);
     return string === key;
 }
 
@@ -47,7 +46,7 @@ const processData = (data) => {
         data.authToken = generateToken(data.email);
         sessionStorage.user = JSON.stringify(data);
         location.replace('/');
-    } else if (data === true) {
+    } else if (data == true) {
         //seller page
         let user = JSON.parse(sessionStorage.user);
         user.seller = true;

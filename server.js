@@ -7,7 +7,8 @@ const nodemailer = require('nodemailer');
 // const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
 //firebase setup
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
+// let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -17,36 +18,36 @@ admin.initializeApp({
 let db = admin.firestore();
 
 // aws config
-const aws = require('aws-sdk');
-require('dotenv').config();
-
-const region = "us-west1"; //us-west-1 -> AWS
-const bucketName = "vfecommerceapp.appspot.com";
-const accessKeyID = process.env.AWS_ACCESS_KEY;
-const secretAccessKey = process.env.AWS_SECRET_KEY;
-
-aws.config.update({
-    region, accessKeyID, secretAccessKey
-})
-//init s3
-const s3 = new aws.S3();
-
-//generate image upload link
-async function generateURL(){
-    let date = new Date();
-    let id = parseInt(Math.random() * 10000000000);
-
-    const imageName = `S{id}${date.getTime().jpg}`
-    const params = ({
-        Bucket: bucketName,
-        Key: imageName,
-        Expires: 300, //300 ms
-        ContentType: 'image/jpeg'
-    })
-
-    const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
-    return uploadUrl;
-}
+// const aws = require('aws-sdk');
+// require('dotenv').config();
+//
+// const region = "us-west1"; //us-west-1 -> AWS
+// const bucketName = "vfecommerceappvfecommerceapp.appspot.com";
+// const accessKeyID = process.env.AWS_ACCESS_KEY;
+// const secretAccessKey = process.env.AWS_SECRET_KEY;
+//
+// aws.config.update({
+//     region, accessKeyID, secretAccessKey
+// })
+// //init s3
+// const s3 = new aws.S3();
+//
+// //generate image upload link
+// async function generateURL(){
+//     let date = new Date();
+//     let id = parseInt(Math.random() * 10000000000);
+//
+//     const imageName = `S{id}${date.getTime().jpg}`
+//     const params = ({
+//         Bucket: bucketName,
+//         Key: imageName,
+//         Expires: 300, //300 ms
+//         ContentType: 'image/jpeg'
+//     })
+//
+//     const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
+//     return uploadUrl;
+// }
 
 //declare static path
 let staticPath = path.join(__dirname, "public");
@@ -171,6 +172,10 @@ app.get("/add-product", (req, res) => {
     res.sendFile(path.join(staticPath, "addProduct.html"));
 })
 
+app.get("/add-product/:id", (req, res) => {
+    res.sendFile(path.join(staticPath, "addProduct.html"));
+})
+
 // get img upload link
 app.get("/s3url", (req, res) => {
     generateURL().then(url => res.json(url));
@@ -178,7 +183,7 @@ app.get("/s3url", (req, res) => {
 
 app.post("/add-product", (req, res) => {
     let { name, shortDes, des, sizes, images, actualPrice, discount, sellPrice, stock,
-    tags, tac, email, draft } = req.body;
+    tags, tac, email, draft, id } = req.body;
     if (!draft) {
         if (!name.length) {
             return res.json({'alert': 'Enter product name.'});
@@ -186,8 +191,8 @@ app.post("/add-product", (req, res) => {
             return res.json({'alert': 'Short line must be between 10 to 100 letters long.'});
         } else if (!des.length) {
             return res.json({'alert': 'Enter detail description about the product.'});
-            // } else if (!images.length) { //downloadImagePaths
-            //     return showAlert('Upload at least one product image.');
+        } else if (!images.length) { //downloadImagePaths
+            return showAlert('Upload at least one product image.');
         } else if (!sizes.length) {
             return res.json({'alert': 'Select at least one size.'});
         } else if (!actualPrice.length || !discount.length || !sellPrice.length) {
@@ -201,7 +206,7 @@ app.post("/add-product", (req, res) => {
         }
     } else {
         //add product
-        let docName = `${name.toLowerCase()} - ${Math.floor(Math.random() * 5000)}`;
+        let docName = id === undefined ? `${name.toLowerCase()} - ${Math.floor(Math.random() * 5000)}` : id;
         db
             .collection('products')
             .doc(docName)
@@ -219,23 +224,40 @@ app.post("/add-product", (req, res) => {
 
 //get products
 app.post('/get-products', (req, res) => {
-    let {email} = req.body;
-    let docRef = db.collection('products').where('email', "==", email);
+    let {email, id} = req.body;
+    let docRef = id ?
+        db.collection('products').doc(id) :
+        db.collection('products').where('email', "==", email);
 
     docRef.get()
         .then(products=> {
-        if(products.empty){
-            return res.json('no products');
-        }
-        let productsArr = [];
-        products.forEach(item => {
-            let data = item.data();
-            data.id = item.id;
-            productsArr.push(data);
+            if(products.empty){
+                return res.json('no products');
+            }
+            let productsArr = [];
+            if (id) {
+                return res.json(products.data());
+            } else {
+                products.forEach(item => {
+                    let data = item.data();
+                    data.id = item.id;
+                    productsArr.push(data);
+                })
+                res.json(productsArr);
+            }
         })
-        res.json(productsArr);
+})
+app.post('/delete-product', (req, res) => {
+    let {id} = req.body;
+
+    db.collection('products').doc(id).delete()
+        .then(data => {
+            res.json('success');
+        }).catch(err => {
+        res.json('err');
     })
 })
+
 app.get("/terms", (req, res) => {
     res.sendFile(path.join(staticPath, "terms.html"));
 })
@@ -348,7 +370,7 @@ app.get('/seller', (req, res) => {
 
 app.post('/seller', (req, res) => {
     let { name, about, address, number, tac, legit, email} = req.body;
-    if(!name.length || !address.length || about.length || number.length < 10 || !Number(number)) {
+    if(!name.length || !address.length || !about.length || number.length < 10 || !Number(number)) {
         return res.json({'alert': 'some information(s) is/are invalid'})
     } else if(!tac || !legit) {
         return  res.json({'alert': 'you must agree to our terms and conditions'})

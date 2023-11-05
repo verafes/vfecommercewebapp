@@ -7,7 +7,8 @@ const applyForm = document.querySelector('.apply-form');
 const showApplyFormBtn = document.querySelector('#apply-btn');
 
 window.onload = () => {
-    if(user){
+    if(user){ //sessionStorage.user
+        // let user = JSON.parse(sessionStorage.user);
         if(compareToken(user.authToken, user.email)) {
             if(!user.seller) {
                 becomeSellerElement.classList.remove('hide');
@@ -40,9 +41,11 @@ const legitInfo = document.querySelector('#legitInfo');
 
 applyFormButton.addEventListener('click', () => {
     if(!businessName.value.length || !address.value.length || !about.value.length || !number.value.length) {
-        showAlert('fill all the inputs');
-    } else if(!tac.checked || !legitInfo.checked) {
-        showAlert('you must agree to our terms and conditions');
+        showAlert('Please fill out all the inputs');
+    } else if(!tac.checked) {
+        showAlert('Please ensure you agree to our terms and conditions.');
+    } else if(!legitInfo.checked) {
+        showAlert('Please confirm the accuracy of all information.');
     } else {
         // making server request
         loader.style.display = 'block';
@@ -70,11 +73,11 @@ const setupProducts = () => {
         console.log(data)
         loader.style.display = null;
         productListingElement.classList.remove('hide');
-        if(data = 'no products'){
+        if(data === 'no products'){
             let emptySvg = document.querySelector('.no-product-image');
             emptySvg.classList.remove('hide');
         } else {
             data.forEach(product => createProduct(product));
         }
-    })
+    });
 }

@@ -45,7 +45,7 @@ const tac = document.querySelector('#tac');
 
 //buttons
 const addProductBtn = document.querySelector('#add-btn');
-const safeDraft = document.querySelector('#save-btn');
+const saveDraft = document.querySelector('#save-btn');
 
 const storeSizes = () => {
     sizes = [];
@@ -77,7 +77,7 @@ const validateForm = () => {
     } else if (!tags.value.length) {
         return showAlert('Enter few tags to help search your product.');
     } else if (!tac.checked) {
-        showAlert('You must agree to our Terms and Conditions.');
+        return showAlert('Please ensure you agree to our Terms and Conditions.');
     }
     return true;
 }
@@ -106,6 +106,9 @@ addProductBtn.addEventListener('click', () => {
     if(validateForm()) {
         loader.style.display = 'block';
         let data = productData();
+        if(productID) {
+            data.id = productID;
+        }
         console.log('addProductBtn', data);
         sendData('/add-product', data);
     }
@@ -116,76 +119,88 @@ saveDraft.addEventListener('click', () => {
     //store sizes
     storeSizes();
     //check for product name
-    if(productName.value.length){
-        showAlert('Enter product name');
-
+    if(!productName.value.length){
+        showAlert('Enter the product name');
     } else { // don't validate
         let data = productData();
         data.draft = true;
+        if(productID) {
+            data.id = productID;
+        }
         sendData('/add-product', data);
     }
 })
 
-const sendData = (path, data) => {
-    fetch(path, {
-        method: 'post',
+// existing product detail handle
+
+const setFormsData = (data) => {
+    productName.value = data.value;
+    shortLine.value = data.shortDes;
+    des.value = data.des;
+    actualPrice.value = data.actualPrice;
+    discountPercentage.value = data.discount;
+    sellingPrice.value = data.sellPrice;
+    stock.value = data.stock;
+    tags.value = data.tags;
+
+    //set up images
+    imagePaths = data.images;
+    imagePaths.forEach((url, i) => {
+        let label = document.querySelector(`label[for=@${uploadImages[i].id}]`);
+        label.style.backgroundImage = `url(${url})`;
+        let productImage = document.querySelector('.product-image');
+        productImage.style.backgroundImage = `url(${url})`;
+    })
+
+    //setup sizes
+    sizes = data.sizes;
+
+    let sizeCheckbox = document.querySelectorAll('.size-checkbox');
+    sizeCheckbox.forEach(item => {
+        if (sizes.includes(item.value)) {
+            item.setAttribute('checked', '');
+        }
+    })
+}
+
+const fetchProductData = () => {
+    //delete the tempProduct from the session
+    delete sessionStorage.tempProduct;
+    fetch('/get-product', {
+        method: 'POST',
         headers: new Headers({'Content-Type': 'application/json'}),
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+            email: user.email,
+            id: productID
+        })
     }).then((res) => res.json())
-        .then((response) => {
-            console.log('sendData', response)
-            processData(response);
-        });
-};
+        .then(data => {
+            console.log(data);
+            setFormsData(data[0]);
+        })
+        .catch(err => {
+            location.replace('seller');
+        })
+}
 
-const showAlert = (msg) => {
-    let alertBox = document.querySelector('.alert-box');
-    let alertMsg = document.querySelector('.alert-msg');
-    let alertImg = document.querySelector('.alert-img');
-    alertMsg.innerHTML = msg;
-    alertBox.classList.add('show');
-    if (alert.type === 'success') {
-        alertImg.src = `img/success.png`;
-        alertMsg.style.color = "#0ab50a";
-    } else { // means it is an error
-        alertImg.src = `img/error.png`;
-        alertMsg.style.color = null;
-    }
-    alertBox.classList.remove('show');
-    setTimeout(() => {
-        alertBox.classList.remove('show');
-    }, 3000);
-    return false;
-};
+let productID = null;
+console.log(location.pathname)
+if (location.pathname !== '/add-product') {
+    productID = decodeURI(location.pathname.split('/').pop());
 
-const processData = (data) => {
-    loader.style.display = null;
-    if(data.alert) {
-        showAlert(data.alert);
-    } else if (data.name) {
-        // create authToken
-        data.authToken = generateToken(data.email);
-        sessionStorage.user = JSON.stringify(data);
-        location.replace('/');
-    } else if (data === true) {
-        console.log('processData', data)
-        // let user = JSON.parse(sessionStorage.user);
-        // user.seller = true;
-        // sessionStorage.user = JSON.stringify(user);
-        location.reload()
-    } else if(data.product) {
-        location.href = '/seller';
-    }
-};
+    let productDetail = JSON.parse(sessionStorage.tempProduct || null);
+    //fetch the data if product is not in session
+    // if(productDetail == null) {
+        fetchProductData();
+    // }
+}
 
 // upload image handle
 let uploadImages = document.querySelectorAll('.file-upload');
-let fileUploadLabel = document.querySelector('.upload-image');
-const formElem = document.querySelector('form');
 
 //debugging url
 // fetch('/s3url').then(res => res.json()).then(url => console.log(url));
-// AWS storage
+// upload images to AWS storage
 uploadImages.forEach((fileupload, index) => {
     fileupload.addEventListener('change', async (e) => {
         const file = fileupload.files[0];
@@ -216,6 +231,9 @@ uploadImages.forEach((fileupload, index) => {
 })
 
 //upload images to firebase storage -> comment when using AWS s3
+let fileUploadLabel = document.querySelector('.upload-image');
+const formElem = document.querySelector('form');
+
 uploadImages.forEach((fileupload, index) => {
     fileupload.addEventListener('change', async (e) => {
         const file = fileupload.files[0];
@@ -223,14 +241,17 @@ uploadImages.forEach((fileupload, index) => {
         console.log(file);
 
         if(file.type.includes('image')) {
-            fetch('/get-product', {
-                method: 'POST',
-                headers: new Headers({'Content-Type': 'multipart/form-data'}),
-                body: {'img': file}
-            }).then(res => {
-                // imageUrl = url.toString();
-                console.log(res);
-            })
+            fetch('/add-product').then(res => res.json())
+                .then(url => {
+                    fetch(url, {
+                        method: 'POST',
+                        headers: new Headers({'Content-Type': 'multipart/form-data'}),
+                        body: {'img': file}
+                    }).then(res => {
+                        imageUrl = url.toString();
+                        console.log(res);
+                    })
+                })
         }
 
         if (fileupload.files && fileupload.files.length > 0) {
