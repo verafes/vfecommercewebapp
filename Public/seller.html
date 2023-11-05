@@ -34,11 +34,11 @@
             Becoming a seller on our platform is easy and rewarding. Whether you create unique handmade crafts,
             offer specialty services, or have a collection of one-of-a-kind items,
             our platform is the perfect place to showcase your talents and connect with a global audience.</p>
-        <button class="btn" id="apply-btn">apply for seller account</button>
+        <button class="btn" id="apply-btn">Apply for Seller account</button>
     </div>
 
     <!--apply form-->
-    <div class="apply-form">
+    <div class="apply-form hide">
         <a href="/">
             <img src="img/logo-green.png" class="logo" alt="">
         </a>
@@ -65,26 +65,36 @@
         </div>
         <img src="img/no-products.png" class="no-product-image hide" alt="">
 
-    <!-- cards -->
-        <div class="product-container">
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="tag">Draft</span>
-                    <img src="img/card5.png" class="product-thumb" alt="">
-                    <button class="card-action-btn edit-btn"><img src="img/edit.png" alt=""></button>
-                    <button class="card-action-btn open-btn"><img src="img/open.png" alt=""></button>
-                    <button class="card-action-btn delete-popup-btn"><img src="img/delete.png" alt=""></button>
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-des">a short line about the cloth.</p>
-                    <span class="price">$120</span><span class="actual-price">$240</span>
-                </div>
+        <!-- delete alert -->
+        <div class="delete-alert">
+            <div>
+                <button class="close-btn"><img src="img/close.png" alt=""></img></button>
+                <img src="img/delete-warning.png" class="delete-svg" alt="">
+                <p class="text">Are you sure you want to delete this product?</p>
+                <button class="delete-btn">Delete</button>
             </div>
+        </div>
+        <!-- cards -->
+        <div class="product-container">
+<!--            <div class="product-card">-->
+<!--                <div class="product-image">-->
+<!--                    <span class="tag">Draft</span>-->
+<!--                    <img src="img/card5.png" class="product-thumb" alt="">-->
+<!--                    <button class="card-action-btn edit-btn"><img src="img/edit.png" alt=""></button>-->
+<!--                    <button class="card-action-btn open-btn"><img src="img/open.png" alt=""></button>-->
+<!--                    <button class="card-action-btn delete-popup-btn"><img src="img/delete.png" alt=""></button>-->
+<!--                </div>-->
+<!--                <div class="product-info">-->
+<!--                    <h2 class="product-brand">brand</h2>-->
+<!--                    <p class="product-short-des">a short line about the cloth.</p>-->
+<!--                    <span class="price">$120</span><span class="actual-price">$240</span>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 
 <script src="js/token.js"></script>
+<script src="js/createProduct.js"></script>
 <script src="js/seller.js"></script>
 
 </body>
