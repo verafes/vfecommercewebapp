@@ -18,36 +18,41 @@ admin.initializeApp({
 let db = admin.firestore();
 
 // aws config
-// const aws = require('aws-sdk');
-// require('dotenv').config();
-//
-// const region = "us-west1"; //us-west-1 -> AWS
-// const bucketName = "vfecommerceappvfecommerceapp.appspot.com";
-// const accessKeyID = process.env.AWS_ACCESS_KEY;
-// const secretAccessKey = process.env.AWS_SECRET_KEY;
-//
-// aws.config.update({
-//     region, accessKeyID, secretAccessKey
-// })
-// //init s3
-// const s3 = new aws.S3();
-//
-// //generate image upload link
-// async function generateURL(){
-//     let date = new Date();
-//     let id = parseInt(Math.random() * 10000000000);
-//
-//     const imageName = `S{id}${date.getTime().jpg}`
-//     const params = ({
-//         Bucket: bucketName,
-//         Key: imageName,
-//         Expires: 300, //300 ms
-//         ContentType: 'image/jpeg'
-//     })
-//
-//     const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
-//     return uploadUrl;
-// }
+const aws = require('aws-sdk');
+require('dotenv').config();
+
+const region = "us-west-2";
+const bucketName = "vfecommerceapp";
+const accessKeyID = process.env.AWS_ACCESS_KEY;
+const secretAccessKey = process.env.AWS_SECRET_KEY;
+
+console.log(process.env.AWS_ACCESS_KEY_ID); // Check the specific AWS access key variable
+console.log(process.env.AWS_SECRET_ACCESS_KEY);
+
+aws.config.update({
+    region,
+    accessKeyID,
+    secretAccessKey
+})
+//init s3
+const s3 = new aws.S3();
+
+//generate image upload link
+async function generateURL(){
+    let date = new Date();
+    let id = parseInt(Math.random() * 10000000000);
+
+    const imageName = `S{id}${date.getTime().png}`
+    const params = ({
+        Bucket: bucketName,
+        Key: imageName,
+        Expires: 300,
+        ContentType: 'image/*'
+    })
+
+    const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
+    return uploadUrl;
+}
 
 //declare static path
 let staticPath = path.join(__dirname, "public");
@@ -139,6 +144,30 @@ app.post("/login", (req, res) => {
                 })
             }
         })
+})
+
+//seller route
+app.get('/seller', (req, res) => {
+    res.sendFile(path.join(staticPath, "seller.html"));
+})
+
+app.post('/seller', (req, res) => {
+    let { name, about, address, number, tac, legit, email} = req.body;
+    if(!name.length || !address.length || !about.length || number.length < 10 || !Number(number)) {
+        return res.json({'alert': 'some information(s) is/are invalid'})
+    } else if(!tac || !legit) {
+        return  res.json({'alert': 'you must agree to our terms and conditions'})
+    } else{
+        // update users seller status here
+        db.collection('sellers').doc(email).set(req.body)
+            .then(data => {
+                db.collection('user').doc(email).update({
+                    seller: true
+                }).then(data => {
+                    res.json(true);
+                })
+            })
+    }
 })
 
 app.get("/product", (req, res) => {
@@ -258,6 +287,14 @@ app.post('/delete-product', (req, res) => {
     })
 })
 
+app.get("/products/:id", (req, res) => {
+    res.sendFile(path.join(staticPath, "product.html"));
+})
+
+app.get('/search/:key', (req, res) => {
+    res.sendFile(path.join(staticPath, "search.html"));
+})
+
 app.get("/terms", (req, res) => {
     res.sendFile(path.join(staticPath, "terms.html"));
 })
@@ -362,30 +399,6 @@ app.post('/order', (req, res) => {
             })
         })
 } )
-
-//seller route
-app.get('/seller', (req, res) => {
-    res.sendFile(path.join(staticPath, "seller.html"));
-})
-
-app.post('/seller', (req, res) => {
-    let { name, about, address, number, tac, legit, email} = req.body;
-    if(!name.length || !address.length || !about.length || number.length < 10 || !Number(number)) {
-        return res.json({'alert': 'some information(s) is/are invalid'})
-    } else if(!tac || !legit) {
-        return  res.json({'alert': 'you must agree to our terms and conditions'})
-    } else{
-        // update users seller status here
-        db.collection('sellers').doc(email).set(req.body)
-            .then(data => {
-                db.collection('user').doc(email).update({
-                    seller: true
-                }).then(data => {
-                    res.json(true);
-                })
-            })
-    }
-})
 
 app.get("/404", (req, res) => {
     res.sendFile(path.join(staticPath, "404.html"));

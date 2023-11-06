@@ -4,7 +4,7 @@ const createNav = () => {
     nav.innerHTML = `
         <div class="nav">
             <a href="/">
-                <img src="img/logo-green.png" class="brand-logo" alt="">
+                <img src="../img/logo-green.png" class="brand-logo" alt="">
             </a>
             <div class="nav-items">
                 <div class="search">
@@ -12,13 +12,13 @@ const createNav = () => {
                     <button class="search-btn" data-search-btn-id="search-btn" onclick="window.location.href = '/search'">search</button>
                 </div>
                 <a href="#">
-                    <img src="img/user.png" id="user-img" alt="">
+                    <img src="../img/user.png" id="user-img" alt="">
                     <div class="login-logout-popup hide">
                         <p class="account-info">Logged as name</p>
                         <button class="btn" id="user-btn">Log out</button>
                     </div>
                 </a>
-                <a href="/cart"><img src="img/cart.png" alt=""></a>
+                <a href="/cart"><img src="../img/cart.png" alt=""></a>
             </div> 
         </div>
         <ul class="links-container">
