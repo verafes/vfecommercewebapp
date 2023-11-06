@@ -17,6 +17,54 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Krub:wght@500&display=swap" rel="stylesheet">
 
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js">
+        const firebaseConfig = {
+            apiKey: "AIzaSyBMfoNe9FWHdoqmlp6CNGwxG7KogbEkOWk",
+            authDomain: "vfecommerceapp.firebaseapp.com",
+            databaseURL: "https://vfecommerceapp-default-rtdb.firebaseio.com",
+            projectId: "vfecommerceapp",
+            storageBucket: "vfecommerceapp.appspot.com",
+            messagingSenderId: "29464199390",
+            appId: "1:29464199390:web:4730b39f7989ad7578424f",
+            measurementId: "G-S7TL73GQP0"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const products = db.ref('products');
+        const tags = products.child('tags');
+
+        let searchResult = [];
+
+        products.on('value', function (snapshot) {
+            if (!snapshot.exists()) {
+                console.log('No products found');
+            } else {
+                console.log(snapshot.val())
+
+                snapshot.forEach(function (element) {
+                    console.log(element.val());
+
+                    let data = element.val();
+                    data.id = element.key().toString().replace("-", "");
+                    console.log(data);
+                    const tags = data.tags.toString();
+                    console.log('tags = ', tags);
+
+                    if(tags.toLowerCase().includes('women'.trim().toLowerCase())) {
+                        console.log('Found product');
+                        searchResult.push(data);
+                    }
+
+                    if (searchResult.length === 0) {
+                        console.log('No products found with the specified tag.');
+                    }
+                })
+            }
+
+            console.log('searchResult = ', searchResult);
+        });
+    </script>
 </head>
 <body>
 
@@ -373,8 +421,8 @@
     <script src="js/product.js"></script>
 
 <!--    <script>-->
-<!--        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'))-->
-<!--        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products-2', 'Men T-shirt-2'))-->
+        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'))
+        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products-2', 'Men T-shirt-2'))
 <!--    </script>-->
 </body>
 </html>

@@ -32,6 +32,43 @@ sellingPrice.addEventListener('input', () => {
     discountPercentage.value = Math.ceil(100 - (sellingPrice.value * 100) / actualPrice.value);
 })
 
+// upload image handle
+let uploadImages = document.querySelectorAll('.file-upload');
+let imagePaths = [];
+
+// upload images to AWS storage
+uploadImages.forEach((fileupload, index) => {
+    fileupload.addEventListener('change', () => {
+        const file = fileupload.files[0];
+        let imageUrl;
+        console.log(file);
+
+        if(file.type.includes('image')) {
+            //means user uploaded an image
+            fetch('/s3url').then(res => res.json())
+                .then(url => {
+                    fetch(url, {
+                        method: 'PUT',
+                        headers: new Headers({'Content-Type': 'multipart/form-data'}),
+                        body: file
+                    }).then(res => {
+                        imageUrl = url.split("?")[0];
+                        imagePaths[index] = imageUrl;
+                        console.log(imageUrl);
+                        let label = document.querySelector(`label[for=@${fileupload.id}]
+                        `);
+                        label.style.backgroundImage = `url(${imageUrl})`;
+                        let productImage = document.querySelector('.product-image');
+                        productImage.style.backgroundImage = `url(${imageUrl})`;
+                    })
+                })
+        } else {
+            showAlert('upload image only');
+        }
+    })
+})
+
+
 //form submission
 const productName = document.querySelector('#product-name');
 const shortLine = document.querySelector('#product-short-des');
@@ -57,8 +94,6 @@ const storeSizes = () => {
     })
 }
 
-let imagePaths = [];
-
 const validateForm = () => {
     if (!productName.value.length) {
         return showAlert('Enter product name.');
@@ -66,8 +101,8 @@ const validateForm = () => {
         return showAlert('Short description must be between 10 to 100 letters long.');
     } else if (!des.value.length) {
         return showAlert('Enter detail description about the product.');
-    // } else if (!images.length) {
-    //     return showAlert('Upload at least one product image.');
+    } else if (!imagePaths.length) {
+        return showAlert('Upload at least one product image.');
     } else if (!sizes.length) {
         return showAlert('Select at least one size.');
     } else if (!actualPrice.value.length || !discountPercentage.value.length || !sellingPrice.value.length) {
@@ -83,7 +118,9 @@ const validateForm = () => {
 }
 
 const productData = () => {
-    return {
+    let tagArr = tags.value.split(',');
+    tagArr.forEach((item, i) => tagArr[i] = tagArr[i].trim());
+    return data = {
         name: productName.value,
         shortDes: shortLine.value,
         des: des.value,
@@ -93,7 +130,7 @@ const productData = () => {
         discount: discountPercentage.value,
         sellPrice: sellingPrice.value,
         stock: stock.value,
-        tags: tags.value,
+        tags: tagArr,
         tac: tac.checked,
         email: user.email
     }
@@ -101,7 +138,6 @@ const productData = () => {
 
 addProductBtn.addEventListener('click', () => {
     storeSizes();
-    console.log('storeSizes', sizes);
 
     if(validateForm()) {
         loader.style.display = 'block';
@@ -164,9 +200,7 @@ const setFormsData = (data) => {
 }
 
 const fetchProductData = () => {
-    //delete the tempProduct from the session
-    delete sessionStorage.tempProduct;
-    fetch('/get-product', {
+    fetch('/get-products', {
         method: 'POST',
         headers: new Headers({'Content-Type': 'application/json'}),
         body: JSON.stringify({
@@ -184,105 +218,8 @@ const fetchProductData = () => {
 }
 
 let productID = null;
-console.log(location.pathname)
 if (location.pathname !== '/add-product') {
     productID = decodeURI(location.pathname.split('/').pop());
 
-    let productDetail = JSON.parse(sessionStorage.tempProduct || null);
-    //fetch the data if product is not in session
-    // if(productDetail == null) {
-        fetchProductData();
-    // }
+    fetchProductData();
 }
-
-// upload image handle
-let uploadImages = document.querySelectorAll('.file-upload');
-
-//debugging url
-// fetch('/s3url').then(res => res.json()).then(url => console.log(url));
-// upload images to AWS storage
-uploadImages.forEach((fileupload, index) => {
-    fileupload.addEventListener('change', async (e) => {
-        const file = fileupload.files[0];
-        let imageUrl;
-        console.log(file);
-
-        if(file.type.includes('image')) {
-            //means user uploaded an image
-            fetch('/s3url').then(res => res.json())
-                .then(url => {
-                    fetch(url, {
-                        method: 'PUT',
-                        headers: new Headers({'Content-Type': 'multipart/form-data'}),
-                        body: file
-                    }).then(res => {
-                        imageUrl = url.split("?")[0];
-                        imagePaths[index] = imageUrl;
-                        console.log(imageUrl);
-                        let label = document.querySelector(`label[for=@${fileupload.id}]
-                        `);
-                        label.style.backgroundImage = `url(${imageUrl})`;
-                        let productImage = document.querySelector('.product-image');
-                        productImage.style.backgroundImage = `url(${imageUrl})`;
-                    })
-                })
-        } else showAlert('upload image only');
-    })
-})
-
-//upload images to firebase storage -> comment when using AWS s3
-let fileUploadLabel = document.querySelector('.upload-image');
-const formElem = document.querySelector('form');
-
-uploadImages.forEach((fileupload, index) => {
-    fileupload.addEventListener('change', async (e) => {
-        const file = fileupload.files[0];
-        let imageUrl;
-        console.log(file);
-
-        if(file.type.includes('image')) {
-            fetch('/add-product').then(res => res.json())
-                .then(url => {
-                    fetch(url, {
-                        method: 'POST',
-                        headers: new Headers({'Content-Type': 'multipart/form-data'}),
-                        body: {'img': file}
-                    }).then(res => {
-                        imageUrl = url.toString();
-                        console.log(res);
-                    })
-                })
-        }
-
-        if (fileupload.files && fileupload.files.length > 0) {
-            let fileName = '';
-            if (fileupload.files.length === 1) {
-                fileName = fileupload.files[0].name;
-            } else {
-                fileName = fileupload.files.length + ' files selected';
-            }
-            fileUploadLabel.textContent = fileName;
-        } else {
-            fileUploadLabel.textContent = 'Select Files';
-        }
-
-        console.log("file submitting");
-
-        e.preventDefault();
-        await fetch('/upload', {
-                method: 'POST',
-                body: new FormData(formElem),
-            }).then(response => {
-                //document.querySelector('p').textContent = "Successfully uploaded to drive";
-                // document.getElementById("myButton").style.backgroundColor = "green"
-                //document.getElementById('fileInputLabel').textContent = "Select Files";
-               // document.querySelector('p').style.display = 'block';
-                console.log(response);
-            }).catch(error => {
-               // document.querySelector('p').textContent = "Was not uploaded" + error;
-                //document.querySelector('p').style.display = 'block';
-                console.error(error);
-            });
-        });
-
-    });

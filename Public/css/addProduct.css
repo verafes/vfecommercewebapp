@@ -147,6 +147,7 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
 
 .size-checkbox:checked {
     background: #01ababff;
+    border: 2px solid #2a9898;
     transition: 0.7s;
     cursor: pointer;
     color: #fff;
@@ -156,6 +157,8 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
 .size-checkbox:not(:checked):hover {
     cursor: pointer;
     transition: 0.5s;
+    border: 2px solid #2a9898;
+    box-shadow: 0 5px 10px #016565;
 }
 
 .size-checkbox:checked:hover {
@@ -163,6 +166,7 @@ input:hover, textarea:hover, .product-image:hover, .upload-image-section:hover, 
     transition: 0.5s;
     color: #fff;
     font-weight: 700;
+    box-shadow: 0 10px 10px #016565;
 }
 
 .size-checkbox:not(:checked) {

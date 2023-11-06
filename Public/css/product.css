@@ -7,11 +7,9 @@
 }
 
 .image-slider{
-    /*max-width: 100%;*/
     width: 500px;
     height: 500px;
     position: relative;
-    background-image: url('../img/product image 1.png');
     background-size: cover;
     justify-content: center;
 }
@@ -239,9 +237,6 @@
 
     .product-images {
         top: 72%;
-        /*max-width: 90%;*/
-        /*transform: translateX(-52%);*/
-        /*top: 10%;*/
     }
 
     .details {
@@ -253,7 +248,7 @@
 
 @media (max-width: 500px) {
     .product-details {
-        padding: 20px 10vw; /* Adjust padding */
+        padding: 20px 10vw;
     }
 
     .image-slider{

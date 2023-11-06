@@ -1,4 +1,4 @@
-// const setupSlidingEffect = () => {
+const setupSlidingEffect = () => {
     const productContainers = [...document.querySelectorAll('.product-container')];
     const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
     const preBtn = [...document.querySelectorAll('.pre-btn')];
@@ -15,11 +15,11 @@
             item.scrollLeft -= containerWidth;
         })
     })
-// };
+};
 
 //fetching product cards
-const getProduct = (tag) => {
-    return fetch('/getproducts', {
+const getProducts = (tag) => {
+    return fetch('/get-products', {
         method: "post",
         headers: new Headers({"Content-Type": "application/json"}),
         body: JSON.stringify({tag: tag})
@@ -34,7 +34,7 @@ const getProduct = (tag) => {
 const createProductSlider = (data, parent, title) => {
     let slideContainer = document.querySelector(`${parent}`);
 
-    slideContainer.innerHTML = `
+    slideContainer.innerHTML += `
     <section class="product">
         <h2 class="product-category">${title}</h2>
         <button class="pre-btn"><img src="../img/arrow.png" alt=""></button>
@@ -42,7 +42,7 @@ const createProductSlider = (data, parent, title) => {
         ${createProductCards(data)}
     </section>
     `
-    // setupSlidingEffect();
+    setupSlidingEffect();
 }
 
 const createProductCards = (data, parent) => {
@@ -93,7 +93,6 @@ const add_product_to_card_ot_wishlist = (type, product) => {
             image: product.images[0]
         }
         data.push(product);
-        console.log(data); // delete
         localStorage.setItem(type, JSON.stringify(data));
         return 'added';
 }
