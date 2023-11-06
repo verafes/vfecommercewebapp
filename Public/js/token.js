@@ -40,11 +40,7 @@ const sendData = (path, data) => {
 const processData = (data) => {
     loader.style.display = null;
     if(data.alert) {
-        if(data.type){
-            showAlert(data.alert, 'success');
-        } else {
-            showAlert(data.alert);
-        }
+        showAlert(data.alert);
     } else if (data.name) {
         // create authToken
         data.authToken = generateToken(data.email);

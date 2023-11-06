@@ -28,7 +28,7 @@ sizeBtns.forEach((item, i) => {
 })
 
 const setData = (data) => {
-    let title = document.querySelector('.title');
+    let title = document.querySelector('title');
 
     // setup the image
     productImages.forEach((img, i) => {
@@ -49,17 +49,16 @@ const setData = (data) => {
 
     //setting up texts
     const name = document.querySelector('.product-brand');
-    const shortDes = document.querySelector('.detail-short-des');
+    const shortDes = document.querySelector('detail-short-des');
     const des = document.querySelector('.des');
 
     title.innerHTML += name.innerHTML = data.name;
     shortDes .innerHTML = data.des;
-    des.innerHTML = data.des;
 
     // pricing
-    const sellPrice = document.querySelector('.product-price')
-    const actualPrice = document.querySelector('.product-actual-price')
-    const discount = document.querySelector('.product-discount')
+    const sellPrice = document.querySelector('product-price')
+    const actualPrice = document.querySelector('product-actual-price')
+    const discount = document.querySelector('product-discount')
 
     sellPrice.innerHTML = `$${data.sellPrice}`;
     actualPrice.innerHTML = `$${data.sellPrice}`;
@@ -93,13 +92,16 @@ const fetchProductData = () => {
         )
     })
     .catch(err => {
-        // location.replace('/404');
+        location.replace('/404');
     });
 }
-
 let productID = null;
-if (location.pathname != '/products') {
+if (location.pathname != '/product') {
     productID = decodeURI(location.pathname.split('/').pop());
-    console.log(productID);
-    fetchProductData();
+    console.log(productID); /* remove */
+    // fetchProductData();
 }
+
+setTimeout(() => {
+    alertBox.classList.remove('show');
+}, 3000);

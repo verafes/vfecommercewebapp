@@ -4,7 +4,7 @@ body{
     min-height: 90vh;
     padding: 0 5vw;
     position: relative;
-    font-family: 'Krub', sans-serif;
+    font-family: roboto, sans-serif;
 }
 
 .logo{
