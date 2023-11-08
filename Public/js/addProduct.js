@@ -209,7 +209,6 @@ const fetchProductData = () => {
         })
     }).then((res) => res.json())
         .then(data => {
-            console.log(data);
             setFormsData(data[0]);
         })
         .catch(err => {
@@ -220,6 +219,5 @@ const fetchProductData = () => {
 let productID = null;
 if (location.pathname !== '/add-product') {
     productID = decodeURI(location.pathname.split('/').pop());
-
     fetchProductData();
 }

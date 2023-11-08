@@ -24,20 +24,20 @@
 
     <section class="product-details">
         <div class="image-slider">
-            <img src="img/product image 1.png" class="active" alt="">
+<!--            <img src="" class="active" alt="">-->
             <div class="product-images">
-                <img src="img/product image 1.png" class="active" alt="">
-                <img src="img/product image 2.png" alt="">
-                <img src="img/product%20image%203.png" alt="">
-                <img src="img/product%20image%204.png" alt="">
+                <img src="" class="active" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
+                <img src="" alt="">
             </div>
         </div>
         <div class="details">
-            <h2 class="product-brand">calvin klein</h2>
-            <p class="product-short-des">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-            <span class="product-price">$99</span>
-            <span class="product-actual-price">$200</span>
-            <span class="product-discount">( 50% off )</span>
+            <h2 class="product-brand"></h2>
+            <p class="product-short-des"></p>
+            <span class="product-price"></span>
+            <span class="product-actual-price"></span>
+            <span class="product-discount"></span>
 
             <p class="product-sub-heading">select size</p>
 
@@ -57,17 +57,19 @@
             <label for="xxxl-size" class="size-radio-btn">xxxl</label>
 
             <div class="btn-group">
-                <button class="btn mycard-btn">Add to Card</button>
-                <button class="btn wishlist-btn">Add to Wishlist</button>
+                <button class="btn" id="card-btn">Add to Card</button>
+                <button class="btn" id="wishlist-btn">Add to Wishlist</button>
             </div>
         </div>
     </section>
 
     <section class="detail-des">
         <h2 class="heading">description</h2>
-        <p class="des">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis culpa deserunt eos eum excepturi facilis fuga fugit harum illum laboriosam, laudantium libero necessitatibus nemo numquam obcaecati officia officiis omnis praesentium qui ratione rerum sint veniam. </p>
+        <p class="des"></p>
     </section>
 
+    <section id="men-tshirt-products"></section>
+    
     <section class="container-for-card-slider"></section>
     <!--  cards-container Shirts -->
     <section class="product">
@@ -82,9 +84,9 @@
                     <button class="card-btn">add to wishlist</button>
                 </div>
                 <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
+                    <h2 class="product-brand"></h2>
                     <p class="product-short-des">a short line about the cloth.</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
+                    <span class="price"></span><span class="actual-price"></span>
                 </div>
             </div>
             <div class="product-card">
@@ -173,6 +175,11 @@
             </div>
         </div>
     </section>
+
+    <script>
+        getProducts('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'))
+        getProducts('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products-2', 'Men T-shirt-2'))
+    </script>
 
     <footer></footer>
 

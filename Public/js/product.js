@@ -28,7 +28,7 @@ sizeBtns.forEach((item, i) => {
 })
 
 const setData = (data) => {
-    let title = document.querySelector('.title');
+    let title = document.querySelector('title');
 
     // setup the image
     productImages.forEach((img, i) => {
@@ -49,7 +49,7 @@ const setData = (data) => {
 
     //setting up texts
     const name = document.querySelector('.product-brand');
-    const shortDes = document.querySelector('.detail-short-des');
+    const shortDes = document.querySelector('.product-short-des');
     const des = document.querySelector('.des');
 
     title.innerHTML += name.innerHTML = data.name;
@@ -62,7 +62,7 @@ const setData = (data) => {
     const discount = document.querySelector('.product-discount')
 
     sellPrice.innerHTML = `$${data.sellPrice}`;
-    actualPrice.innerHTML = `$${data.sellPrice}`;
+    actualPrice.innerHTML = `$${data.actualPrice}`;
     discount.innerHTML = `( ${data.discount}% off )`;
 
     // wishlist and card button
@@ -88,11 +88,10 @@ const fetchProductData = () => {
     .then(data => {
         setData(data);
         getProducts(data.tags[1])
-        .then(data => createProductSlider(
-            data, '.container-for-card-slider', 'similar product')
-        )
+            .then(data => createProductSlider(data, '.container-for-card-slider', 'similar products'))
     })
     .catch(err => {
+        console.log('err', err);
         // location.replace('/404');
     });
 }
@@ -100,6 +99,6 @@ const fetchProductData = () => {
 let productID = null;
 if (location.pathname != '/products') {
     productID = decodeURI(location.pathname.split('/').pop());
-    console.log(productID);
+    console.log("productID", productID)
     fetchProductData();
 }

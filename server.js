@@ -7,7 +7,8 @@ const nodemailer = require('nodemailer');
 // const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
 //firebase setup
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
+// let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -17,41 +18,38 @@ admin.initializeApp({
 let db = admin.firestore();
 
 // aws config
-const aws = require('aws-sdk');
-require('dotenv').config();
-
-const region = "us-west-2";
-const bucketName = "vfecommerceapp";
-const accessKeyID = process.env.AWS_ACCESS_KEY;
-const secretAccessKey = process.env.AWS_SECRET_KEY;
-
-console.log(process.env.AWS_ACCESS_KEY_ID); // Check the specific AWS access key variable
-console.log(process.env.AWS_SECRET_ACCESS_KEY);
-
-aws.config.update({
-    region,
-    accessKeyID,
-    secretAccessKey
-})
-//init s3
-const s3 = new aws.S3();
-
-//generate image upload link
-async function generateURL(){
-    let date = new Date();
-    let id = parseInt(Math.random() * 10000000000);
-
-    const imageName = `S{id}${date.getTime().png}`
-    const params = ({
-        Bucket: bucketName,
-        Key: imageName,
-        Expires: 300,
-        ContentType: 'image/*'
-    })
-
-    const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
-    return uploadUrl;
-}
+// const aws = require('aws-sdk');
+// require('dotenv').config();
+//
+// const region = "us-west-2";
+// const bucketName = "vfecommerceapp";
+// const accessKeyID = process.env.AWS_ACCESS_KEY;
+// const secretAccessKey = process.env.AWS_SECRET_KEY;
+//
+// aws.config.update({
+//     region: region,
+//     accessKeyID: accessKeyID,
+//     secretAccessKey: secretAccessKey
+// })
+// //init s3
+// const s3 = new aws.S3();
+//
+// //generate image upload link
+// async function generateURL(){
+//     let date = new Date();
+//     let id = parseInt(Math.random() * 10000000000);
+//
+//     const imageName = `${id}${date.getTime().png}`
+//     const params = ({
+//         Bucket: bucketName,
+//         Key: imageName,
+//         Expires: 300,
+//         ContentType: 'image/*'
+//     })
+//
+//     const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
+//     return uploadUrl;
+// }
 
 //declare static path
 let staticPath = path.join(__dirname, "public");
