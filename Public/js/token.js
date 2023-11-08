@@ -49,7 +49,7 @@ const processData = (data) => {
         // create authToken
         data.authToken = generateToken(data.email);
         sessionStorage.user = JSON.stringify(data);
-        location.replace('/');
+        location.replace('/add');
     } else if (data == true) {
         //seller page
         let user = JSON.parse(sessionStorage.user);

@@ -53,7 +53,7 @@ const setData = (data) => {
     const des = document.querySelector('.des');
 
     title.innerHTML += name.innerHTML = data.name;
-    shortDes .innerHTML = data.des;
+    shortDes .innerHTML = data.shortDes;
     des.innerHTML = data.des;
 
     // pricing
@@ -93,6 +93,7 @@ const fetchProductData = () => {
         )
     })
     .catch(err => {
+        console.log(err)
         // location.replace('/404');
     });
 }

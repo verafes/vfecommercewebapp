@@ -3,15 +3,15 @@ let user = JSON.parse(sessionStorage.user || null);
 let loader = document.querySelector('.loader');
 
 // check if user is logged in
-window.onload = () => {
-    if(user) {
-        if(!compareToken(user.authToken)) {
-            location.replace('/login');
-        }
-    } else {
-        location.replace('/seller');
-    }
-}
+// window.onload = () => {
+//     if(user) {
+//         if(!compareToken(user.authToken)) {
+//             location.replace('/login');
+//         }
+//     } else {
+//         location.replace('/login');
+//     }
+// }
 
 //calculate actual price
 
@@ -182,7 +182,7 @@ const setFormsData = (data) => {
     //set up images
     imagePaths = data.images;
     imagePaths.forEach((url, i) => {
-        let label = document.querySelector(`label[for=@${uploadImages[i].id}]`);
+        let label = document.querySelector(`label[for=${uploadImages[i].id}]`);
         label.style.backgroundImage = `url(${url})`;
         let productImage = document.querySelector('.product-image');
         productImage.style.backgroundImage = `url(${url})`;
@@ -210,9 +210,10 @@ const fetchProductData = () => {
     }).then((res) => res.json())
         .then(data => {
             console.log(data);
-            setFormsData(data[0]);
+            setFormsData(data);
         })
         .catch(err => {
+            console.log(err);
             location.replace('seller');
         })
 }

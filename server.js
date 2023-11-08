@@ -7,8 +7,7 @@ const nodemailer = require('nodemailer');
 // const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
 //firebase setup
-// let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -30,9 +29,9 @@ console.log(process.env.AWS_ACCESS_KEY_ID); // Check the specific AWS access key
 console.log(process.env.AWS_SECRET_ACCESS_KEY);
 
 aws.config.update({
-    region,
-    accessKeyID,
-    secretAccessKey
+    region : region,
+    accessKeyID : accessKeyID,
+    secretAccessKey : secretAccessKey
 })
 //init s3
 const s3 = new aws.S3();
