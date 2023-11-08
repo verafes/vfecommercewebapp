@@ -28,7 +28,7 @@ sizeBtns.forEach((item, i) => {
 })
 
 const setData = (data) => {
-    let title = document.querySelector('.title');
+    let title = document.querySelector('title');
 
     // setup the image
     productImages.forEach((img, i) => {
@@ -53,7 +53,7 @@ const setData = (data) => {
     const des = document.querySelector('.des');
 
     title.innerHTML += name.innerHTML = data.name;
-    shortDes .innerHTML = data.shortDes;
+    shortDes .innerHTML = data.des;
     des.innerHTML = data.des;
 
     // pricing
@@ -94,7 +94,7 @@ const fetchProductData = () => {
     })
     .catch(err => {
         console.log(err)
-        // location.replace('/404');
+        location.replace('/404');
     });
 }
 
