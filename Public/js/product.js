@@ -28,7 +28,7 @@ sizeBtns.forEach((item, i) => {
 })
 
 const setData = (data) => {
-    let title = document.querySelector('.title');
+    let title = document.querySelector('title');
 
     // setup the image
     productImages.forEach((img, i) => {
@@ -93,7 +93,8 @@ const fetchProductData = () => {
         )
     })
     .catch(err => {
-        // location.replace('/404');
+        console.log(err)
+        location.replace('/404');
     });
 }
 

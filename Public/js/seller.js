@@ -66,7 +66,7 @@ const setupProducts = () => {
     fetch('/get-products', {
         method: 'post',
         headers: new Headers({"Content-Type": "application/json"}),
-        body: JSON.stringify({email: use.email})
+        body: JSON.stringify({email: user.email})
     })
     .then(res => res.json())
     .then(data => {

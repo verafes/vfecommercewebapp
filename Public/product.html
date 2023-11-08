@@ -24,7 +24,7 @@
 
     <section class="product-details">
         <div class="image-slider">
-            <img src="img/product image 1.png" class="active" alt="">
+<!--            <img src="img/product image 1.png" class="active" alt="">-->
             <div class="product-images">
                 <img src="img/product image 1.png" class="active" alt="">
                 <img src="img/product image 2.png" alt="">
@@ -57,8 +57,8 @@
             <label for="xxxl-size" class="size-radio-btn">xxxl</label>
 
             <div class="btn-group">
-                <button class="btn mycard-btn">Add to Card</button>
-                <button class="btn wishlist-btn">Add to Wishlist</button>
+                <button class="btn" id="card-btn">Add to Card</button>
+                <button class="btn" id="wishlist-btn">Add to Wishlist</button>
             </div>
         </div>
     </section>
@@ -67,6 +67,8 @@
         <h2 class="heading">description</h2>
         <p class="des">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium corporis culpa deserunt eos eum excepturi facilis fuga fugit harum illum laboriosam, laudantium libero necessitatibus nemo numquam obcaecati officia officiis omnis praesentium qui ratione rerum sint veniam. </p>
     </section>
+
+    <section id="men-tshirt-products"></section>
 
     <section class="container-for-card-slider"></section>
     <!--  cards-container Shirts -->
@@ -180,6 +182,11 @@
     <script src="../js/footer.js"></script>
     <script src="../js/home.js"></script>
     <script src="../js/product.js"></script>
+
+    <script>
+        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'))
+        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products-2', 'Men T-shirt-2'))
+    </script>
 
 </body>
 </html>
