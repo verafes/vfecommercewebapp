@@ -33,7 +33,7 @@ sellingPrice.addEventListener('input', () => {
 })
 
 // upload image handle
-let uploadImages = document.querySelectorAll('.file-upload');
+let uploadImages = document.querySelectorAll('.fileupload');
 let imagePaths = [];
 
 // upload images to AWS storage
