@@ -13,7 +13,7 @@ const createSmallCards = (data) => {
             <button class="counter-btn increment">+</button>
         </div>
         <p class="sm-price" data-price="${data.sellPrice}">${data.sellPrice * data.item}</p>
-        <button class="sm-delete-btn"><img src="/img/close.png" alt=""></button>
+        <button class="sm-delete-btn"><img src="../img/close.png" alt=""></button>
     </div>
     `;
 }
@@ -24,7 +24,7 @@ const setProducts = (name) => {
     const element = document.querySelector(`.${name}`);
     let data = JSON.parse(localStorage.getItem(name));
     if(data == null) {
-        element.innerHTML = `<img src="/img/cart.png" class="empty-card-img" alt="">`;
+        element.innerHTML = `<img src="../img/cart.png" class="empty-card-img" alt="">`;
     } else {
         for(let i=0; i < data.length; i++) {
             element.innerHTML += createSmallCards(data[i]);

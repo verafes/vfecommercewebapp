@@ -12,27 +12,24 @@ let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-admin
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    // databaseURL: "https://vfecommerceapp-default-rtdb.firebaseio.com"
+    // firebaseConfig,
 });
 
 let db = admin.firestore();
 
 // aws config
 const aws = require('aws-sdk');
-const {S3Client} = require("@aws-sdk/client-s3");
-const dotenv = require('dotenv');
-
-dotenv.config();
+require('dotenv').config();
 
 const region = "us-west-2";
 const bucketName = "vfecommerceapp";
-const accessKeyID = process.env.AWS_ACCESS_KEY_ID;
-const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+const accessKeyID = process.env.AWS_ACCESS_KEY;
+const secretAccessKey = process.env.AWS_SECRET_KEY;
 
 aws.config.update({
-    region: region,
-    accessKeyID: accessKeyID,
-    secretAccessKey: secretAccessKey
+    region : region,
+    accessKeyID : accessKeyID,
+    secretAccessKey : secretAccessKey
 })
 //init s3
 const s3 = new aws.S3();
@@ -42,20 +39,16 @@ async function generateURL(){
     let date = new Date();
     let id = parseInt(Math.random() * 10000000000);
 
-    const imageName = `${id}${date.getTime()}`
+    const imageName = `S{id}${date.getTime().png}`
     const params = ({
         Bucket: bucketName,
         Key: imageName,
         Expires: 300,
         ContentType: 'image/*'
     })
-    try {
-        const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
-        return uploadUrl;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
+
+    const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
+    return uploadUrl;
 }
 
 //declare static path
@@ -67,7 +60,7 @@ const app = express();
 //middlewares
 app.use(express.static(staticPath));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
 
 app.get("/", (req, res) => {
@@ -251,24 +244,16 @@ app.post("/add-product", (req, res) => {
                 return res.json({'alert': 'Some error occurred. Try again.'});
             })
 
-        // return res.json({'alert': 'Submitted Successfully.'});
+        return res.json({'alert': 'Submitted Successfully.'});
     }
 })
 
 //get products
 app.post('/get-products', (req, res) => {
-    let {email, id, tag} = req.body;
-
-    let docRef;
-    if(id) {
-        docRef = db.collection('products').doc(id);
-    } else if(tag){
-        docRef = db.collection('products').where('tags', 'array-contains', tag);
-    } else if (email) {
-        docRef = db.collection('products').where('email', '==', email);
-    } else {
-        return res.status(400).json({ message: 'Invalid request' });
-    }
+    let {email, id} = req.body;
+    let docRef = id ?
+        db.collection('products').doc(id) :
+        db.collection('products').where('email', "==", email);
 
     docRef.get()
         .then(products=> {
@@ -284,7 +269,7 @@ app.post('/get-products', (req, res) => {
                     data.id = item.id;
                     productsArr.push(data);
                 })
-                return res.json(productsArr);
+                res.json(productsArr);
             }
         })
 })

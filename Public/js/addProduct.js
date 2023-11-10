@@ -9,7 +9,7 @@ window.onload = () => {
             location.replace('/login');
         }
     } else {
-        location.replace('/seller');
+        location.replace('/login');
     }
 }
 
@@ -55,7 +55,8 @@ uploadImages.forEach((fileupload, index) => {
                         imageUrl = url.split("?")[0];
                         imagePaths[index] = imageUrl;
                         console.log(imageUrl);
-                        let label = document.querySelector(`label[for=${fileupload.id}]`);
+                        let label = document.querySelector(`label[for=@${fileupload.id}]
+                        `);
                         label.style.backgroundImage = `url(${imageUrl})`;
                         let productImage = document.querySelector('.product-image');
                         productImage.style.backgroundImage = `url(${imageUrl})`;
@@ -70,8 +71,8 @@ uploadImages.forEach((fileupload, index) => {
 
 //form submission
 const productName = document.querySelector('#product-name');
-const shortLine = document.querySelector('#short-des');
-const des = document.querySelector('#des');
+const shortLine = document.querySelector('#product-short-des');
+const des = document.querySelector('#product-des');
 
 let sizes = [];
 
@@ -141,8 +142,8 @@ addProductBtn.addEventListener('click', () => {
     if(validateForm()) {
         loader.style.display = 'block';
         let data = productData();
-        if(productId) {
-            data.id = productId;
+        if(productID) {
+            data.id = productID;
         }
         console.log('addProductBtn', data);
         sendData('/add-product', data);
@@ -159,8 +160,8 @@ saveDraft.addEventListener('click', () => {
     } else { // don't validate
         let data = productData();
         data.draft = true;
-        if(productId) {
-            data.id = productId;
+        if(productID) {
+            data.id = productID;
         }
         sendData('/add-product', data);
     }
@@ -169,7 +170,7 @@ saveDraft.addEventListener('click', () => {
 // existing product detail handle
 
 const setFormsData = (data) => {
-    productName.value = data.name;
+    productName.value = data.value;
     shortLine.value = data.shortDes;
     des.value = data.des;
     actualPrice.value = data.actualPrice;
@@ -181,7 +182,7 @@ const setFormsData = (data) => {
     //set up images
     imagePaths = data.images;
     imagePaths.forEach((url, i) => {
-        let label = document.querySelector(`label[for=${uploadImages[i].id}]`);
+        let label = document.querySelector(`label[for=$${uploadImages[i].id}]`);
         label.style.backgroundImage = `url(${url})`;
         let productImage = document.querySelector('.product-image');
         productImage.style.backgroundImage = `url(${url})`;
@@ -204,21 +205,22 @@ const fetchProductData = () => {
         headers: new Headers({'Content-Type': 'application/json'}),
         body: JSON.stringify({
             email: user.email,
-            id: productId
+            id: productID
         })
     }).then((res) => res.json())
         .then(data => {
+            console.log(data);
             setFormsData(data);
         })
         .catch(err => {
-            console.log("err", err);
-            // location.replace('seller'); ?
+            console.log(err);
+            location.replace('seller');
         })
 }
 
-let productId = null;
+let productID = null;
 if (location.pathname !== '/add-product') {
-    productId = decodeURI(location.pathname.split('/').pop());
-    console.log('productId', productId);
+    productID = decodeURI(location.pathname.split('/').pop());
+
     fetchProductData();
 }

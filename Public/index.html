@@ -19,14 +19,14 @@
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js">
         const firebaseConfig = {
-            apiKey: "apiKey",
-            authDomain: "authDomain",
-            databaseURL: "databaseURL",
-            projectId: "projectId",
-            storageBucket: "storageBucket",
-            messagingSenderId: "messagingSenderId",
-            appId: "appId",
-            measurementId: "measurementId"
+            apiKey: "",
+            authDomain: "",
+            databaseURL: "",
+            projectId: "",
+            storageBucket: "",
+            messagingSenderId: "",
+            appId: "",
+            measurementId: ""
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -40,7 +40,7 @@
             if (!snapshot.exists()) {
                 console.log('No products found');
             } else {
-                console.log('search value', snapshot.val())
+                console.log(snapshot.val())
 
                 snapshot.forEach(function (element) {
                     console.log(element.val());
@@ -52,7 +52,7 @@
                     console.log('tags = ', tags);
 
                     if(tags.toLowerCase().includes('women'.trim().toLowerCase())) {
-                        console.log('Found product', data);
+                        console.log('Found product');
                         searchResult.push(data);
                     }
 
@@ -78,6 +78,8 @@
             <p class="sub-heading">and Fashion Knows No Bounds</p>
         </div>
     </header>
+
+    <section id="men-tshirt-products"></section>
 
     <!--  cards container  -->
     <section class="product">
@@ -184,7 +186,7 @@
         </div>
     </section>
 
-    <section id="women-tshirt-products"></section>
+    <section id="men-tshirt-products-2"></section>
     <!--  COLLECTIONS  -->
     <section class="collection-container">
         <a href="/women" class="collection">
@@ -410,7 +412,7 @@
             </div>
         </div>
     </section>
-    <section id="men-tshirt-products"></section>
+
     <footer></footer>
 
     <script src="js/nav.js"></script>
@@ -419,9 +421,8 @@
     <script src="js/product.js"></script>
 
     <script>
-        // getProducts('Best selling').then(data => createProductSlider(data, '#best-selling-products', 'Best selling'))
-        getProducts('Women Tshirt').then(data => createProductSlider(data, '#women-tshirt-products', 'Women T-shirt'))
-        getProducts('Men Tshirt').then(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'))
+        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'))
+        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products-2', 'Men T-shirt-2'))
     </script>
 </body>
 </html>
