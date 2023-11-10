@@ -33,7 +33,7 @@ sellingPrice.addEventListener('input', () => {
 })
 
 // upload image handle
-let uploadImages = document.querySelectorAll('.file-upload');
+let uploadImages = document.querySelectorAll('.fileupload');
 let imagePaths = [];
 
 // upload images to AWS storage
@@ -55,8 +55,7 @@ uploadImages.forEach((fileupload, index) => {
                         imageUrl = url.split("?")[0];
                         imagePaths[index] = imageUrl;
                         console.log(imageUrl);
-                        let label = document.querySelector(`label[for=@${fileupload.id}]
-                        `);
+                        let label = document.querySelector(`label[for=${fileupload.id}]`);
                         label.style.backgroundImage = `url(${imageUrl})`;
                         let productImage = document.querySelector('.product-image');
                         productImage.style.backgroundImage = `url(${imageUrl})`;
@@ -71,8 +70,8 @@ uploadImages.forEach((fileupload, index) => {
 
 //form submission
 const productName = document.querySelector('#product-name');
-const shortLine = document.querySelector('#product-short-des');
-const des = document.querySelector('#product-des');
+const shortLine = document.querySelector('#short-des');
+const des = document.querySelector('#des');
 
 let sizes = [];
 
@@ -142,8 +141,8 @@ addProductBtn.addEventListener('click', () => {
     if(validateForm()) {
         loader.style.display = 'block';
         let data = productData();
-        if(productID) {
-            data.id = productID;
+        if(productId) {
+            data.id = productId;
         }
         console.log('addProductBtn', data);
         sendData('/add-product', data);
@@ -160,8 +159,8 @@ saveDraft.addEventListener('click', () => {
     } else { // don't validate
         let data = productData();
         data.draft = true;
-        if(productID) {
-            data.id = productID;
+        if(productId) {
+            data.id = productId;
         }
         sendData('/add-product', data);
     }
@@ -170,7 +169,7 @@ saveDraft.addEventListener('click', () => {
 // existing product detail handle
 
 const setFormsData = (data) => {
-    productName.value = data.value;
+    productName.value = data.name;
     shortLine.value = data.shortDes;
     des.value = data.des;
     actualPrice.value = data.actualPrice;
@@ -182,7 +181,7 @@ const setFormsData = (data) => {
     //set up images
     imagePaths = data.images;
     imagePaths.forEach((url, i) => {
-        let label = document.querySelector(`label[for=@${uploadImages[i].id}]`);
+        let label = document.querySelector(`label[for=${uploadImages[i].id}]`);
         label.style.backgroundImage = `url(${url})`;
         let productImage = document.querySelector('.product-image');
         productImage.style.backgroundImage = `url(${url})`;
@@ -205,19 +204,21 @@ const fetchProductData = () => {
         headers: new Headers({'Content-Type': 'application/json'}),
         body: JSON.stringify({
             email: user.email,
-            id: productID
+            id: productId
         })
     }).then((res) => res.json())
         .then(data => {
-            setFormsData(data[0]);
+            setFormsData(data);
         })
         .catch(err => {
-            location.replace('seller');
+            console.log("err", err);
+            // location.replace('seller'); ?
         })
 }
 
-let productID = null;
+let productId = null;
 if (location.pathname !== '/add-product') {
-    productID = decodeURI(location.pathname.split('/').pop());
+    productId = decodeURI(location.pathname.split('/').pop());
+    console.log('productId', productId);
     fetchProductData();
 }
