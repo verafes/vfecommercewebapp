@@ -49,12 +49,12 @@ const setData = (data) => {
 
     //setting up texts
     const name = document.querySelector('.product-brand');
-    const shortDes = document.querySelector('.detail-short-des');
+    const shortDes = document.querySelector('.product-short-des');
     const des = document.querySelector('.des');
 
     title.innerHTML += name.innerHTML = data.name;
-    shortDes .innerHTML = data.des;
-    des.innerHTML = data.des;
+    shortDes.innerHTML = data.shortDes;
+    des.innerHTML = data.des || "" ;
 
     // pricing
     const sellPrice = document.querySelector('.product-price')
@@ -62,7 +62,7 @@ const setData = (data) => {
     const discount = document.querySelector('.product-discount')
 
     sellPrice.innerHTML = `$${data.sellPrice}`;
-    actualPrice.innerHTML = `$${data.sellPrice}`;
+    actualPrice.innerHTML = `$${data.actualPrice}`;
     discount.innerHTML = `( ${data.discount}% off )`;
 
     // wishlist and card button
@@ -81,26 +81,23 @@ const setData = (data) => {
 const fetchProductData = () => {
     fetch('/get-products', {
         method: 'post',
-        headers: new Headers({'Content-Type': 'application/json'}),
-        body: JSON.stringify({id: productID})
+        headers: new Headers({"Content-Type": "application/json"}),
+        body: JSON.stringify({id: productId})
     })
     .then(res => res.json())
     .then(data => {
         setData(data);
-        getProducts(data.tags[1])
-        .then(data => createProductSlider(
-            data, '.container-for-card-slider', 'similar product')
-        )
+        getProducts(data.tags[1]).then(data => createProductSlider(data, '.container-for-card-slider', 'similar products'))
     })
     .catch(err => {
-        console.log(err)
-        location.replace('/404');
+        console.log('err', err)
+        // location.replace('/404');
     });
 }
 
-let productID = null;
-if (location.pathname != '/products') {
-    productID = decodeURI(location.pathname.split('/').pop());
-    console.log(productID);
+let productId = null;
+if (location.pathname !== '/products') {
+    productId = decodeURI(location.pathname.split('/').pop());
+    console.log("productID", productId)
     fetchProductData();
 }

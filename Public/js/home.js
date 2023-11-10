@@ -19,15 +19,20 @@ const setupSlidingEffect = () => {
 
 //fetching product cards
 const getProducts = (tag) => {
-    return fetch('/get-products', {
-        method: "post",
-        headers: new Headers({"Content-Type": "application/json"}),
-        body: JSON.stringify({tag: tag})
-    })
-    .then(res => res.json())
-    .then(data => {
-        return data;
-    })
+    try {
+        return fetch('/get-products', {
+            method: "post",
+            headers: new Headers({"Content-Type": "application/json"}),
+            body: JSON.stringify({tag: tag})
+        })
+        .then(res => res.json())
+        .then(data => {
+            return data;
+        })
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        throw error;
+    }
 }
 
 // create product slider
@@ -52,18 +57,19 @@ const createProductCards = (data, parent) => {
     let end = '</div>';
 
     for(let i=0; i < data.length; i++){
-        if(data[i].id != decoderURI(location.pathname.split('/').pop())) {
+        let imgSrc = data[i].images && data[i].images.length > 0 ? data[i].images[0] : '../img/no-image.png';
+
+        if(data[i].id != decodeURI(location.pathname.split('/').pop())) {
             middle += `
             <div class="product-card">
                 <div class="product-image">
-                    <span class="discount-tag">${data[i].discount}% off</span>
-                    <img src="${data[i].images[0]}" class="product-thumb" alt="">
+                    <span class="discount-tag">${data[i].discount || '20'}% off</span>
+                    <img src="${imgSrc}" class="product-thumb" alt="">
                 </div>
-                <div class="product-info" onclick=location.href = '/products/${data[i].id}'">
-                    <h2 class="product-brand">${data[i].name}</h2>
-                    <p class="product-short-des">{${data[i].shortDes}</p>
-                    <span class="price">$${data[i].cellPrice}</span>
-                    <span class="actual-price">$${data[i].actualPrice}</span>
+                <div class="product-info" onclick=location.href = '/products/${data[i].id}'>
+                    <h2 class="product-brand">${data[i].name || 'Brand Name'}</h2>
+                    <p class="product-short-des">${data[i].shortDes || 'Short Description'}</p>
+                    <span class="price">$${data[i].sellPrice || '80'}</span> <span class="actual-price">$${data[i].actualPrice || '120'}</span>
                 </div>
             </div>
             `
