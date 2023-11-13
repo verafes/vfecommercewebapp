@@ -45,12 +45,12 @@ const processData = (data) => {
         } else {
             showAlert(data.alert);
         }
-    } else if (data.name) {
+    } else if(data.name) {
         // create authToken
         data.authToken = generateToken(data.email);
         sessionStorage.user = JSON.stringify(data);
         location.replace('/add');
-    } else if (data == true) {
+    } else if(data == true) {
         //seller page
         let user = JSON.parse(sessionStorage.user);
         user.seller = true;
@@ -66,7 +66,7 @@ const showAlert = (msg) => {
     let alertMsg = document.querySelector('.alert-msg');
     let alertImg = document.querySelector('.alert-img');
     alertMsg.innerHTML = msg;
-    if ( alert.type === 'success') {
+    if (alert.type === 'success') {
         alertImg.src = `img/success.png`;
         alertMsg.style.color = "#0ab50a";
     } else { // means it is an error

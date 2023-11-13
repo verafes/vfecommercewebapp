@@ -10,17 +10,21 @@ window.onload = () => {
     if(user){ //sessionStorage.user
         // let user = JSON.parse(sessionStorage.user);
         if(compareToken(user.authToken, user.email)) {
+            // "Token valid - checking seller status"
             if(!user.seller) {
+                // "User is not a seller - showing become seller"
                 becomeSellerElement.classList.remove('hide');
-            }else{
-                // productListingElement.classList.remove('hide');
+            } else {
+                // "User is a seller - setting up products"
                 loader.style.display = 'block';
                 setupProducts();
             }
-        }else{
+        } else {
+            //"Token not valid - redirecting to login"
             location.replace('/login')
         }
-    } else{
+    } else {
+        // "No user - redirecting to log in"
         location.replace('/login')
     }
 }
@@ -70,13 +74,13 @@ const setupProducts = () => {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data)
         loader.style.display = null;
         productListingElement.classList.remove('hide');
         if(data === 'no products'){
             let emptySvg = document.querySelector('.no-product-image');
             emptySvg.classList.remove('hide');
         } else {
+            productListingElement.classList.remove('hide');
             data.forEach(product => createProduct(product));
         }
     });

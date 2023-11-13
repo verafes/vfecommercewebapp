@@ -24,10 +24,10 @@ const getProducts = (tag) => {
         headers: new Headers({"Content-Type": "application/json"}),
         body: JSON.stringify({tag: tag})
     })
-    .then(res => res.json())
-    .then(data => {
-        return data;
-    })
+        .then(res => res.json())
+        .then(data => {
+            return data;
+        })
 }
 
 // create product slider
@@ -52,18 +52,19 @@ const createProductCards = (data, parent) => {
     let end = '</div>';
 
     for(let i=0; i < data.length; i++){
-        if(data[i].id != decoderURI(location.pathname.split('/').pop())) {
+        let imgSrc = data[i].images && data[i].images.length > 0 ? data[i].images[0] : '../img/no-image.png';
+
+        if(data[i].id != decodeURI(location.pathname.split('/').pop())) {
             middle += `
             <div class="product-card">
                 <div class="product-image">
-                    <span class="discount-tag">${data[i].discount}% off</span>
-                    <img src="${data[i].images[0]}" class="product-thumb" alt="">
+                    <span class="discount-tag">${data[i].discount || '20'}% off</span>
+                    <img src="${imgSrc}" class="product-thumb" alt="">
                 </div>
-                <div class="product-info" onclick=location.href = '/products/${data[i].id}'">
-                    <h2 class="product-brand">${data[i].name}</h2>
-                    <p class="product-short-des">{${data[i].shortDes}</p>
-                    <span class="price">$${data[i].cellPrice}</span>
-                    <span class="actual-price">$${data[i].actualPrice}</span>
+                <div class="product-info" onclick=location.href = '/products/${data[i].id}'>
+                    <h2 class="product-brand">${data[i].name || 'Brand Name'}</h2>
+                    <p class="product-short-des">${data[i].shortDes || 'Short Description'}</p>
+                    <span class="price">$${data[i].sellPrice || '80'}</span> <span class="actual-price">$${data[i].actualPrice || '120'}</span>
                 </div>
             </div>
             `
@@ -78,21 +79,21 @@ const createProductCards = (data, parent) => {
     }
 }
 
-const add_product_to_card_ot_wishlist = (type, product) => {
-        let data = JSON.parse(localStorage.getItem(type));
-        if(data == null ){
-            data = [];
-        }
+const add_product_to_cart_or_wishlist = (type, product) => {
+    let data = JSON.parse(localStorage.getItem(type));
+    if(data == null) {
+        data = [];
+    }
 
-        product = {
-            item: 1,
-            name: product.name,
-            sellPrice: product.sellPrice,
-            size: size || null,
-            shortDes: product.shortDes,
-            image: product.images[0]
-        }
-        data.push(product);
-        localStorage.setItem(type, JSON.stringify(data));
-        return 'added';
+    product = {
+        item: 1,
+        name: product.name,
+        sellPrice: product.sellPrice,
+        size: size || null,
+        shortDes: product.shortDes,
+        image: product.images[0]
+    }
+    data.push(product);
+    localStorage.setItem(type, JSON.stringify(data));
+    return 'added';
 }

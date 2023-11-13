@@ -13,7 +13,7 @@ const submitBtn = document.querySelector('.submit-btn');
 const name = document.querySelector('#name') || null;
 const email = document.querySelector('#email');
 const password = document.querySelector('#password');
-const number = document.querySelector('#number')  || null;
+const number = document.querySelector('#number') || null;
 const tac = document.querySelector('#terms-and-cond') || null;
 const notification = document.querySelector('#notification') || null;
 

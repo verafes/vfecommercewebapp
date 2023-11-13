@@ -12,8 +12,8 @@ const createSmallCards = (data) => {
             <p class="item-count">${data.item}</p>
             <button class="counter-btn increment">+</button>
         </div>
-        <p class="sm-price" data-price="${data.sellPrice}">${data.sellPrice * data.item}</p>
-        <button class="sm-delete-btn"><img src="../img/close.png" alt=""></button>
+        <p class="sm-price" data-price="${data.sellPrice}">$${data.sellPrice * data.item}</p>
+        <button class="sm-delete-btn"><img src="/img/close.png" alt=""></button>
     </div>
     `;
 }
@@ -24,7 +24,7 @@ const setProducts = (name) => {
     const element = document.querySelector(`.${name}`);
     let data = JSON.parse(localStorage.getItem(name));
     if(data == null) {
-        element.innerHTML = `<img src="../img/cart.png" class="empty-card-img" alt="">`;
+        element.innerHTML = `<img src="/img/cart.png" class="empty-card-img" alt="">`;
     } else {
         for(let i=0; i < data.length; i++) {
             element.innerHTML += createSmallCards(data[i]);
@@ -45,11 +45,11 @@ const updateBill = () => {
 
 const setupEvents = (name) => {
     // setup counter event
-    const counterMinus = document.querySelector(`.${name} .decrement`);
-    const counterPlus = document.querySelector(`.${name} .increment`);
-    const counts = document.querySelector(`.${name} .item-count`);
-    const price = document.querySelector(`.${name} .sm-price`);
-    const deleteBtn = document.querySelector(`.${name} .sm-delete`);
+    const counterMinus = document.querySelectorAll(`.${name} .decrement`);
+    const counterPlus = document.querySelectorAll(`.${name} .increment`);
+    const counts = document.querySelectorAll(`.${name} .item-count`);
+    const price = document.querySelectorAll(`.${name} .sm-price`);
+    const deleteBtn = document.querySelectorAll(`.${name} .sm-delete`);
 
     let product = JSON.parse(localStorage.getItem(name));
 
@@ -61,9 +61,7 @@ const setupEvents = (name) => {
                 item.innerHTML--;
                 totalBill -= cost;
                 price[i].innerHTML = `$${item.innerHTML * cost}`;
-                if(name === 'cart') {
-                    updateBill();
-                }
+                if(name === 'cart') { updateBill() }
                 product[i].item = item.innerHTML;
                 localStorage.setItem(name, JSON.stringify(product));
             }
@@ -73,9 +71,7 @@ const setupEvents = (name) => {
                 item.innerHTML++;
                 totalBill += cost;
                 price[i].innerHTML = `$${item.innerHTML * cost}`;
-                if(name === 'cart') {
-                    updateBill();
-                }
+                if(name === 'cart') { updateBill() }
                 product[i].item = item.innerHTML;
                 localStorage.setItem(name, JSON.stringify(product));
             }

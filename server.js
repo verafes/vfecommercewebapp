@@ -7,29 +7,30 @@ const nodemailer = require('nodemailer');
 // const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
 //firebase setup
-// let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    // firebaseConfig,
 });
 
 let db = admin.firestore();
 
 // aws config
 const aws = require('aws-sdk');
-require('dotenv').config();
+const {S3Client} = require("@aws-sdk/client-s3");
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const region = "us-west-2";
 const bucketName = "vfecommerceapp";
-const accessKeyID = process.env.AWS_ACCESS_KEY;
-const secretAccessKey = process.env.AWS_SECRET_KEY;
+const accessKeyID = process.env.AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 aws.config.update({
-    region : region,
-    accessKeyID : accessKeyID,
-    secretAccessKey : secretAccessKey
+    region: region,
+    accessKeyID: accessKeyID,
+    secretAccessKey: secretAccessKey
 })
 //init s3
 const s3 = new aws.S3();
@@ -39,16 +40,20 @@ async function generateURL(){
     let date = new Date();
     let id = parseInt(Math.random() * 10000000000);
 
-    const imageName = `S{id}${date.getTime().png}`
+    const imageName = `${id}${date.getTime()}`
     const params = ({
         Bucket: bucketName,
         Key: imageName,
         Expires: 300,
         ContentType: 'image/*'
     })
-
-    const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
-    return uploadUrl;
+    try {
+        const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
+        return uploadUrl;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
 //declare static path
@@ -60,7 +65,7 @@ const app = express();
 //middlewares
 app.use(express.static(staticPath));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 
 app.get("/", (req, res) => {
@@ -149,6 +154,7 @@ app.get('/seller', (req, res) => {
 })
 
 app.post('/seller', (req, res) => {
+    console.log('Received POST request to /seller:', req.body);
     let { name, about, address, number, tac, legit, email} = req.body;
     if(!name.length || !address.length || !about.length || number.length < 10 || !Number(number)) {
         return res.json({'alert': 'some information(s) is/are invalid'})
@@ -158,7 +164,7 @@ app.post('/seller', (req, res) => {
         // update users seller status here
         db.collection('sellers').doc(email).set(req.body)
             .then(data => {
-                db.collection('user').doc(email).update({
+                db.collection('users').doc(email).update({
                     seller: true
                 }).then(data => {
                     res.json(true);
@@ -250,10 +256,18 @@ app.post("/add-product", (req, res) => {
 
 //get products
 app.post('/get-products', (req, res) => {
-    let {email, id} = req.body;
-    let docRef = id ?
-        db.collection('products').doc(id) :
-        db.collection('products').where('email', "==", email);
+    let {email, id, tag} = req.body;
+
+    let docRef;
+    if(id) {
+        docRef = db.collection('products').doc(id);
+    } else if(tag){
+        docRef = db.collection('products').where('tags', 'array-contains', tag);
+    } else if (email) {
+        docRef = db.collection('products').where('email', '==', email);
+    } else {
+        return res.status(400).json({ message: 'Invalid request' });
+    }
 
     docRef.get()
         .then(products=> {
@@ -269,7 +283,7 @@ app.post('/get-products', (req, res) => {
                     data.id = item.id;
                     productsArr.push(data);
                 })
-                res.json(productsArr);
+                return res.json(productsArr);
             }
         })
 })

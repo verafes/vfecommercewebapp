@@ -19,14 +19,14 @@
 
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js">
         const firebaseConfig = {
-            apiKey: "",
-            authDomain: "",
-            databaseURL: "",
-            projectId: "",
-            storageBucket: "",
-            messagingSenderId: "",
-            appId: "",
-            measurementId: ""
+            apiKey: process.env.API_KEY,
+            authDomain: process.env.AUTH_DOMAIN,
+            databaseURL: process.env.DATABASE_URL,
+            projectId: process.env.PROJECT_ID,
+            storageBucket: process.env.PROJECT_ID,
+            messagingSenderId: process.env.MESSAGING_SENDER_ID,
+            appId: process.env.APP_ID,
+            measurementId: process.env.MEASUREMENT_ID
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -40,7 +40,7 @@
             if (!snapshot.exists()) {
                 console.log('No products found');
             } else {
-                console.log(snapshot.val())
+                console.log('search value', snapshot.val())
 
                 snapshot.forEach(function (element) {
                     console.log(element.val());
@@ -52,7 +52,7 @@
                     console.log('tags = ', tags);
 
                     if(tags.toLowerCase().includes('women'.trim().toLowerCase())) {
-                        console.log('Found product');
+                        console.log('Found product', data);
                         searchResult.push(data);
                     }
 
@@ -79,11 +79,9 @@
         </div>
     </header>
 
-    <section id="men-tshirt-products"></section>
-
     <!--  cards container  -->
     <section class="product">
-        <h2 class="product-category">best selling</h2>
+        <h2 class="product-category">New Arrivals</h2>
         <button class="pre-btn"><img src="img/arrow.png" alt=""></button>
         <button class="nxt-btn"><img src="img/arrow.png" alt=""></button>
         <div class="product-container">
@@ -94,7 +92,7 @@
                     <button class="card-btn">add to wishlist</button>
                 </div>
                 <div class="product-info">
-                    <h2 class="product-brand">EB&IVE</h2>
+                    <h2 class="product-brand">brand</h2>
                     <p class="product-short-des">Diaz luxurious linen Blouse</p>
                     <span class="price">$134.95</span><span class="actual-price">$175.45</span>
                 </div>
@@ -186,7 +184,7 @@
         </div>
     </section>
 
-    <section id="men-tshirt-products-2"></section>
+    <section id="best-selling-products"></section>
     <!--  COLLECTIONS  -->
     <section class="collection-container">
         <a href="/women" class="collection">
@@ -412,7 +410,8 @@
             </div>
         </div>
     </section>
-
+    <section class="container-for-card-slider"></section>
+    <section id="men-tshirt-products"></section>
     <footer></footer>
 
     <script src="js/nav.js"></script>
@@ -421,8 +420,9 @@
     <script src="js/product.js"></script>
 
     <script>
-        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'))
-        getProduct('Men Tshirt').tnen(data => createProductSlider(data, '#men-tshirt-products-2', 'Men T-shirt-2'))
+        getProducts('Best selling').then(data => createProductSlider(data, '#best-selling-products', 'Best selling'))
+        getProducts('Women Tshirt').then(data => createProductSlider(data, '#women-tshirt-products', 'Women T-shirt'))
+        getProducts('Men Tshirt').then(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'))
     </script>
 </body>
 </html>
