@@ -69,9 +69,10 @@
     </section>
 
     <!--  cards-container you-also-may-like -->
-    <section id="you-also-may-like"></section>
 
-    <section class="container-for-card-slider"></section>
+    <section class="similar-products"></section>
+
+    <section id="you-also-may-like"></section>
 
     <section id="men-tshirt-products"></section>
 
@@ -81,9 +82,10 @@
     <script src="../js/footer.js"></script>
     <script src="../js/home.js"></script>
     <script src="../js/product.js"></script>
-
+<!--    createProductSlider(data, '.container-for-card-slider', 'similar products'))-->
     <script>
-        getProducts('Women Tshirt').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
+        getProducts('women').then(data => createProductSlider(data, '.similar-products', 'Similar products'))
+        getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
         getProducts('Men Tshirt').then(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirts'))
     </script>
 

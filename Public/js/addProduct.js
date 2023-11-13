@@ -3,15 +3,15 @@ let user = JSON.parse(sessionStorage.user || null);
 let loader = document.querySelector('.loader');
 
 // check if user is logged in
-window.onload = () => {
-    if(user) {
-        if(!compareToken(user.authToken)) {
-            location.replace('/login');
-        }
-    } else {
-        location.replace('/seller');
-    }
-}
+// window.onload = ('load', () => {
+//     if(user) {
+//         if(!compareToken(user.authToken)) {
+//             location.replace('/login');
+//         }
+//     } else {
+//         location.replace('/seller');
+//     }
+// });
 
 //calculate actual price
 
@@ -212,7 +212,7 @@ const fetchProductData = () => {
         })
         .catch(err => {
             console.log("err", err);
-            // location.replace('seller'); ?
+            location.replace('seller');
         })
 }
 

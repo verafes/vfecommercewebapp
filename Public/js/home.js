@@ -19,20 +19,15 @@ const setupSlidingEffect = () => {
 
 //fetching product cards
 const getProducts = (tag) => {
-    try {
-        return fetch('/get-products', {
-            method: "post",
-            headers: new Headers({"Content-Type": "application/json"}),
-            body: JSON.stringify({tag: tag})
-        })
+    return fetch('/get-products', {
+        method: "post",
+        headers: new Headers({"Content-Type": "application/json"}),
+        body: JSON.stringify({tag: tag})
+    })
         .then(res => res.json())
         .then(data => {
             return data;
         })
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        throw error;
-    }
 }
 
 // create product slider
@@ -84,21 +79,21 @@ const createProductCards = (data, parent) => {
     }
 }
 
-const add_product_to_card_ot_wishlist = (type, product) => {
-        let data = JSON.parse(localStorage.getItem(type));
-        if(data == null ){
-            data = [];
-        }
+const add_product_to_cart_or_wishlist = (type, product) => {
+    let data = JSON.parse(localStorage.getItem(type));
+    if(data == null) {
+        data = [];
+    }
 
-        product = {
-            item: 1,
-            name: product.name,
-            sellPrice: product.sellPrice,
-            size: size || null,
-            shortDes: product.shortDes,
-            image: product.images[0]
-        }
-        data.push(product);
-        localStorage.setItem(type, JSON.stringify(data));
-        return 'added';
+    product = {
+        item: 1,
+        name: product.name,
+        sellPrice: product.sellPrice,
+        size: size || null,
+        shortDes: product.shortDes,
+        image: product.images[0]
+    }
+    data.push(product);
+    localStorage.setItem(type, JSON.stringify(data));
+    return 'added';
 }

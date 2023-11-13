@@ -7,12 +7,10 @@ const nodemailer = require('nodemailer');
 // const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
 //firebase setup
-// let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    // databaseURL: "https://vfecommerceapp-default-rtdb.firebaseio.com"
 });
 
 let db = admin.firestore();
@@ -156,6 +154,7 @@ app.get('/seller', (req, res) => {
 })
 
 app.post('/seller', (req, res) => {
+    console.log('Received POST request to /seller:', req.body);
     let { name, about, address, number, tac, legit, email} = req.body;
     if(!name.length || !address.length || !about.length || number.length < 10 || !Number(number)) {
         return res.json({'alert': 'some information(s) is/are invalid'})
@@ -165,7 +164,7 @@ app.post('/seller', (req, res) => {
         // update users seller status here
         db.collection('sellers').doc(email).set(req.body)
             .then(data => {
-                db.collection('user').doc(email).update({
+                db.collection('users').doc(email).update({
                     seller: true
                 }).then(data => {
                     res.json(true);
@@ -251,7 +250,7 @@ app.post("/add-product", (req, res) => {
                 return res.json({'alert': 'Some error occurred. Try again.'});
             })
 
-        // return res.json({'alert': 'Submitted Successfully.'});
+        return res.json({'alert': 'Submitted Successfully.'});
     }
 })
 
