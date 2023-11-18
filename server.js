@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 // const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
 //firebase setup
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-xxxxg-301546xxxx.json");
+let serviceAccount = require("./public/credentials/secret-file.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -21,11 +21,13 @@ const {S3Client} = require("@aws-sdk/client-s3");
 const dotenv = require('dotenv');
 
 dotenv.config();
+const storage = admin.storage();
 
+// aws parameters
 const region = "us-west-2";
 const bucketName = "vfecommerceapp";
 const accessKeyID = process.env.AWS_ACCESS_KEY_ID;
-const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY_ID;
 
 aws.config.update({
     region: region,
@@ -59,7 +61,7 @@ async function generateURL(){
 //declare static path
 let staticPath = path.join(__dirname, "public");
 
-//initializing app
+//initializing app express.js
 const app = express();
 
 //middlewares
@@ -67,7 +69,7 @@ app.use(express.static(staticPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+//routes
 app.get("/", (req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
 })
@@ -191,15 +193,6 @@ app.get("/accessories", (req, res) => {
 app.get("/search", (req, res) => {
     res.sendFile(path.join(staticPath, "search.html"));
 })
-app.get("/cart", (req, res) => {
-    res.sendFile(path.join(staticPath, "cart.html"));
-})
-app.get("/checkout", (req, res) => {
-    res.sendFile(path.join(staticPath, "checkout.html"));
-})
-app.get("/mail", (req, res) => {
-    res.sendFile(path.join(staticPath, "mail.html"));
-})
 app.get("/add-product", (req, res) => {
     res.sendFile(path.join(staticPath, "addProduct.html"));
 })
@@ -236,22 +229,19 @@ app.post("/add-product", (req, res) => {
         } else if (!tac) {
             return res.json({'alert': 'You must agree to our Terms and Conditions.'});
         }
-    } else {
-        //add product
-        let docName = id === undefined ? `${name.toLowerCase()} - ${Math.floor(Math.random() * 5000)}` : id;
-        db
-            .collection('products')
-            .doc(docName)
-            .set(req.body)
-            .then(data => {
-                res.json({'product': name});
-            })
-            .catch(err => {
-                return res.json({'alert': 'Some error occurred. Try again.'});
-            })
-
-        return res.json({'alert': 'Submitted Successfully.'});
     }
+    //add product
+    let docName = id === undefined ? `${name.toLowerCase()} - ${Math.floor(Math.random() * 5000)}` : id;
+    db
+        .collection('products')
+        .doc(docName)
+        .set(req.body)
+        .then(data => {
+            res.json({'product': name});
+        })
+        .catch(err => {
+            return res.json({'alert': 'Some error occurred. Try again.'});
+        })
 })
 
 //get products
@@ -306,13 +296,16 @@ app.get('/search/:key', (req, res) => {
     res.sendFile(path.join(staticPath, "search.html"));
 })
 
-app.get("/terms", (req, res) => {
-    res.sendFile(path.join(staticPath, "terms.html"));
-})
-app.get("/privacy", (req, res) => {
-    res.sendFile(path.join(staticPath, "privacy.html"));
+app.get("/cart", (req, res) => {
+    res.sendFile(path.join(staticPath, "cart.html"));
 })
 
+app.get("/checkout", (req, res) => {
+    res.sendFile(path.join(staticPath, "checkout.html"));
+})
+app.get("/mail", (req, res) => {
+    res.sendFile(path.join(staticPath, "mail.html"));
+})
 app.post('/order', (req, res) => {
     const {order, email, add} = req.body;
     let transporter = nodemailer.createTransport({
@@ -410,7 +403,12 @@ app.post('/order', (req, res) => {
             })
         })
 } )
-
+app.get("/terms", (req, res) => {
+    res.sendFile(path.join(staticPath, "terms.html"));
+})
+app.get("/privacy", (req, res) => {
+    res.sendFile(path.join(staticPath, "privacy.html"));
+})
 app.get("/404", (req, res) => {
     res.sendFile(path.join(staticPath, "404.html"));
 })

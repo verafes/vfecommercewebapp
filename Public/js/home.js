@@ -64,7 +64,7 @@ const createProductCards = (data, parent) => {
                 <div class="product-info" onclick=location.href = '/products/${data[i].id}'>
                     <h2 class="product-brand">${data[i].name || 'Brand Name'}</h2>
                     <p class="product-short-des">${data[i].shortDes || 'Short Description'}</p>
-                    <span class="price">$${data[i].sellPrice || '80'}</span> <span class="actual-price">$${data[i].actualPrice || '120'}</span>
+                    <span class="price">$${data[i].sellPrice || '80'}</span><span class="actual-price">$${data[i].actualPrice || '120'}</span>
                 </div>
             </div>
             `
@@ -79,7 +79,7 @@ const createProductCards = (data, parent) => {
     }
 }
 
-const add_product_to_cart_or_wishlist = (type, product) => {
+const add_product_to_cart_or_wishlist = (type, product, size) => {
     let data = JSON.parse(localStorage.getItem(type));
     if(data == null) {
         data = [];

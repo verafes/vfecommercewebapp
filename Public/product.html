@@ -24,7 +24,6 @@
 
     <section class="product-details">
         <div class="image-slider">
-<!--            <img src="img/product image 1.png" class="active" alt="">-->
             <div class="product-images">
                 <img src="" class="active" alt="">
                 <img src="" alt="">
@@ -41,8 +40,8 @@
 
             <p class="product-sub-heading">select size</p>
 
-            <input type="radio" name="size" value="s" hidden id="xs-size">
-            <label for="xs-size" class="size-radio-btn check">xs</label>
+            <input type="radio" name="size" value="xs" hidden id="xs-size">
+            <label for="xs-size" class="size-radio-btn">xs</label>
             <input type="radio" name="size" value="s" hidden id="s-size">
             <label for="s-size" class="size-radio-btn">s</label>
             <input type="radio" name="size" value="m" hidden id="m-size">
@@ -53,11 +52,11 @@
             <label for="xl-size" class="size-radio-btn">xl</label>
             <input type="radio" name="size" value="xxl" hidden id="xxl-size">
             <label for="xxl-size" class="size-radio-btn">xxl</label>
-            <input type="radio" name="size" value="xxl" hidden id="xxxl-size">
+            <input type="radio" name="size" value="xxxl" hidden id="xxxl-size">
             <label for="xxxl-size" class="size-radio-btn">xxxl</label>
 
             <div class="btn-group">
-                <button class="btn" id="card-btn">Add to Card</button>
+                <button class="btn" id="cart-btn">Add to Cart</button>
                 <button class="btn" id="wishlist-btn">Add to Wishlist</button>
             </div>
         </div>
@@ -82,9 +81,9 @@
     <script src="../js/footer.js"></script>
     <script src="../js/home.js"></script>
     <script src="../js/product.js"></script>
-<!--    createProductSlider(data, '.container-for-card-slider', 'similar products'))-->
+
     <script>
-        getProducts('women').then(data => createProductSlider(data, '.similar-products', 'Similar products'))
+        // getProducts(`${data.tags[1]}`).then(data => createProductSlider(data, '.similar-products', 'Similar products'))
         getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
         getProducts('Men Tshirt').then(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirts'))
     </script>
