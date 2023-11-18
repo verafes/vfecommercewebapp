@@ -1,5 +1,4 @@
-// create small product cards
-const createSmallCards = (data) => {
+const createSmallCards = (data) => {  // create small product cards
     return `
     <div class="sm-product">
         <img src="${data.image}" class="sm-product-img" alt="">
@@ -13,7 +12,7 @@ const createSmallCards = (data) => {
             <button class="counter-btn increment">+</button>
         </div>
         <p class="sm-price" data-price="${data.sellPrice}">$${data.sellPrice * data.item}</p>
-        <button class="sm-delete-btn"><img src="/img/close.png" alt=""></button>
+        <button class="sm-delete-btn"><img src="img/close.png" alt=""></button>
     </div>
     `;
 }
@@ -24,15 +23,15 @@ const setProducts = (name) => {
     const element = document.querySelector(`.${name}`);
     let data = JSON.parse(localStorage.getItem(name));
     if(data == null) {
-        element.innerHTML = `<img src="/img/cart.png" class="empty-card-img" alt="">`;
+        element.innerHTML = `<img src="/img/empty-card.png" class="empty-cart-img" alt="">`;
     } else {
-        for(let i=0; i < data.length; i++) {
+        for(let i= 0; i < data.length; i++) {
             element.innerHTML += createSmallCards(data[i]);
-            if(name === 'cart') {
+            if(name == 'cart') {
                 totalBill += Number(data[i].sellPrice * data[i].item);
             }
+            updateBill();
         }
-        updateBill();
     }
 
     setupEvents(name);
@@ -49,7 +48,7 @@ const setupEvents = (name) => {
     const counterPlus = document.querySelectorAll(`.${name} .increment`);
     const counts = document.querySelectorAll(`.${name} .item-count`);
     const price = document.querySelectorAll(`.${name} .sm-price`);
-    const deleteBtn = document.querySelectorAll(`.${name} .sm-delete`);
+    const deleteBtn = document.querySelectorAll(`.${name} .sm-delete-btn`);
 
     let product = JSON.parse(localStorage.getItem(name));
 
@@ -61,7 +60,7 @@ const setupEvents = (name) => {
                 item.innerHTML--;
                 totalBill -= cost;
                 price[i].innerHTML = `$${item.innerHTML * cost}`;
-                if(name === 'cart') { updateBill() }
+                if(name == 'cart'){ updateBill() }
                 product[i].item = item.innerHTML;
                 localStorage.setItem(name, JSON.stringify(product));
             }
@@ -70,8 +69,8 @@ const setupEvents = (name) => {
             if(item.innerHTML < 9) {
                 item.innerHTML++;
                 totalBill += cost;
-                price[i].innerHTML = `$${item.innerHTML * cost}`;
-                if(name === 'cart') { updateBill() }
+                price[i].innerHTML = `$${item.innerHTML * cost}`
+                if(name == 'cart'){ updateBill() }
                 product[i].item = item.innerHTML;
                 localStorage.setItem(name, JSON.stringify(product));
             }
@@ -80,7 +79,7 @@ const setupEvents = (name) => {
 
     deleteBtn.forEach((item, i) => {
         item.addEventListener('click', () => {
-            product = product.filter((data, index) => index !== i)
+            product = product.filter((data, index) =>  index != i);
             localStorage.setItem(name, JSON.stringify(product));
             location.reload();
         })

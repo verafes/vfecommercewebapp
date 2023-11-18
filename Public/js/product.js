@@ -38,9 +38,7 @@ const setData = (data) => {
             img.style.display = 'none';
         }
     })
-    if(productImages[0]) {
-        productImages[0].click();
-    }
+    productImages[0].click();
 
     //setup size buttons
     sizeBtns.forEach(item => {
@@ -69,14 +67,21 @@ const setData = (data) => {
 
     // wishlist and card button
     const wishlistBtn = document.querySelector('.wishlist-btn');
-    wishlistBtn.addEventListener('click', () => {
-        wishlistBtn.innerHTML = add_product_to_cart_or_wishlist('wishlist', data);
-    })
 
-    const cartBtn = document.querySelector('.cart-btn');
-    cartBtn.addEventListener('click', () => {
-        cartBtn.innerHTML = add_product_to_cart_or_wishlist('cart', data);
-    })
+    document.addEventListener('DOMContentLoaded', () => {
+        if (wishlistBtn) {
+            wishlistBtn.addEventListener('click', () => {
+                wishlistBtn.innerHTML = add_product_to_cart_or_wishlist('wishlist', data);
+            })
+        }
+
+        const cartBtn = document.querySelector('.cart-btn');
+        if (cartBtn) {
+            cartBtn.addEventListener('click', () => {
+                cartBtn.innerHTML = add_product_to_cart_or_wishlist('cart', data);
+            })
+        }
+    });
  }
 
 //Fetch data
@@ -92,8 +97,7 @@ const fetchProductData = () => {
         getProducts(data.tags[1]).then(data => createProductSlider(data, '.similar-products', 'Similar Products'))
     })
     .catch(err => {
-        console.log('err', err.toString())
-        // location.replace('/404');
+        location.replace('/404');
     });
 }
 
