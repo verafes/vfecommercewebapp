@@ -97,7 +97,7 @@ const fetchProductData = () => {
         getProducts(data.tags[1]).then(data => createProductSlider(data, '.similar-products', 'Similar Products'))
     })
     .catch(err => {
-        location.replace('/404');
+        // location.replace('/404');
     });
 }
 

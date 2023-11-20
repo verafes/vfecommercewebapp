@@ -59,12 +59,15 @@ const createProductCards = (data, parent) => {
             <div class="product-card">
                 <div class="product-image">
                     <span class="discount-tag">${data[i].discount || '20'}% off</span>
-                    <img src="${imgSrc}" class="product-thumb" alt="">
+                    <img src="${imgSrc}" class="product-thumb" alt="" onclick="location.href = '/products/${data[i].id}'">
+                    <button class="card-btn wishlist-btn">Add to Wishlist</button>
+                    <button class="card-btn cart-btn">Add to Cart</button>
                 </div>
-                <div class="product-info" onclick=location.href = '/products/${data[i].id}'>
+                <div class="product-info" onclick="location.href = '/products/${data[i].id}'">
                     <h2 class="product-brand">${data[i].name || 'Brand Name'}</h2>
                     <p class="product-short-des">${data[i].shortDes || 'Short Description'}</p>
                     <span class="price">$${data[i].sellPrice || '80'}</span><span class="actual-price">$${data[i].actualPrice || '120'}</span>
+
                 </div>
             </div>
             `

@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/accessories.css">
-<!--    <link rel="stylesheet" href="css/404.css">-->
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/men.css">
+    <link rel="stylesheet" href="../css/accessories.css">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/icons/favicon-16x16.png">
-    <link rel="manifest" href="img/icons/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/icons/favicon-16x16.png">
+    <link rel="manifest" href="../img/icons/site.webmanifest">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,17 +22,32 @@
 <body>
     <nav class="navbar"></nav>
 
-    <div class="content-container image-container background-image">
-        <p class="collection-title">Accessories</p>
-        <p class="collection-short-des">From timeless classics  <br>to contemporary pieces,  <br>find the perfect accents to express <br> your unique elegance.</p>
-
-<!--        <img src="img/men-collection.png" class="section-image" alt="">-->
-
+    <div class="content-container">
+        <div class="image-wrapper">
+            <img src="../img/accessories-collection.jpg" class="section-image" alt="">
+            <div class="text-overlay">
+                <h1 class="collection-title">Accessories</h1>
+                <p class="collection-short-des">From timeless classics  <br>to contemporary pieces,  <br>find the perfect accents to express <br> your unique elegance.</p>
+            </div>
+        </div>
     </div>
 
+    <!-- sliders section> -->
+    <section id="accessories"></section>
+    <section id="you-also-may-like"></section>
+
     <footer></footer>
-    <script src="js/nav.js"></script>
-    <script src="js/footer.js"></script>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/home.js"></script>
+    <script src="../js/product.js"></script>
+    <script src="../js/search.js"></script>
+
+    <script>
+        getProducts('accessories').then(data => createProductSlider(data, '#accessories', 'Accessories'))
+        getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
+    </script>
 
 </body>
 </html>
