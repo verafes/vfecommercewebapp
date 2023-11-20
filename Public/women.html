@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/women.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/men.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
@@ -21,18 +21,31 @@
 <body>
     <nav class="navbar"></nav>
 
-    <div class="content-container image-container background-image">
-        <p class="collection-title">Collection For Her</p>
-        <p class="collection-short-des">where elegance and fashion unite, <br> allowing every woman <br>
+    <div class="content-container">
+        <div class="image-wrapper">
+            <img src="../img/women-collection_2.jpg" class="section-image" alt="">
+            <h1 class="collection-title">Collection For Her</h1>
+            <p class="collection-short-des">where elegance and fashion unite, <br> allowing every woman <br>
             to explore her unique style <br>  without bounds.</p>
-
-<!--        <img src="img/women-collection.png" class="section-image" alt="">-->
-
+            </div>
+        </div>
     </div>
 
+    <section id="women-clothing"></section>
+
+    <section id="women-tshirt-products"></section>
+
     <footer></footer>
-    <script src="js/nav.js"></script>
-    <script src="js/footer.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/home.js"></script>
+    <script src="../js/product.js"></script>
+    <script src="../js/search.js"></script>
+
+    <script>
+        getProducts('women clothing').then(data => createProductSlider(data, '#women-clothing', 'Women Hot Specials'));
+        getProducts('Women Tshirt').then(data => createProductSlider(data, '#women-tshirt-products', 'Women T-shirt'));
+    </script>
 
 </body>
 </html>
