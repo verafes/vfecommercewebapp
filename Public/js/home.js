@@ -45,13 +45,16 @@ const createProductSlider = (data, parent, title) => {
     setupSlidingEffect();
 }
 
+const addToCart = (product) => {
+    add_product_to_cart_or_wishlist('cart', product);
+}
 const createProductCards = (data, parent) => {
     // here parent is for search product
     let start = '<div class="product-container">';
     let middle = ''; // this will contain card HTML
     let end = '</div>';
 
-    for(let i=0; i < data.length; i++){
+    for(let i= 0; i < data.length; i++){
         let imgSrc = data[i].images && data[i].images.length > 0 ? data[i].images[0] : '../img/no-image.png';
 
         if(data[i].id != decodeURI(location.pathname.split('/').pop())) {
@@ -60,8 +63,9 @@ const createProductCards = (data, parent) => {
                 <div class="product-image">
                     <span class="discount-tag">${data[i].discount || '20'}% off</span>
                     <img src="${imgSrc}" class="product-thumb" alt="" onclick="location.href = '/products/${data[i].id}'">
-                    <button class="card-btn wishlist-btn">Add to Wishlist</button>
-                    <button class="card-btn cart-btn">Add to Cart</button>
+                    <button class="card-btn wishlist-btn" onclick="add_product_to_cart_or_wishlist(
+                        'wishlist', ${JSON.stringify(data[i]).replace(/"/g, '&quot;')})">Add to Wishlist</button>
+                    <button class="card-btn cart-btn" onclick="location.href = '/products/${data[i].id}'">Add to Cart</button>
                 </div>
                 <div class="product-info" onclick="location.href = '/products/${data[i].id}'">
                     <h2 class="product-brand">${data[i].name || 'Brand Name'}</h2>
@@ -98,5 +102,5 @@ const add_product_to_cart_or_wishlist = (type, product, size) => {
     }
     data.push(product);
     localStorage.setItem(type, JSON.stringify(data));
-    return 'added';
+    return 'Added';
 }

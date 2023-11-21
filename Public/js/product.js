@@ -67,21 +67,14 @@ const setData = (data) => {
 
     // wishlist and card button
     const wishlistBtn = document.querySelector('.wishlist-btn');
+    wishlistBtn.addEventListener('click', () => {
+        wishlistBtn.innerHTML = add_product_to_cart_or_wishlist('wishlist', data);
+    })
 
-    document.addEventListener('DOMContentLoaded', () => {
-        if (wishlistBtn) {
-            wishlistBtn.addEventListener('click', () => {
-                wishlistBtn.innerHTML = add_product_to_cart_or_wishlist('wishlist', data);
-            })
-        }
-
-        const cartBtn = document.querySelector('.cart-btn');
-        if (cartBtn) {
-            cartBtn.addEventListener('click', () => {
-                cartBtn.innerHTML = add_product_to_cart_or_wishlist('cart', data);
-            })
-        }
-    });
+    const cartBtn = document.querySelector('.cart-btn');
+    cartBtn.addEventListener('click', () => {
+        cartBtn.innerHTML = add_product_to_cart_or_wishlist('cart', data);
+    })
  }
 
 //Fetch data
@@ -97,6 +90,7 @@ const fetchProductData = () => {
         getProducts(data.tags[1]).then(data => createProductSlider(data, '.similar-products', 'Similar Products'))
     })
     .catch(err => {
+        console.log(err)
         // location.replace('/404');
     });
 }
@@ -104,5 +98,6 @@ const fetchProductData = () => {
 let productId = null;
 if (location.pathname !== '/products') {
     productId = decodeURI(location.pathname.split('/').pop());
+    // productId = decodeURI(location.pathname.split('/').pop()).replace(/\D/g, '');
     fetchProductData();
 }
