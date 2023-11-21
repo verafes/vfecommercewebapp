@@ -2,31 +2,3 @@
     color: #016565;
     text-align: center;
 }
-
-/*.content-container{*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    justify-content: flex-start;*/
-/*    height: 80vh;*/
-/*    position: relative;*/
-/*}*/
-
-/*.shoes-hero {*/
-/*    background-image: url('../img/shoes-collection.jpg');*/
-/*    background-size: cover;*/
-/*    z-index: -1;*/
-/*}*/
-
-/*.section-image {*/
-/*    opacity: 0;*/
-/*}*/
-
-/*.shoes-collection-title{*/
-/*    margin: 20px 0 20px 0;*/
-/*    text-align: center;*/
-/*    color: #016565;*/
-/*    text-transform: capitalize;*/
-/*    font-size: 40px;*/
-/*    font-weight: 400;*/
-/*}*/
