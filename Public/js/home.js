@@ -45,9 +45,6 @@ const createProductSlider = (data, parent, title) => {
     setupSlidingEffect();
 }
 
-const addToCart = (product) => {
-    add_product_to_cart_or_wishlist('cart', product);
-}
 const createProductCards = (data, parent) => {
     // here parent is for search product
     let start = '<div class="product-container">';
