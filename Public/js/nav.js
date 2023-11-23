@@ -19,6 +19,7 @@ const createNav = () => {
                     </div>
                 </a>
                 <a href="/cart"><img src="../img/cart.png" alt=""></a>
+                <a href="/cart"><img src="../img/wishlist.png" alt=""></a>
             </div> 
         </div>
         <ul class="links-container">
@@ -71,6 +72,8 @@ const searchBox = document.querySelector('.search-box');
 searchBtn.addEventListener('click', () => {
     if(searchBox.value.length) {
         location.href = `/search/${searchBox.value}`;
+    } else {
+        location.href = `/search/`;
     }
 })
 
