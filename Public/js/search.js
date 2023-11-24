@@ -26,7 +26,7 @@ if (searchSpanElement) {
                     const combinedProducts = mergeAndFilterProducts(productsByKeyword.flat());
 
                     if (combinedProducts === null) {
-                        searchSpanElement.innerHTML = '"". <br> No products found. Please refine your search.';
+                        searchSpanElement.innerHTML = `"${searchKey}". <br> No products found. Please refine your search.`;
                     } else {
                         createProductCards(combinedProducts, '.card-container');
                     }
@@ -48,13 +48,20 @@ let tempResult = [];
 let keyWords = searchBox.value;
 
 function cleanKeywords(string) {
-    return string
+    const cleanedKeywords = string
         .trim()
         .toLowerCase()
-        .replace(/"!/g, '')
-        .replace(/[^0-9A-Za-z_\u0400-\u04FF]/gi, ' ')  //A.W.A.K.E => a w a k e
+        .replace(/[!"%&#]/g, '')
+        .replace(/[^0-9A-Za-z_\u0400-\u04FF.]/gi,  match => {
+            if (match === "'s") { // Preserve 's as a suffix -> men's -> men's
+                return match;
+            }
+            return ' ';  // Replace other non-word characters with space //A.W.A.K.E => awake
+        })
         .split(/\s+/)
         .filter(word => word !== '');
+
+    return cleanedKeywords.filter(word => word.length >= 3);
 }
 
 function cleanTags(tags) {
