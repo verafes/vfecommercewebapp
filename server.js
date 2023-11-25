@@ -3,12 +3,10 @@ const admin = require('firebase-admin');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const nodemailer = require('nodemailer');
-// const { upload, uploadMultiple } = require('./middleware/multer');
-// const { getStorage, ref, uploadBytesResumable } = require('firebase/storage');
 
 //firebase setup
-// let serviceAccount = require("./public/credentials/secret-file.json");
-let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
+let serviceAccount = require("./public/credentials/secret-file.json");
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
 });
@@ -308,99 +306,12 @@ app.get("/mail", (req, res) => {
 })
 app.post('/order', (req, res) => {
     const {order, email, add} = req.body;
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user:process.env.EMAIL,
-            pass:process.env.PASSWORD
-        }
-    })
-
-    const mailOption = {
-        from: 'valid sender email id',
-        to: email,
-        subject: 'VF Shop : order Placed',
-        html: `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            
-                <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
-                <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
-                <link rel="icon" type="image/png" sizes="16x16" href="img/icons/favicon-16x16.png">
-                <link rel="manifest" href="img/icons/site.webmanifest">
-            
-                <link rel="preconnect" href="https://fonts.googleapis.com">
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                <link href="https://fonts.googleapis.com/css2?family=Krub:wght@500&display=swap" rel="stylesheet">
-            
-                <title>Document</title>
-            
-                <style>
-                    body{
-                        min-height: 90vh;
-                        background: #f5f5f5;
-                        font-family: 'Krub', sans-serif;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    }
-                    .heading{
-                        text-align: center;
-                        font-size: 40px;
-                        width: 50%;
-                        display: block;
-                        line-height: 50px;
-                        margin: 30px auto 60px;
-                        text-transform: capitalize;
-                    }
-                    .heading span{
-                        font-weight: 300;
-                    }
-                    .btn{
-                        width: 200px;
-                        height: 50px;
-                        border-radius: 5px;
-                        background: #016565;
-                        color: #fff;
-                        display: block;
-                        margin: auto;
-                        font-size: 18px;
-                        text-transform: capitalize;
-                    }
-                    .logo{
-                        height: 150px;
-                        display: block;
-                        margin: auto;
-                    }
-                </style>
-            
-            </head>
-            <body>
-                <div>
-                    <img src="img/logo-green.png" class="logo" alt="">
-                    <h1 class="heading">dear ${email.split('@')[0]}, <span>your order is successfully placed</span></h1>
-                    <button class="btn">check status</button>
-                </div>
-            </body>
-            </html>
-            `
-    }
 
     let docName = email + Math.floor(Math.random() * 123819287419824);
     db.collection('order').doc(docName).set(req.body)
         .then(data => {
-            res.json('done');
-
-            transporter.sendMail(mailOption, (err, info) => {
-                if (err) {
-                    res.json({'alert': 'Your order is placed'});
-
-                }
-            })
+            // res.json('done');
+            res.json({'alert': 'Your order is placed'});
         })
 } )
 app.get("/terms", (req, res) => {
