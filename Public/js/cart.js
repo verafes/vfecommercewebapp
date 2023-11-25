@@ -23,7 +23,7 @@ const setProducts = (name) => {
     const element = document.querySelector(`.${name}`);
     let data = JSON.parse(localStorage.getItem(name));
     if(data == null) {
-        element.innerHTML = `<img src="/img/empty-card.png" class="empty-cart-img" alt="">`;
+        element.innerHTML = `<img src="../img/empty-cart.png" class="empty-cart-img" alt="">`;
     } else {
         for(let i= 0; i < data.length; i++) {
             element.innerHTML += createSmallCards(data[i]);

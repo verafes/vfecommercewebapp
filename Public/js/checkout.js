@@ -21,7 +21,9 @@ placeOrderBtn.addEventListener('click', () => {
                 // alert(data);
                 if(data.alert == 'Your order is placed'){
                     delete localStorage.card;
+                    localStorage.removeItem('cart');
                     showAlert(data.alert, 'success');
+                    window.location.href = '/mail';
                 } else {
                     showAlert((data.alert));
                 }

@@ -48,20 +48,18 @@ let tempResult = [];
 let keyWords = searchBox.value;
 
 function cleanKeywords(string) {
-    const cleanedKeywords = string
+    return string
         .trim()
         .toLowerCase()
         .replace(/[!"%&#]/g, '')
-        .replace(/[^0-9A-Za-z_\u0400-\u04FF.]/gi,  match => {
+        .replace(/[^0-9A-Za-z_\u0400-\u04FF.' ]/gi,  match => {
             if (match === "'s") { // Preserve 's as a suffix -> men's -> men's
                 return match;
             }
             return ' ';  // Replace other non-word characters with space //A.W.A.K.E => awake
         })
         .split(/\s+/)
-        .filter(word => word !== '');
-
-    return cleanedKeywords.filter(word => word.length >= 3);
+        .filter(word => word !== '' && word.length >= 3);
 }
 
 function cleanTags(tags) {
