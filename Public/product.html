@@ -56,6 +56,8 @@
             <input type="radio" name="size" value="xxxl" hidden id="xxxl-size">
             <label for="xxxl-size" class="size-radio-btn">xxxl</label>
 
+            <div class="size-error-msg">Please select a size.</div>
+
             <div class="btn-group">
                 <button class="btn cart-btn">Add to Cart</button>
                 <button class="btn wishlist-btn">Add to Wishlist</button>
@@ -68,13 +70,10 @@
         <p class="des"></p>
     </section>
 
-    <!--  cards-container you-also-may-like -->
-
     <section class="similar-products"></section>
 
+    <!--  cards-container you-also-may-like -->
     <section id="you-also-may-like"></section>
-
-<!--    <section id="men-tshirt-products"></section>-->
 
     <footer></footer>
 
@@ -82,9 +81,9 @@
     <script src="../js/footer.js"></script>
     <script src="../js/home.js"></script>
     <script src="../js/product.js"></script>
+    <script src="../js/search.js"></script>
 
     <script>
-        // getProducts(`${data.tags[1]}`).then(data => createProductSlider(data, '.similar-products', 'Similar products'))
         getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
     </script>
 

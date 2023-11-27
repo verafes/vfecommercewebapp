@@ -86,7 +86,7 @@ function mergeAndFilterProducts(products) {
             uniqueProducts.push(product);
         }
     });
-    console.log('uniqueProducts', uniqueProducts)
+
     return uniqueProducts.length > 0 ? uniqueProducts : null;
 }
 

@@ -5,8 +5,8 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 
 //firebase setup
-let serviceAccount = require("./public/credentials/secret-file.json");
-
+// let serviceAccount = require("./public/credentials/secret-file.json");
+let serviceAccount = require("./public/credentials/vfecommerceapp-firebase-adminsdk-hlvjl-301546bda8.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
 });

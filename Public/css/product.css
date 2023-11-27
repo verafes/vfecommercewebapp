@@ -149,6 +149,10 @@
     margin-bottom: 50px;
 }
 
+.error-msg{
+    display: none; color: red;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .App-logo {
         animation: App-logo-spin infinite 20s linear;
