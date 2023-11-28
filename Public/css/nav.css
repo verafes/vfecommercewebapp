@@ -172,3 +172,15 @@
     opacity: 0;
     pointer-events: none;
 }
+
+.count-badge {
+    display: inline-block;
+    position: relative;
+    margin-left: -10px;
+    background-color: #016565;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
