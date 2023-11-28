@@ -83,12 +83,72 @@ const createProductCards = (data, parent) => {
     }
 }
 
+// Function to update item count
+const updateItemCount = (type, index, newCount) => {
+    const itemCounterElements = document.querySelectorAll('.item-counter');
+    const countErrorMsg = document.querySelector('.count-error-msg');
+
+    if (index >= 0 && index < itemCounterElements.length) {
+        const itemCountElement = itemCounterElements[index].querySelector('.item-count');
+
+        if (itemCountElement) {
+            itemCountElement.textContent = newCount;
+            countErrorMsg.style.display = 'none';
+        } else {
+            console.error('item-count element not found');
+        }
+    }
+};
+
 const add_product_to_cart_or_wishlist = (type, product, size) => {
     let data = JSON.parse(localStorage.getItem(type));
     if(data == null) {
         data = [];
     }
 
+    const existingProductIndex = data.findIndex((item) => {
+        return item.name === product.name;
+    });
+
+    if (existingProductIndex !== -1 ) {
+        // Product exists in cart
+        const existingProduct = data[existingProductIndex];
+
+        if (existingProduct.item < 10) { // Check if count is less than 10 before incrementing
+            existingProduct.item++;
+            updateItemCount(existingProductIndex, existingProduct.item);
+            localStorage.setItem(type, JSON.stringify(data));
+            return `Add to ${type}`;
+        } else {
+            console.log('Count exceeds the limit (10)');
+            updateItemCount(existingProductIndex, existingProduct.item); // Update count display even when limit is reached
+            const countErrorMsg = document.querySelector('.count-error-msg');
+            countErrorMsg.textContent = `You can only add 10 amount of this item to your ${type}.`;
+            countErrorMsg.style.display = 'block';
+            return `Add to ${type}`;
+        }
+    }
+    if (type === 'cart') {
+        const sizeButtons = document.querySelectorAll('input[type="radio"][name="size"]');
+        let sizeSelected = false;
+        let selectedSize;
+        sizeButtons.forEach((button) => {
+            if (button.checked) {
+                sizeSelected = true;
+                selectedSize = button.value;
+            }
+            return selectedSize;
+        });
+
+        const errorMsg = document.querySelector('.size-error-msg');
+        if (!sizeSelected) {
+            errorMsg.style.display = 'block';
+            return `Add to ${type}`;
+        } else {
+            sizeSelected = true;
+            errorMsg.style.display = 'none';
+        }
+    }
     product = {
         item: 1,
         name: product.name,
