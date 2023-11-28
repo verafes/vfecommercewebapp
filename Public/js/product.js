@@ -25,6 +25,7 @@ sizeBtns.forEach((item, i) => {
         checkedBtn = i;
         size = item.innerHTML;
     })
+    return size;
 })
 
 const setData = (data) => {
@@ -73,7 +74,7 @@ const setData = (data) => {
 
     const cartBtn = document.querySelector('.cart-btn');
     cartBtn.addEventListener('click', () => {
-        cartBtn.innerHTML = add_product_to_cart_or_wishlist('cart', data);
+        cartBtn.innerHTML = add_product_to_cart_or_wishlist('cart', data, size);
     })
  }
 

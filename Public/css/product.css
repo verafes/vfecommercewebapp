@@ -92,8 +92,6 @@
     border: 1px solid #016565;
     border-radius: 50%;
     margin: 10px 10px 10px 0;
-    /*margin: 10px;*/
-    /*margin-left: 0;*/
     line-height: 60px;
     text-transform: uppercase;
     color: #016565;
@@ -113,7 +111,6 @@
     max-width: 240px;
     width: 48%;
     margin: 5px 5px 5px 0;
-    /*margin: 20px 0;*/
     padding: 20px;
     border-radius: 5px;
     background: none;
@@ -121,6 +118,7 @@
     color: #016565;
     font-size: 20px;
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 .cart-btn{
@@ -149,7 +147,7 @@
     margin-bottom: 50px;
 }
 
-.size-error-msg{
+.size-error-msg, .count-error-msg{
     display: none; color: red;
 }
 
@@ -168,7 +166,6 @@
 
     .image-slider {
         width: 100%;
-        /*width: 500px;*/
         height: 30rem;
         background-size: cover;
         background-repeat: no-repeat;
@@ -204,6 +201,5 @@
         font-size: 30px;
         margin-top: 5%;
     }
-
 }
 

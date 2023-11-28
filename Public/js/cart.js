@@ -1,17 +1,18 @@
 const createSmallCards = (data) => {  // create small product cards
     return `
     <div class="sm-product">
-        <img src="${data.image}" class="sm-product-img" alt="">
+        <img src="${data.image}" class="sm-product-img" onclick="location.href = '/products/${data.id}'" alt="">
         <div class="sm-text">
-            <p class="sm-product-name">${data.name}</p>
+            <p class="sm-product-name" onclick="location.href = '/products/${data.id}'">${data.name}</p>
             <p class="sm-des">${data.shortDes}</p>
+            <p class="size">Size: <span style="text-transform: uppercase;">${data.size}</span></p>
         </div>
         <div class="item-counter">
             <button class="counter-btn decrement">-</button>
             <p class="item-count">${data.item}</p>
             <button class="counter-btn increment">+</button>
         </div>
-        <p class="sm-price" data-price="${data.sellPrice}">$${data.sellPrice * data.item}</p>
+        <p class="sm-price" data-price="${data.sellPrice}">$${(data.sellPrice * data.item).toFixed(2)}</p>
         <button class="sm-delete-btn"><img src="img/close.png" alt=""></button>
     </div>
     `;
@@ -35,11 +36,18 @@ const setProducts = (name) => {
     }
 
     setupEvents(name);
+
+    // Format prices to display two decimal places
+    const priceElements = document.querySelectorAll(`.${name} .sm-price`);
+    priceElements.forEach((priceElement) => {
+        const currentPrice = Number(priceElement.getAttribute('data-price'));
+        priceElement.innerHTML = `$${currentPrice.toFixed(2)}`;
+    });
 }
 
 const updateBill = () => {
     let billPrice = document.querySelector('.bill');
-    billPrice.innerHTML = `$${totalBill}`;
+    billPrice.innerHTML = `$${Number(totalBill.toFixed(2))}`;
 }
 
 const setupEvents = (name) => {
@@ -58,18 +66,18 @@ const setupEvents = (name) => {
         counterMinus[i].addEventListener('click', () => {
             if(item.innerHTML > 1) {
                 item.innerHTML--;
-                totalBill -= cost;
-                price[i].innerHTML = `$${item.innerHTML * cost}`;
+                totalBill -= Number(cost.toFixed(2));
+                price[i].innerHTML = `$${(item.innerHTML * cost).toFixed(2)}`;
                 if(name == 'cart'){ updateBill() }
                 product[i].item = item.innerHTML;
                 localStorage.setItem(name, JSON.stringify(product));
             }
         })
         counterPlus[i].addEventListener('click', () => {
-            if(item.innerHTML < 9) {
+            if(item.innerHTML < 10) {
                 item.innerHTML++;
-                totalBill += cost;
-                price[i].innerHTML = `$${item.innerHTML * cost}`
+                totalBill += Number(cost.toFixed(2));
+                price[i].innerHTML = `$${(item.innerHTML * cost).toFixed(2)}`
                 if(name == 'cart'){ updateBill() }
                 product[i].item = item.innerHTML;
                 localStorage.setItem(name, JSON.stringify(product));
