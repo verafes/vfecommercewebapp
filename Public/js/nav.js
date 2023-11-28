@@ -1,6 +1,14 @@
 const createNav = () => {
     let nav = document.querySelector('.navbar');
 
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+    const cartCount = cart.length;
+    const wishlistCount = wishlist.length;
+
+    const currentPage = window.location.pathname;
+
     nav.innerHTML = `
         <div class="nav">
             <a href="/">
@@ -19,7 +27,9 @@ const createNav = () => {
                     </div>
                 </a>
                 <a href="/cart"><img src="../img/cart.png" alt=""></a>
+                ${cartCount === 0  || currentPage === '/cart' ? '' : `<span class="count-badge">${cartCount}</span>`}
                 <a href="/cart"><img src="../img/wishlist.png" alt=""></a>
+                ${wishlistCount === 0 || currentPage === '/cart' ? '' : `<span class="count-badge">${wishlistCount}</span>`}
             </div> 
         </div>
         <ul class="links-container">
