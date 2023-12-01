@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/home.css">
-    <link rel="stylesheet" href="../css/men.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/men.css">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="../img/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/icons/favicon-16x16.png">
     <link rel="manifest" href="img/icons/site.webmanifest">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
 
     <div class="content-container">
         <div class="image-wrapper">
-            <img src="../img/men-collection.jpg" class="section-image" alt="">
+            <img src="img/men-collection.jpg" role="img" class="section-image" alt="Collection For Him">
             <div class="text-overlay">
                 <h1 class="collection-title">Collection For Him</h1>
                 <p class="collection-short-des">Discover our 'For Him' collection, <br> where modern style <br> and timeless elegance unite <br> to elevate his wardrobe.</p>
@@ -34,16 +34,19 @@
 
     <section id="men-tshirt-products"></section>
 
+    <section id="shoes"></section>
+
     <footer></footer>
-    <script src="../js/nav.js"></script>
-    <script src="../js/footer.js"></script>
-    <script src="../js/home.js"></script>
-    <script src="../js/product.js"></script>
-    <script src="../js/search.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/product.js"></script>
+    <script src="js/search.js"></script>
 
     <script>
         getProducts('men clothing').then(data => createProductSlider(data, '#men-clothing', 'Men Hot Specials'));
         getProducts('Men Tshirt').then(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'));
+        getProducts(`men shoes`).then(data => createProductSlider(data, '#shoes', 'Shoes'))
     </script>
 </body>
 </html>

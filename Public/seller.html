@@ -19,10 +19,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Krub:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <img src="img/loader.gif" class="loader" alt="">
+    <img src="img/loader.gif" class="loader" role="img" alt="Loading...">
 
     <div class="alert-box">
-        <img src="img/error.png" class="alert-img" alt="">
+        <img src="img/error.png" class="alert-img" role="img" alt="Error">
         <p class="alert-msg">Error message</p>
     </div>
 
@@ -40,7 +40,7 @@
     <!--apply form-->
     <div class="apply-form hide">
         <a href="/">
-            <img src="img/logo-green.png" class="logo" alt="">
+            <img src="img/logo-green.png" class="logo" role="img" alt="VFShop">
         </a>
 
         <input type="text" id="business-name" placeholder="business-name / company / shop name">
@@ -52,29 +52,28 @@
         </label>
         <br>
         <input type="checkbox" checked class="checkbox" id="legitInfo">
-        <label for="legitInfo">All information is legit
-        </label>
+        <label for="legitInfo">All information is legit</label>
         <button class="submit-btn" id="apply-form-btn">Apply</button>
     </div>
 
     <!--product list-->
     <div class="product-listing hide">
         <a href="/">
-            <img src="img/logo-green.png" class="logo" alt="">
+            <img src="img/logo-green.png" class="logo" role="img" alt="VFShop">
         </a>
         <div class="add-product">
             <p class="add-product-title">Add product</p>
-            <button class="btn" onclick="location.href = '/add-product'">Add product</button>
+            <button class="btn" name="button" type="submit" title="Add product" onclick="location.href = '/add-product'">Add product</button>
         </div>
         <img src="img/no-products.png" class="no-product-image hide" alt="">
 
         <!-- delete alert -->
         <div class="delete-alert">
             <div class="alert">
-                <button class="close-btn"><img src="img/close.png" alt=""></button>
-                <img src="img/delete-warning.png" class="delete-svg" alt="">
+                <button class="close-btn" type="button" title="Close"><img src="img/close.png" alt="Close alert"></button>
+                <img src="img/delete-warning.png" class="delete-svg" role="img" alt="Warning message on delete">
                 <p class="text">Are you sure you want to delete this product?</p>
-                <button class="delete-btn">Delete</button>
+                <button class="delete-btn" name="button" type="submit" title="Delete product alert">Delete</button>
             </div>
         </div>
         <!-- cards -->

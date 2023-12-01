@@ -135,13 +135,13 @@
 }
 
 .heading{
+    color: #016565;
     font-size: 30px;
     margin-bottom: 30px;
     text-transform: capitalize;
 }
 
 .des{
-    color: #016565;
     line-height: 25px;
     white-space: pre-wrap;
     margin-bottom: 50px;

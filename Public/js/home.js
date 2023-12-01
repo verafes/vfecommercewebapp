@@ -37,8 +37,8 @@ const createProductSlider = (data, parent, title) => {
     slideContainer.innerHTML += `
     <section class="product">
         <h2 class="product-category">${title}</h2>
-        <button class="pre-btn"><img src="../img/arrow.png" alt=""></button>
-        <button class="nxt-btn"><img src="../img/arrow.png" alt=""></button>
+        <button class="pre-btn" aria-label="Previous" type="button" ><img src="../img/arrow.png" alt="Previous"></button>
+        <button class="nxt-btn" aria-label="Next" type="button" ><img src="../img/arrow.png" alt="Next"></button>
         ${createProductCards(data)}
     </section>
     `
@@ -59,10 +59,10 @@ const createProductCards = (data, parent) => {
             <div class="product-card">
                 <div class="product-image">
                     <span class="discount-tag">${data[i].discount || '20'}% off</span>
-                    <img src="${imgSrc}" class="product-thumb" alt="" onclick="location.href = '/products/${data[i].id}'">
-                    <button class="card-btn wishlist-btn" onclick="add_product_to_cart_or_wishlist(
+                    <img src="${imgSrc}" class="product-thumb" aria-label="product images" alt="${data[i].name}" onclick="location.href = '/products/${data[i].id}'">
+                    <button class="card-btn wishlist-btn" role="button" type="submit" onclick="add_product_to_cart_or_wishlist(
                         'wishlist', ${JSON.stringify(data[i]).replace(/"/g, '&quot;')})">Add to Wishlist</button>
-                    <button class="card-btn cart-btn" onclick="location.href = '/products/${data[i].id}'">Add to Cart</button>
+                    <button class="card-btn cart-btn" type="button" onclick="location.href = '/products/${data[i].id}'">Add to Cart</button>
                 </div>
                 <div class="product-info" onclick="location.href = '/products/${data[i].id}'">
                     <h2 class="product-brand">${data[i].name || 'Brand Name'}</h2>
@@ -101,9 +101,33 @@ const updateItemCount = (type, index, newCount) => {
 };
 
 const add_product_to_cart_or_wishlist = (type, product, size) => {
+    console.log("product", product, size)
     let data = JSON.parse(localStorage.getItem(type));
     if(data == null) {
         data = [];
+    }
+    console.log("data", data)
+
+    if (type === 'cart') {
+        const sizeButtons = document.querySelectorAll('input[type="radio"][name="size"]');
+        let sizeSelected = false;
+        let selectedSize;
+        sizeButtons.forEach((button) => {
+            if (button.checked) {
+                sizeSelected = true;
+                selectedSize = button.value;
+            }
+            return selectedSize;
+        });
+
+        const errorMsg = document.querySelector('.size-error-msg');
+        if (!sizeSelected) {
+            errorMsg.style.display = 'block';
+            return `Add to ${type}`;
+        } else {
+            sizeSelected = true;
+            errorMsg.style.display = 'none';
+        }
     }
 
     const existingProductIndex = data.findIndex((item) => {
@@ -128,34 +152,15 @@ const add_product_to_cart_or_wishlist = (type, product, size) => {
             return `Add to ${type}`;
         }
     }
-    if (type === 'cart') {
-        const sizeButtons = document.querySelectorAll('input[type="radio"][name="size"]');
-        let sizeSelected = false;
-        let selectedSize;
-        sizeButtons.forEach((button) => {
-            if (button.checked) {
-                sizeSelected = true;
-                selectedSize = button.value;
-            }
-            return selectedSize;
-        });
 
-        const errorMsg = document.querySelector('.size-error-msg');
-        if (!sizeSelected) {
-            errorMsg.style.display = 'block';
-            return `Add to ${type}`;
-        } else {
-            sizeSelected = true;
-            errorMsg.style.display = 'none';
-        }
-    }
     product = {
         item: 1,
         name: product.name,
         sellPrice: product.sellPrice,
         size: size || null,
         shortDes: product.shortDes,
-        image: product.images[0]
+        image: product.images[0],
+        id: product.id
     }
     data.push(product);
     localStorage.setItem(type, JSON.stringify(data));
