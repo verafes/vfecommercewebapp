@@ -19,31 +19,31 @@
 </head>
 <body>
 
-    <img src="img/loader.gif" class="loader" alt="">
+    <img src="img/loader.gif" class="loader" alt="Loading...">
 
     <div class="alert-box">
-        <img src="img/error.png" class="alert-img" alt="">
+        <img src="img/error.png" class="alert-img" role="img" alt="Error">
         <p class="alert-msg">Error message</p>
     </div>
 
     <div class="container">
         <a href="/">
-            <img class="logo" src="img/logo-green.png" class="brand-logo" alt="">
+            <img class="brand-logo" src="img/logo-green.png" role="img" alt="VFShop">
         </a>
         <div>
-            <input type="text" autocomplete="off" id="name" placeholder="name">
-            <input type="email" autocomplete="off" id="email" placeholder="email">
-            <input type="password" autocomplete="new-password" id="password" placeholder="password">
-            <input type="text" autocomplete="off" id="number" placeholder="phone number">
-            <input type="checkbox" class="checkbox" checked id="terms-and-cond">
+            <input type="text" autocomplete="off" id="name" name="name" aria-required="true" placeholder="name">
+            <input type="email" autocomplete="off" id="email" name="email" aria-required="true" placeholder="email">
+            <input type="password" autocomplete="new-password" id="password" aria-required="true" placeholder="password">
+            <input type="text" autocomplete="off" id="number" name="phone" aria-required="true" placeholder="phone number">
+            <input type="checkbox" class="checkbox" checked aria-required="true" id="terms-and-cond">
             <label for="terms-and-cond">I agree with <a href="/terms">Terms and Condition</a></label>
             <br>
             <input type="checkbox" class="checkbox" id="notification">
             <label for="notification">I agree to receive <a href="#">upcoming offers and news</a></label>
-            <button class="submit-btn">Create Account</button>
+            <button class="submit-btn" name="button" type="submit">Create Account</button>
         </div>
         <span>Already have an account?</span>
-        <a href="/login" class="link">Login here</a>
+        <a href="/login" class="link" role="button">Login here</a>
     </div>
 
     <script src="js/token.js"></script>

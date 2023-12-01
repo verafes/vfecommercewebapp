@@ -1,19 +1,19 @@
 const createSmallCards = (data) => {  // create small product cards
     return `
     <div class="sm-product">
-        <img src="${data.image}" class="sm-product-img" onclick="location.href = '/products/${data.id}'" alt="">
+        <img src="${data.image}" class="sm-product-img" role="img" onclick="location.href = '/products/${data.id}'" alt="${data.name}">
         <div class="sm-text">
             <p class="sm-product-name" onclick="location.href = '/products/${data.id}'">${data.name}</p>
             <p class="sm-des">${data.shortDes}</p>
-            <p class="size">Size: <span style="text-transform: uppercase;">${data.size}</span></p>
+            <p class="wishlist-hide size">Size: <span style="text-transform: uppercase;">${data.size}</span></p>
         </div>
         <div class="item-counter">
-            <button class="counter-btn decrement">-</button>
-            <p class="item-count">${data.item}</p>
-            <button class="counter-btn increment">+</button>
+            <button class="counter-btn decrement" aria-label="Decrease quantity">-</button>
+            <p class="item-count" title="quantity">${data.item}</p>
+            <button class="counter-btn increment" aria-label="Increase quantity">+</button>
         </div>
         <p class="sm-price" data-price="${data.sellPrice}">$${(data.sellPrice * data.item).toFixed(2)}</p>
-        <button class="sm-delete-btn"><img src="img/close.png" alt=""></button>
+        <button class="sm-delete-btn" type="button" aria-label="Remove product"><img src="../img/close.png" alt=Remove></button>
     </div>
     `;
 }
@@ -29,6 +29,10 @@ const setProducts = (name) => {
         for(let i= 0; i < data.length; i++) {
             element.innerHTML += createSmallCards(data[i]);
             if(name == 'cart') {
+                const sizeElements = document.querySelectorAll(`.wishlist-hide`);
+                sizeElements.forEach((sizeElement) => {
+                    sizeElement.classList.remove('wishlist-hide');
+                });
                 totalBill += Number(data[i].sellPrice * data[i].item);
             }
             updateBill();

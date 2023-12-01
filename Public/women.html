@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/home.css">
-    <link rel="stylesheet" href="../css/men.css">
-    <link rel="stylesheet" href="../css/women.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/men.css">
+    <link rel="stylesheet" href="css/women.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
@@ -24,7 +24,7 @@
 
     <div class="content-container">
         <div class="image-wrapper">
-            <img src="../img/women-collection_2.jpg" class="section-image" alt="">
+            <img src="img/women-collection_2.jpg" role="img" class="section-image" alt="Collection For Her">
             <div class="text-overlay">
                 <h1 class="collection-title">Collection For Her</h1>
                 <p class="collection-short-des">where elegance and fashion unite, <br> allowing every woman <br>
@@ -37,16 +37,19 @@
 
     <section id="women-tshirt-products"></section>
 
+    <section id="shoes"></section>
+
     <footer></footer>
-    <script src="../js/nav.js"></script>
-    <script src="../js/footer.js"></script>
-    <script src="../js/home.js"></script>
-    <script src="../js/product.js"></script>
-    <script src="../js/search.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/product.js"></script>
+    <script src="js/search.js"></script>
 
     <script>
         getProducts('women clothing').then(data => createProductSlider(data, '#women-clothing', 'Women Hot Specials'));
         getProducts('Women Tshirt').then(data => createProductSlider(data, '#women-tshirt-products', 'Women T-shirt'));
+        getProducts(`women shoes`).then(data => createProductSlider(data, '#shoes', 'Shoes'))
     </script>
 
 </body>
