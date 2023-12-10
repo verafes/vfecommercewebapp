@@ -121,7 +121,7 @@ label a{
 .link, span{
     color: #284448;
     text-align: center;
-    display: block;
+    display: inline-block;
 }
 
 /* alert  */

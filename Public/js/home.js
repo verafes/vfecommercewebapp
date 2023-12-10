@@ -30,6 +30,29 @@ const getProducts = (tag) => {
         })
 }
 
+// Create slider with combined data
+const processTags = (tagArr, parent, title) => {
+    const processedProducts = new Set();
+    const promises = tagArr.map(tag => getProducts(tag));
+
+    Promise.all(promises)
+        .then(dataArray => {
+            const combinedData = [].concat(...dataArray); // Combine fetched data
+            // Filter out duplicates based on product ID
+            const uniqueData = combinedData.filter(product => {
+                if (!processedProducts.has(product.id)) {
+                    processedProducts.add(product.id);
+                    return true;
+                }
+                return false;
+            });
+            createProductSlider(uniqueData, parent, title);
+        })
+        .catch(error => {
+            console.error('Error fetching products:', error);
+        });
+};
+
 // create product slider
 const createProductSlider = (data, parent, title) => {
     let slideContainer = document.querySelector(`${parent}`);
