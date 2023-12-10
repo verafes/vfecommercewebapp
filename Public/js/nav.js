@@ -12,18 +12,18 @@ const createNav = () => {
     nav.innerHTML = `
         <div class="nav">
             <a href="/" aria-label="VFShop">
-                <img src="../img/logo-green.png" class="brand-logo" role="img" id="brand-logo" title="VFShop" alt="VFShop">
+                <img src="../img/logo-green.png" class="brand-logo" role="img" title="VFShop" alt="VFShop">
             </a>
             <div class="nav-items">
                 <div class="search">
-                    <input type="text" class="search-box" type="search" aria-label="Search" autofocus="autofocus" placeholder="search brand product">
-                    <button class="search-btn" id="search-btn" aria-label="submit search" type="submit" onclick="window.location.href = '/search'">search</button>
+                    <input type="text" class="search-box" type="search" name="keywords" autofocus="autofocus" placeholder="search brand product">
+                    <button class="search-btn" data-search-btn-id="search-btn" aria-label="Search" type="submit" onclick="window.location.href = '/search'">search</button>
                 </div>
                 <a href="#">
                     <img src="../img/user.png" id="user-img" role="img" alt="User account">
                     <div class="login-logout-popup hide">
                         <p class="account-info">Logged as name</p>
-                        <button class="btn" id="user-btn" type="button">Log out</button>
+                        <button class="btn" id="user-btn" name="button" type="submit" title="Login" aria-label="Login-Logout">Log out</button>
                     </div>
                 </a>
                 <a id='cart' role="button" href="/cart"><img src="../img/cart.png" title="Cart" alt="Cart"></a>

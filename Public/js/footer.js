@@ -17,7 +17,7 @@ const createFooter = () => {
                 </div>
                 <div class="info-contacts">
                     <div class="column">
-                        <p class="footer-subtitle">Email:</p> \
+                        <p class="footer-subtitle">Email:</p> 
                         <p class="info">help@vfshop77.com</p> 
                         <p class="info">customersupport@vfshop77.com</p>
                     </div>
