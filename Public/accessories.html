@@ -34,7 +34,8 @@
 
     <!-- sliders section> -->
     <section id="accessories"></section>
-    <section id="special"></section>
+    <section id="special-m"></section>
+    <section id="special-w"></section>
     <section id="you-also-may-like"></section>
 
     <footer></footer>
@@ -47,8 +48,8 @@
 
     <script>
         getProducts('accessories').then(data => createProductSlider(data, '#accessories', 'Accessories'))
-        getProducts('gift for men').then(data => createProductSlider(data, '#special', 'Special for Him'))
-        getProducts('gift for women').then(data => createProductSlider(data, '#special', 'Special for Her'))
+        getProducts('gift for men').then(data => createProductSlider(data, '#special-m', 'Special for Him'))
+        getProducts('gift for women').then(data => createProductSlider(data, '#special-w', 'Special for Her'))
         getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
     </script>
 
