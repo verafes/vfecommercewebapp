@@ -4,9 +4,7 @@ const createFooter = () => {
     footer.innerHTML = `
         <div class="footer-content" id="footer-about">
             <div>
-                <a href="/" aria-label="VFShop">
-                    <img src="../img/logo-light.png" class="logo" role="img" alt="VFShop">
-                </a>
+                <img src="../img/logo-light.png" class="logo" role="img" alt="VFShop">
                 <p class="moto">Where Style Meets Elegance <br> And Fashion Knows No Bounds</p>
             </div>
             

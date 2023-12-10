@@ -92,7 +92,7 @@ function mergeAndFilterProducts(products) {
 
 function getSearchResult(keyWords, data) {
     const id = data.id;
-    let tags = data.tags.toString();
+    let tags = data.tags.toString() + data.name.toString() + data.des.toString() + data.shortDes.toString();
     tags = cleanTags(tags);
 
     keyWords.forEach((keyWord) => {

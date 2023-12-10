@@ -28,7 +28,7 @@ const createNav = () => {
                 </a>
                 <a id='cart' role="button" href="/cart"><img src="../img/cart.png" title="Cart" alt="Cart"></a>
                 ${cartCount === 0  || currentPage === '/cart' ? '' : `<span class="count-badge">${cartCount}</span>`}
-                <a id='wishlist' role="button" href="/cart"><img src="../img/wishlist-icon.png" alt="wishlist"></a>
+                <a id='wishlist' role="button" href="/cart"><img src="../img/wishlist-icon.png" alt="Wishlist"></a>
                 ${wishlistCount === 0 || currentPage === '/cart' ? '' : `<span class="count-badge">${wishlistCount}</span>`}
             </div> 
         </div>

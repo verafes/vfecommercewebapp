@@ -17,56 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Krub:wght@500&display=swap" rel="stylesheet">
 
-    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js">
-        const firebaseConfig = {
-            apiKey: process.env.API_KEY,
-            authDomain: process.env.AUTH_DOMAIN,
-            databaseURL: process.env.DATABASE_URL,
-            projectId: process.env.PROJECT_ID,
-            storageBucket: process.env.STORAGE_BUCKET,
-            messagingSenderId: process.env.MESSAGING_SENDER_ID,
-            appId: process.env.APP_ID,
-            measurementId: process.env.MEASUREMENT_ID
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-        const products = db.ref('products');
-        const tags = products.child('tags');
-
-        let searchResult = [];
-
-        products.on('value', function (snapshot) {
-            if (!snapshot.exists()) {
-                console.log('No products found');
-            } else {
-                console.log('search value', snapshot.val())
-
-                snapshot.forEach(function (element) {
-                    console.log(element.val());
-
-                    let data = element.val();
-                    data.id = element.key().toString().replace("-", "");
-                    console.log(data);
-                    const tags = data.tags.toString();
-                    console.log('tags = ', tags);
-
-                    if(tags.toLowerCase().includes('women'.trim().toLowerCase())) {
-                        console.log('Found product', data);
-                        searchResult.push(data);
-                    }
-
-                    getSearchResult(keyWords, data);
-
-                    if (searchResult.length === 0) {
-                        console.log('No products found with the specified tag.');
-                    }
-                })
-            }
-
-            console.log('searchResult = ', searchResult);
-        });
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
 </head>
 <body>
 
@@ -94,7 +45,7 @@
             <p class="collection-title">For Her</p>
         </a>
         <a href="/men" class="collection">
-            <img src="img/men-collection.jpg" role="img" alt="For Him: men-collection">
+            <img src="img/men-collection.jpg" role="img" alt="For Him: men collection">
             <p class="collection-title">For Him</p>
         </a>
         <a href="/accessories" class="collection">
@@ -112,6 +63,7 @@
 
     <section id="shoes"></section>
     <section id="men-tshirt-products"></section>
+    <section id="special"></section>
     <footer></footer>
 
     <script src="js/nav.js"></script>
@@ -126,6 +78,8 @@
         getProducts('Women Tshirt').then(data => createProductSlider(data, '#women-hot-products', 'Women Hot Specials'));
         getProducts('shoes').then(data => createProductSlider(data, '#shoes', 'Shoes'));
         getProducts('Men Tshirt').then(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'));
+        const tagArr = ['winter', 'cold', 'cozy'];
+        processTags(tagArr, '#special', 'Cozy Winter Deals');
     </script>
 </body>
 </html>

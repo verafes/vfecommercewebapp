@@ -34,5 +34,8 @@
     <script src="../js/home.js"></script>
     <script src="../js/search.js"></script>
 
+    <script>
+        getProducts('apparel').then(data => createProductSlider(data, '#in-demand', 'In Demand'))
+    </script>
 </body>
 </html>
