@@ -44,8 +44,6 @@ if (searchSpanElement) {
 
 searchResult = [];
 let tempResult = [];
-// let tempResult = "";
-let keyWords = searchBox.value;
 
 function cleanKeywords(string) {
     return string
@@ -91,32 +89,30 @@ function mergeAndFilterProducts(products) {
 }
 
 function getSearchResult(keyWords, data) {
-    const id = data.id;
-    let tags = data.tags.toString() + data.name.toString() + data.des.toString() + data.shortDes.toString();
-    tags = cleanTags(tags);
+    if(keyWords.length) {
+        const id = data.id;
+        let tags = data.tags.toString() + data.name.toString() + data.des.toString() + data.shortDes.toString();
+        tags = cleanTags(tags);
 
-    keyWords.forEach((keyWord) => {
-        console.log('keyword', keyWord)
-        if(keyWord.length > 2) {
-            tags.forEach((tag) => {
-                console.log('tag', tag);
-                if (tag.includes(keyWord)) {
-                    console.log('Yes');
-                    console.log('tempResult= ', tempResult);
-                    if(!tempResult.includes(id)) {
-                        tempResult += id + " ";
-                        // tempResult.push(id);
-                        console.log('tempResult= ', tempResult);
-
-                        searchResult.push(data);
-                        console.log('searchResult= ', searchResult);
+        keyWords.forEach((keyWord) => {
+            // console.log('keyword', keyWord)
+            if (keyWord.length > 2) {
+                tags.forEach((tag) => {
+                    // console.log('tag', tag);
+                    if (tag.includes(keyWord)) {
+                        // console.log('tempResult= ', tempResult);
+                        if (!tempResult.includes(id)) {
+                            tempResult += id + " ";
+                            // console.log('tempResult= ', tempResult);
+                            searchResult.push(data);
+                            console.log('searchResult= ', searchResult);
+                        }
                     }
-                }
-            })
-        }
-    })
-    return searchResult
+                })
+            }
+        })
+        return searchResult;
+    }
 }
 
-// getSearchResult((keyWords), data);
-// console.log('searchResult= ', searchResult);
+// createInDemandProductSlider();

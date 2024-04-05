@@ -53,6 +53,7 @@ const setData = (data) => {
     const shortDes = document.querySelector('.product-short-des');
     const des = document.querySelector('.des');
 
+    title.innerHTML += " ";
     title.innerHTML += name.innerHTML = data.name;
     shortDes.innerHTML = data.shortDes;
     des.innerHTML = data.des || "" ;
@@ -91,14 +92,17 @@ const fetchProductData = () => {
         getProducts(data.tags[1]).then(data => createProductSlider(data, '.similar-products', 'Similar Products'))
     })
     .catch(err => {
-        console.log(err)
+        console.log("fetchProductData!", err)
         // location.replace('/404');
     });
 }
 
 let productId = null;
-if (location.pathname !== '/products') {
+const pathname = location.pathname;
+if (pathname.startsWith('/products/')) {
     productId = decodeURI(location.pathname.split('/').pop());
     // productId = decodeURI(location.pathname.split('/').pop()).replace(/\D/g, '');
+}
+if (productId !== null) {
     fetchProductData();
 }

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/men.css">
     <link rel="stylesheet" href="css/women.css">
 
@@ -33,23 +34,27 @@
         </div>
     </div>
 
-    <section id="women-clothing"></section>
+    <!--  category (card) container women's products -->
+    <section class="women-results" >
+        <div>
+            <h2 class="product-category">Women’s Clothing & Fashion</h2>
+        </div>
+        <section class="card-container" id="womenResults"></section>
+    </section>
 
-    <section id="women-tshirt-products"></section>
-
-    <section id="shoes"></section>
+    <!--  cards container In Demand / Now Trending-->
+    <section class="slider-container" id="you-also-may-like" role="presentation"></section>
+    <!--  cards container In Demand / Now Trending-->
+    <section class="slider-container" id="w-shoes" role="presentation"></section>
 
     <footer></footer>
     <script src="js/nav.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/home.js"></script>
-    <script src="js/product.js"></script>
-    <script src="js/search.js"></script>
 
     <script>
-        getProducts('women clothing').then(data => createProductSlider(data, '#women-clothing', 'Women Hot Specials'));
-        getProducts('Women Tshirt').then(data => createProductSlider(data, '#women-tshirt-products', 'Women T-shirt'));
-        getProducts(`women shoes`).then(data => createProductSlider(data, '#shoes', 'Shoes'))
+        createMultiTagsCardsAndSliders(['women', 'ladies', 'girls'], '#womenResults', 'Women’s Clothing & Fashion');
+        createMultiTagsCardsAndSliders(['6', 'ladies', 'girl'], '#you-also-may-like', 'Now Trending');
     </script>
 
 </body>

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/men.css">
     <link rel="stylesheet" href="css/accessories.css">
 
@@ -31,12 +32,19 @@
             </div>
         </div>
     </div>
-
-    <!-- sliders section> -->
-    <section id="accessories"></section>
-    <section id="special-m"></section>
-    <section id="special-w"></section>
-    <section id="you-also-may-like"></section>
+    <!--  cards container Accessories products / What you might need right now -->
+    <section class="accessories" >
+        <div>
+            <h2 class="product-category">Beauty & Accessories</h2>
+        </div>
+        <section class="card-container" id="accessories"></section>
+    </section>
+    <!-- sliders container Special for Him > -->
+    <section class="slider-container" id="special-m" role="presentation"></section>
+    <!--  slider cards container Special for Her -->
+    <section class="slider-container" id="special-w" role="presentation"></section>
+    <!--  slider cards container You Also May Like -->
+    <section class="slider-container" id="you-also-may-like" role="presentation"></section>
 
     <footer></footer>
 
@@ -44,13 +52,12 @@
     <script src="js/footer.js"></script>
     <script src="js/home.js"></script>
     <script src="js/product.js"></script>
-    <script src="js/search.js"></script>
 
     <script>
-        getProducts('accessories').then(data => createProductSlider(data, '#accessories', 'Accessories'))
-        getProducts('gift for men').then(data => createProductSlider(data, '#special-m', 'Special for Him'))
-        getProducts('gift for women').then(data => createProductSlider(data, '#special-w', 'Special for Her'))
-        getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
+        getProducts('accessories').then(data => createProductCards(data, '#accessories', 'Beauty & Accessories'));
+        createMultiTagsCardsAndSliders(['gift for women', 'jewellery'], '#special-w', 'Special for Her');
+        getProducts('gift for men').then(data => createProductSlider(data, '#special-m', 'Special for Him'));
+        getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'));
     </script>
 
 </body>

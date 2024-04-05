@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/men.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../img/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../img/icons/favicon-32x32.png">
@@ -24,9 +25,9 @@
     <section class="search-results">
         <h2 class="heading">Search results for <span id="search-key">product</span></h2>
         <section class="card-container"></section>
-
     </section>
 
+    <section class="slider-container" id="you-may-also-like" role="presentation"></section>
     <footer></footer>
 
     <script src="../js/nav.js"></script>
@@ -35,7 +36,7 @@
     <script src="../js/search.js"></script>
 
     <script>
-        getProducts('apparel').then(data => createProductSlider(data, '#in-demand', 'In Demand'))
+        createMultiTagsCardsAndSliders(['luxury', 'Best selling' ], '#you-may-also-like', 'In Demand');
     </script>
 </body>
 </html>

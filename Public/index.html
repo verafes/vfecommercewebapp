@@ -17,7 +17,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Krub:wght@500&display=swap" rel="stylesheet">
 
-    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
 </head>
 <body>
 
@@ -27,15 +26,14 @@
     <header class="hero-section">
         <div class="content">
             <img src="img/logo-green.png" class="logo" role="img" alt="VFShop">
-            <p class="sub-heading">Where Style Meets Elegance</p>
-            <p class="sub-heading">and Fashion Knows No Bounds</p>
+            <p class="sub-heading">Where Style Meets Elegance <br> and Fashion Knows No Bounds</p>
         </div>
     </header>
 
-    <!--  cards container  -->
-    <section id="best-selling-products"></section>
-
-    <section id="new-arrivals"></section>
+    <!--  cards container Best Selling -->
+    <section class="slider-container" id="best-selling-products" role="presentation"></section>
+    <!--  cards container New Arrivals -->
+    <section class="slider-container" id="new-arrivals" role="presentation"></section>
 
     <!--  COLLECTIONS  -->
 
@@ -54,23 +52,21 @@
         </a>
     </section>
 
-    <!--  cards container Women hot -->
-    <section id="women-hot-products"></section>
+    <!--  cards container Women hot Specials -->
+    <section class="slider-container" id="women-hot-products" role="presentation"></section>
 
     <!--  cards container Shoes -->
-
-    <section class="container-for-card-slider"></section>
-
-    <section id="shoes"></section>
-    <section id="men-tshirt-products"></section>
-    <section id="special"></section>
+    <section class="slider-container" id="shoes" role="presentation"></section>
+    <!--  cards container Men T-Shirt -->
+    <section class="slider-container" id="men-tshirt-products" role="presentation"></section>
+    <!--  cards container Special Deals-->
+    <section class="slider-container" id="special" role="presentation"></section>
     <footer></footer>
 
     <script src="js/nav.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/home.js"></script>
     <script src="js/product.js"></script>
-    <script src="js/search.js"></script>
 
     <script>
         getProducts('Best selling').then(data => createProductSlider(data, '#best-selling-products', 'Best selling'));
@@ -78,8 +74,7 @@
         getProducts('Women Tshirt').then(data => createProductSlider(data, '#women-hot-products', 'Women Hot Specials'));
         getProducts('shoes').then(data => createProductSlider(data, '#shoes', 'Shoes'));
         getProducts('Men Tshirt').then(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'));
-        const tagArr = ['winter', 'cold', 'cozy'];
-        processTags(tagArr, '#special', 'Cozy Winter Deals');
+        createMultiTagsCardsAndSliders(['winter', 'cold', 'cozy'], '#special', 'Now Trending');
     </script>
 </body>
 </html>

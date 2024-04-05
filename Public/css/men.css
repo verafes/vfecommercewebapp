@@ -3,9 +3,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 80vh;
+    max-height: 80vh;
     max-width: 100%;
     position: relative;
+    margin-bottom: 80px;
 }
 
 .image-wrapper {
@@ -41,7 +42,7 @@
     bottom: 1px;
     transform: translateX(-50%);
     width: 355px;
-    height: 125px;
+    height: 100%;
     background-color: rgba(183, 252, 252, 0.7);
     border-radius: 5px;
     z-index: -1; /* color box below the text */
