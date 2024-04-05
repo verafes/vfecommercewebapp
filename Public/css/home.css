@@ -219,14 +219,3 @@
     grid-column: span 2;
     margin-bottom: 10px;
 }
-
-.footer-credit{
-    width: 100%;
-    padding: 10px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    text-align: center;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.2);
-}

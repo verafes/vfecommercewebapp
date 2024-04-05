@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/men.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
@@ -30,23 +31,25 @@
             </div>
         </div>
     </div>
-    <section id="men-clothing"></section>
+    <!--  category (card) container men's products -->
+    <section class="men-results" >
+        <div>
+            <h2 class="product-category">Men's Fashion</h2>
+        </div>
+        <section class="card-container" id="menResults" role="presentation"></section>
+    </section>
 
-    <section id="men-tshirt-products"></section>
-
-    <section id="shoes"></section>
+    <!--  slider container In Demand / Now Trending -->
+    <section class="slider-container" id="you-also-may-like" role="presentation"></section>
 
     <footer></footer>
     <script src="js/nav.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/home.js"></script>
-    <script src="js/product.js"></script>
-    <script src="js/search.js"></script>
 
     <script>
-        getProducts('men clothing').then(data => createProductSlider(data, '#men-clothing', 'Men Hot Specials'));
-        getProducts('Men Tshirt').then(data => createProductSlider(data, '#men-tshirt-products', 'Men T-shirt'));
-        getProducts(`men shoes`).then(data => createProductSlider(data, '#shoes', 'Shoes'))
+        createMultiTagsCardsAndSliders(['men', 'boys', 'dad', 'husband'], '#menResults', '');
+        createMultiTagsCardsAndSliders(['luxury', 'dad', 'elegant'], '#you-also-may-like', 'In Demand');
     </script>
 </body>
 </html>

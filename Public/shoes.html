@@ -5,11 +5,11 @@
     <title>VF Shop | Shoes</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VF Shop | Shoes</title>
 
     <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="../css/men.css">
-    <link rel="stylesheet" href="../css/shoes.css">
+    <link rel="stylesheet" href="css/men.css">
+    <link rel="stylesheet" href="css/shoes.css">
+<!--    <link rel="stylesheet" href="css/search.css">-->
 
     <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
@@ -32,10 +32,12 @@
             </div>
         </div>
     </div>
-
-    <section id="shoes"></section>
-
-    <section id="you-also-may-like"></section>
+    <!-- sliders container Women Shoes > -->
+    <section class="slider-container" id="w-shoes" role="presentation"></section>
+    <!-- sliders container Men Shoes > -->
+    <section class="slider-container" id="m-shoes" role="presentation"></section>
+    <!-- You Also May Like > -->
+    <section class="slider-container" id="you-also-may-like" role="presentation"></section>
 
     <footer></footer>
     <script src="js/nav.js"></script>
@@ -45,8 +47,13 @@
     <script src="js/search.js"></script>
 
     <script>
-        getProducts(`shoes`).then(data => createProductSlider(data, '#shoes', 'Shoes'))
-        getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
+        // getProducts(`shoes`).then(data => createProductSlider(data, '#shoes', ''))
+        // processTags(['winter', 'cold', 'cozy'], '#special', 'Cozy Winter Deals');
+
+        getProducts('women shoes').then(data => createProductSlider(data, '#w-shoes', 'Women\'s Shoes'));
+        getProducts(`men shoes`).then(data => createProductSlider(data, '#m-shoes', 'Men\'s Shoes'));
+        // getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
+        getMultiTagsSliders(['Best selling', 'cozy'], '#you-also-may-like', 'You Also May Like');
     </script>
 
 </body>

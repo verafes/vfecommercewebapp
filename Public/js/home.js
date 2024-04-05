@@ -1,20 +1,24 @@
 const setupSlidingEffect = () => {
-    const productContainers = [...document.querySelectorAll('.product-container')];
-    const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
-    const preBtn = [...document.querySelectorAll('.pre-btn')];
+    const sliderContainers = document.querySelectorAll('.slider-container');
 
-    productContainers.forEach((item, i) => {
-        let containerDimensions = item.getBoundingClientRect();
-        let containerWidth = containerDimensions.width;
+    sliderContainers.forEach(container => {
+        const productContainer = container.querySelector('.product-container');
+        const nxtBtn = container.querySelector('.nxt-btn');
+        const preBtn = container.querySelector('.pre-btn');
 
-        nxtBtn[i].addEventListener('click', () => {
-            item.scrollLeft += containerWidth;
-        })
+        if (productContainer && nxtBtn && preBtn) {
+            let containerDimensions = productContainer.getBoundingClientRect();
+            let containerWidth = containerDimensions.width;
 
-        preBtn[i].addEventListener('click', () => {
-            item.scrollLeft -= containerWidth;
-        })
-    })
+            nxtBtn.addEventListener('click', () => {
+                productContainer.scrollLeft += containerWidth;
+            });
+
+            preBtn.addEventListener('click', () => {
+                productContainer.scrollLeft -= containerWidth;
+            });
+        }
+    });
 };
 
 //fetching product cards
@@ -30,8 +34,8 @@ const getProducts = (tag) => {
         })
 }
 
-// Create slider with combined data
-const processTags = (tagArr, parent, title) => {
+// Create slider or products cards with combined data
+const createMultiTagsCardsAndSliders = (tagArr, parent, title) => {
     const processedProducts = new Set();
     const promises = tagArr.map(tag => getProducts(tag));
 
@@ -46,7 +50,13 @@ const processTags = (tagArr, parent, title) => {
                 }
                 return false;
             });
-            createProductSlider(uniqueData, parent, title);
+            const section = document.querySelector(parent);
+            const sectionClass = section ? section.classList.contains('card-container') ? 'card-container' : 'slider-container' : null;
+            if (sectionClass === 'card-container') {
+                createProductCards(uniqueData, parent, title);
+            } else if (sectionClass === 'slider-container') {
+                createProductSlider(uniqueData, parent, title);
+            }
         })
         .catch(error => {
             console.error('Error fetching products:', error);
@@ -91,7 +101,6 @@ const createProductCards = (data, parent) => {
                     <h2 class="product-brand">${data[i].name || 'Brand Name'}</h2>
                     <p class="product-short-des">${data[i].shortDes || 'Short Description'}</p>
                     <span class="price">$${data[i].sellPrice || '80'}</span><span class="actual-price">$${data[i].actualPrice || '120'}</span>
-
                 </div>
             </div>
             `
