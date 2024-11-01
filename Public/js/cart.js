@@ -23,8 +23,9 @@ let totalBill = 0;
 const setProducts = (name) => {
     const element = document.querySelector(`.${name}`);
     let data = JSON.parse(localStorage.getItem(name));
-    if(data == null) {
-        element.innerHTML = `<img src="../img/empty-cart.png" class="empty-cart-img" alt="">`;
+    if(!data || data.length === 0) {
+        element.innerHTML = `<img src="../img/empty-cart.png" class="empty-cart-img" alt="Empty cart">`;
+        return
     } else {
         for(let i= 0; i < data.length; i++) {
             element.innerHTML += createSmallCards(data[i]);
@@ -47,6 +48,15 @@ const setProducts = (name) => {
         const currentPrice = Number(priceElement.getAttribute('data-price'));
         priceElement.innerHTML = `$${currentPrice.toFixed(2)}`;
     });
+
+    // Hide item counter for wishlist only
+    if (name === 'wishlist') {
+        const itemCounters = element.querySelectorAll('.item-counter');
+        itemCounters.forEach(counter => {
+            counter.style.display = 'none'; // Hide the counter
+        });
+    }
+
 }
 
 const updateBill = () => {
@@ -72,7 +82,7 @@ const setupEvents = (name) => {
                 item.innerHTML--;
                 totalBill -= Number(cost.toFixed(2));
                 price[i].innerHTML = `$${(item.innerHTML * cost).toFixed(2)}`;
-                if(name == 'cart'){ updateBill() }
+                if(name === 'cart'){ updateBill() }
                 product[i].item = item.innerHTML;
                 localStorage.setItem(name, JSON.stringify(product));
             }
@@ -81,8 +91,8 @@ const setupEvents = (name) => {
             if(item.innerHTML < 10) {
                 item.innerHTML++;
                 totalBill += Number(cost.toFixed(2));
-                price[i].innerHTML = `$${(item.innerHTML * cost).toFixed(2)}`
-                if(name == 'cart'){ updateBill() }
+                price[i].innerHTML = `$${(item.innerHTML * cost).toFixed(2)}`;
+                if(name === 'cart'){ updateBill() }
                 product[i].item = item.innerHTML;
                 localStorage.setItem(name, JSON.stringify(product));
             }
@@ -91,7 +101,7 @@ const setupEvents = (name) => {
 
     deleteBtn.forEach((item, i) => {
         item.addEventListener('click', () => {
-            product = product.filter((data, index) =>  index != i);
+            product = product.filter((data, index) =>  index !== i);
             localStorage.setItem(name, JSON.stringify(product));
             location.reload();
         })
