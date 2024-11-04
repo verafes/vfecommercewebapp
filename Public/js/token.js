@@ -35,6 +35,7 @@ const sendData = (path, data) => {
         .then(response => {
             processData(response);
         })
+        .catch(error => console.error('Error:', error));
 }
 
 const processData = (data) => {
@@ -49,7 +50,7 @@ const processData = (data) => {
         // create authToken
         data.authToken = generateToken(data.email);
         sessionStorage.user = JSON.stringify(data);
-        location.replace('/add');
+        location.replace('/');
     } else if(data == true) {
         //seller page
         let user = JSON.parse(sessionStorage.user);
