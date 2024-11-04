@@ -20,13 +20,11 @@
 .hero-section .sub-heading{
     margin-top: 10px;
     text-align: center;
-    color: #016565; /* #fff  red c12f2f */
+    color: #016565;
     text-transform: capitalize;
     font-size: 40px;
     font-weight: 400;
 }
-
-/* product */
 
 .product{
     position: relative;
@@ -47,7 +45,7 @@
     padding: 0 10vw;
     display: flex;
     overflow-x: auto;
-    overflow-y: hidden; /* To prevent vertical scrolling within the "cards container" section */
+    overflow-y: hidden;
     scroll-behavior: smooth;
 }
 
@@ -211,6 +209,7 @@
     transform: translate(-50%, -50%);
     text-align: center;
     color: #fff;
+    text-shadow: #016565 1px 0 10px;
     font-size: 50px;
     text-transform: capitalize;
 }

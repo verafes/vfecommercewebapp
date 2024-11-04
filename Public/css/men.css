@@ -45,7 +45,7 @@
     height: 100%;
     background-color: rgba(183, 252, 252, 0.7);
     border-radius: 5px;
-    z-index: -1; /* color box below the text */
+    z-index: -1;
 }
 
 .text-overlay {
@@ -62,7 +62,7 @@
 
 .collection-title{
     text-align: center;
-    color: #fff; /* #016565; */
+    color: #fff;
     text-transform: capitalize;
     font-size: 40px;
     font-weight: 400;

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/men.css">
     <link rel="stylesheet" href="css/shoes.css">
-<!--    <link rel="stylesheet" href="css/search.css">-->
 
     <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
@@ -25,7 +24,7 @@
 
     <div class="content-container">
         <div class="image-wrapper">
-            <img src="img/shoes-collection.jpg" class="section-image" alt="Shoes collection">
+            <img src="img/shoes-collection.jpg" class="section-image" alt="shoes collection">
             <div class="text-overlay">
                 <h1 class="collection-title">Shoes Collection</h1>
                 <p class="collection-short-des">Step into elegance and style <br> with our shoe collection, <br> where fashion meets  <br> footwear trends for everybody.</p>
@@ -47,13 +46,9 @@
     <script src="js/search.js"></script>
 
     <script>
-        // getProducts(`shoes`).then(data => createProductSlider(data, '#shoes', ''))
-        // processTags(['winter', 'cold', 'cozy'], '#special', 'Cozy Winter Deals');
-
         getProducts('women shoes').then(data => createProductSlider(data, '#w-shoes', 'Women\'s Shoes'));
         getProducts(`men shoes`).then(data => createProductSlider(data, '#m-shoes', 'Men\'s Shoes'));
-        // getProducts('apparel').then(data => createProductSlider(data, '#you-also-may-like', 'You Also May Like'))
-        getMultiTagsSliders(['Best selling', 'cozy'], '#you-also-may-like', 'You Also May Like');
+        createMultiTagsCardsAndSliders(['Best selling', 'cozy', 'apparel'], '#you-also-may-like', 'You Also May Like');
     </script>
 
 </body>

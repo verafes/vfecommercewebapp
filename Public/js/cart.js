@@ -24,11 +24,11 @@ const setProducts = (type) => {
     const element = document.querySelector(`.${type}`);
     let data = JSON.parse(localStorage.getItem(type));
 
-    if(data == null || (Array.isArray(data) && data.length === 0)) {
-        element.innerHTML = `<img src="../img/empty-cart.png" class="empty-cart-img" alt="Empty cart">`;
-        return
-    } else {
-        if (element) {
+    if (element) {
+        if(data == null || (Array.isArray(data) && data.length === 0)) {
+            element.innerHTML = `<img src="../img/empty-cart.png" class="empty-cart-img" alt="Empty cart">`;
+            return
+        } else {
             for (let i = 0; i < data.length; i++) {
                 element.innerHTML += createSmallCards(data[i]);
                 if(type === 'cart') {
