@@ -51,28 +51,31 @@
 
 .sm-product-img{
     height: 100px;
+    min-height: 100px;
     width: 100px;
+    max-width: 80px;
     object-fit: cover;
     border-radius: 5px;
-    margin-right: 10px;
+    margin-right: 1.5rem;
 }
 
 .sm-text{
     width: 50%;
+    flex-grow: 1;
 }
 
 .sm-product-name{
-    font-size: 25px;
+    font-size: 1.5em;
     font-weight: 700;
     text-transform: capitalize;
 }
 
 .sm-des, .size{
-    font-size: 18px;
+    font-size: 1.125em;
     opacity: 0.5;
-    line-height: 25px;
+    line-height: 1.5em;
     text-transform: capitalize;
-    margin-top: 5px;
+    margin: 0.35rem 0.35rem 0 0;
 }
 
 .wishlist-hide {
@@ -98,6 +101,10 @@
     cursor: pointer;
 }
 
+.decrement {
+    margin-left: 0.25rem;
+}
+
 .item-count{
     text-align: center;
     line-height: 30px;
@@ -108,6 +115,7 @@
     font-size: 50px;
     font-weight: 500;
     color: #016565;
+    margin-right: 0.3rem;
 }
 
 .sm-delete{
@@ -133,7 +141,7 @@
 }
 
 .empty-cart-img{
-    width: 50%;
+    width: 30%;
     display: block;
     margin: auto;
 }
@@ -142,7 +150,7 @@
     width: 100%;
     height: 200px;
     border-radius: 2px;
-    border: 1px solid #fcfcfc;
+    border: 1px solid #d8d8d8;
     padding: 20px;
 }
 
@@ -168,8 +176,77 @@
 }
 
 .bill{
-    font-size: 60px;
+    font-size: 3.75em;
     font-weight: 500;
     margin: 10px 0;
     color: #016565;
+}
+
+@media (max-width: 1180px) {
+    .item-counter {
+        width: 70px;
+        height: 25px;
+        margin-right: 15px;
+    }
+
+    .counter-btn, .item-count {
+        width: 25px;
+        height: 25px;
+        font-size: 0.875em;
+    }
+
+    .sm-price {
+        font-size: 2.5em;
+        margin-right: 0.2rem;
+    }
+
+    .sm-delete-btn {
+        width: 25px;
+        height: 25px;
+    }
+
+    .sm-delete-btn img {
+        height: 12px;
+    }
+    .bill {
+        font-size: 2.8em;
+    }
+
+    .sm-product-name{
+        font-size: 1.25em;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+
+    .sm-des, .size{
+        font-size: 1em;
+        opacity: 0.5;
+        line-height: 1.25em;
+        text-transform: capitalize;
+        margin: 0.35rem 0.35rem 0 0;
+    }
+    .checkout-box{
+        padding: 18px;
+    }
+}
+@media (max-width: 940px) {
+    .checkout-section .bill {
+        font-size: 2.25em;
+    }
+    .sm-product-name{
+        font-size: 1.1em;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+
+    .sm-des, .size{
+        font-size: 1em;
+        opacity: 0.5;
+        line-height: 1.2em;
+        text-transform: capitalize;
+        margin: 0.35rem 0.35rem 0 0;
+    }
+    .checkout-box{
+        padding: 16px;
+    }
 }
