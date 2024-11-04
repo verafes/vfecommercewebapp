@@ -8,6 +8,8 @@ productImages.forEach((item, i) => {
         productImages[activeImageSlide].classList.remove('active');
         item.classList.add('active');
         productImageSlide.style.backgroundImage = `url('${item.src}')`;
+        const altText = item.getAttribute('alt');
+        productImageSlide.setAttribute('alt', altText);
         activeImageSlide = i;
     })
 })
@@ -35,6 +37,7 @@ const setData = (data) => {
     productImages.forEach((img, i) => {
         if(data.images[i]) {
             img.src = data.images[i];
+            img.alt = `${data.name.trim()}`;
         } else {
             img.style.display = 'none';
         }

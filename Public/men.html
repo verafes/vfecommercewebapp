@@ -21,7 +21,7 @@
 </head>
 <body>
     <nav class="navbar"></nav>
-
+<!--    <div id="message-container"></div>-->
     <div class="content-container">
         <div class="image-wrapper">
             <img src="img/men-collection.jpg" role="img" class="section-image" alt="Collection For Him">
@@ -34,7 +34,7 @@
     <!--  category (card) container men's products -->
     <section class="men-results" >
         <div>
-            <h2 class="product-category">Men's Fashion</h2>
+            <h2 class="product-category">Men’s Fashion</h2>
         </div>
         <section class="card-container" id="menResults" role="presentation"></section>
     </section>
@@ -48,7 +48,7 @@
     <script src="js/home.js"></script>
 
     <script>
-        createMultiTagsCardsAndSliders(['men', 'boys', 'dad', 'husband'], '#menResults', '');
+        createMultiTagsCardsAndSliders(['men', 'dad', 'husband', 'boy'], '#menResults', 'Men’s Fashion');
         createMultiTagsCardsAndSliders(['luxury', 'dad', 'elegant'], '#you-also-may-like', 'In Demand');
     </script>
 </body>

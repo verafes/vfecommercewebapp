@@ -87,7 +87,7 @@ const createProductCards = (data, parent) => {
     for(let i= 0; i < data.length; i++){
         let imgSrc = data[i].images && data[i].images.length > 0 ? data[i].images[0] : '../img/no-image.png';
 
-        if(data[i].id != decodeURI(location.pathname.split('/').pop())) {
+        if(data[i].id !== decodeURI(location.pathname.split('/').pop())) {
             middle += `
             <div class="product-card">
                 <div class="product-image">
@@ -116,13 +116,13 @@ const createProductCards = (data, parent) => {
 }
 
 // Function to update item count
+const countErrorMsg = document.querySelector('.count-error-msg');
 const updateItemCount = (type, index, newCount) => {
     const itemCounterElements = document.querySelectorAll('.item-counter');
-    const countErrorMsg = document.querySelector('.count-error-msg');
 
     if (index >= 0 && index < itemCounterElements.length) {
         const itemCountElement = itemCounterElements[index].querySelector('.item-count');
-
+        console.log("! itemCountElement el", itemCountElement)
         if (itemCountElement) {
             itemCountElement.textContent = newCount;
             countErrorMsg.style.display = 'none';
@@ -138,8 +138,9 @@ const add_product_to_cart_or_wishlist = (type, product, size) => {
     if(data == null) {
         data = [];
     }
-    console.log("data", data)
+    console.log("data in", type, data)
 
+    // select size
     if (type === 'cart') {
         const sizeButtons = document.querySelectorAll('input[type="radio"][name="size"]');
         let sizeSelected = false;
@@ -151,7 +152,7 @@ const add_product_to_cart_or_wishlist = (type, product, size) => {
             }
             return selectedSize;
         });
-
+        // display warning msg of selecting size
         const errorMsg = document.querySelector('.size-error-msg');
         if (!sizeSelected) {
             errorMsg.style.display = 'block';
@@ -162,39 +163,65 @@ const add_product_to_cart_or_wishlist = (type, product, size) => {
         }
     }
 
+    // Find if the product with the same name and size already exists in the cart
     const existingProductIndex = data.findIndex((item) => {
-        return item.name === product.name;
+        return item.name === product.name && (type === 'cart' ? item.size === size : true);
     });
 
     if (existingProductIndex !== -1 ) {
         // Product exists in cart
         const existingProduct = data[existingProductIndex];
 
-        if (existingProduct.item < 10) { // Check if count is less than 10 before incrementing
+        // For cart, increase item count if under limit
+        if (existingProduct.item < 10) {
+            if (existingProduct.item === 1) {
+                // Check if the product is 'wishlist'
+                if (type === 'wishlist') {
+                    alert('Already in Wishlist.');
+                    return `Add to ${type}`;
+                }
+            }
+
             existingProduct.item++;
             updateItemCount(existingProductIndex, existingProduct.item);
             localStorage.setItem(type, JSON.stringify(data));
             return `Add to ${type}`;
         } else {
-            console.log('Count exceeds the limit (10)');
-            updateItemCount(existingProductIndex, existingProduct.item); // Update count display even when limit is reached
-            const countErrorMsg = document.querySelector('.count-error-msg');
+            // display msg of limit (10) is reached
             countErrorMsg.textContent = `You can only add 10 amount of this item to your ${type}.`;
             countErrorMsg.style.display = 'block';
+            // Hide the message after 3 seconds
+            setTimeout(() => {
+                countErrorMsg.style.display = 'none';
+            }, 3000);
             return `Add to ${type}`;
         }
     }
-
-    product = {
-        item: 1,
-        name: product.name,
-        sellPrice: product.sellPrice,
-        size: size || null,
-        shortDes: product.shortDes,
-        image: product.images[0],
-        id: product.id
+    else {
+        // Add new product to the cart or wishlist
+        product = {
+            item: 1,
+            name: product.name,
+            sellPrice: product.sellPrice,
+            size: size || null,
+            shortDes: product.shortDes,
+            image: product.images[0],
+            id: product.id
+        }
+        data.push(product);
+        localStorage.setItem(type, JSON.stringify(data));
     }
-    data.push(product);
-    localStorage.setItem(type, JSON.stringify(data));
+    // Update both buttons' text to 'Added' temporarily
+    const button = (type === 'cart') ? document.querySelector('.cart-btn') : document.querySelector('.wishlist-btn');
+    button.textContent = 'Added';
+    setTimeout(() => {
+        // Revert button text after 3 seconds
+        button.textContent = (type === 'cart') ? 'Add to Cart' : 'Add to Wishlist';
+    }, 2000);
+
+    if (type === 'wishlist') {
+        alert('Added to Wishlist');
+    }
+
     return 'Added';
 }

@@ -42,9 +42,10 @@
     padding: 10px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    border: 1px solid #8dcccc; /* #d1d1d1; */
+    border: 1px solid #8dcccc;
+    border-right: none;
     background: none;
-    color: #8dcccc; /* #a9a9a9; */
+    color: #8dcccc;
     outline: none;
     transition: color 0.5s;
 }
@@ -69,7 +70,7 @@
 }
 
 .search-box::placeholder{
-    color: #8dcccc; /* #a9a9a9; */
+    color: #8dcccc;
 }
 
 .nav-items a{

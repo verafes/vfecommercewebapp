@@ -2,7 +2,7 @@ body{
     width: 100%;
     display: block;
     min-height: 90vh;
-    padding: 0 5vw;
+    padding: 2vw 5vw 5vw 5vw;
     position: relative;
     font-family: 'Krub', sans-serif;
 }

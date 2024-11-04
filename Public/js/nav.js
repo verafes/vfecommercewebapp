@@ -1,4 +1,4 @@
-const createNav = () => {
+const createNav = (user) => {
     let nav = document.querySelector('.navbar');
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -17,12 +17,12 @@ const createNav = () => {
             <div class="nav-items">
                 <div class="search">
                     <input type="text" class="search-box" type="search" name="keywords" autofocus="autofocus" placeholder="search brand product">
-                    <button class="search-btn" data-search-btn-id="search-btn" aria-label="Search" type="submit" onclick="window.location.href = '/search'">search</button>
+                    <button class="search-btn" data-search-btn-id="search-btn" aria-label="Search" type="submit">search</button>
                 </div>
                 <a href="#">
                     <img src="../img/user.png" id="user-img" role="img" alt="User account">
                     <div class="login-logout-popup hide">
-                        <p class="account-info">Logged as name</p>
+                        <p class="account-info">${user ? `Logged as ${user.name}` : 'Log in to place order'}</p>
                         <button class="btn" id="user-btn" name="button" type="submit" title="Login" aria-label="Login-Logout">Log out</button>
                     </div>
                 </a>
@@ -41,12 +41,18 @@ const createNav = () => {
             <li class="link-item"><a href="#footer-about" class="link">about</a></li>
         </ul>
     `;
+
+    const actionBtn = document.querySelector('#user-btn');
+    actionBtn.addEventListener('click', () => {
+        sessionStorage.clear();
+        location.reload();
+    });
 }
 
-createNav();
+let user = JSON.parse(sessionStorage.user || null);
+createNav(user);
 
 // login functionality
-
 const userImageButton = document.querySelector('#user-img');
 const userPopup = document.querySelector('.login-logout-popup');
 const popuptext = document.querySelector('.account-info');
@@ -75,15 +81,25 @@ window.onload = () => {
         })
     }
 }
-// search box
 
+// search box
 const searchBtn = document.querySelector('.search-btn');
 const searchBox = document.querySelector('.search-box');
-searchBtn.addEventListener('click', () => {
-    if(searchBox.value.length) {
+
+const performSearch = () => {
+    if (searchBox.value.length) {
         location.href = `/search/${searchBox.value}`;
     } else {
         location.href = `/search/`;
     }
-})
+}
+// Click event for the search button
+searchBtn.addEventListener('click', performSearch);
 
+// detect the Enter key the search button
+searchBox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        performSearch();
+    }
+});
