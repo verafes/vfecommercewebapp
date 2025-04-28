@@ -2,10 +2,11 @@ const express = require('express');
 const admin = require('firebase-admin');
 const bcrypt = require('bcrypt');
 const path = require('path');
-const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+dotenv.config();
 
 //firebase setup
-let serviceAccount = require("./public/credentials/secret-file.json");
+let serviceAccount = require(process.env.SERVICE_JSON);
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -16,9 +17,7 @@ let db = admin.firestore();
 // aws config
 const aws = require('aws-sdk');
 const {S3Client} = require("@aws-sdk/client-s3");
-const dotenv = require('dotenv');
 
-dotenv.config();
 const storage = admin.storage();
 
 // aws parameters
@@ -154,7 +153,6 @@ app.get('/seller', (req, res) => {
 })
 
 app.post('/seller', (req, res) => {
-    console.log('Received POST request to /seller:', req.body);
     let { name, about, address, number, tac, legit, email} = req.body;
     if(!name.length || !address.length || !about.length || number.length < 10 || !Number(number)) {
         return res.json({'alert': 'some information(s) is/are invalid'})
@@ -305,14 +303,16 @@ app.get("/mail", (req, res) => {
     res.sendFile(path.join(staticPath, "mail.html"));
 })
 app.post('/order', (req, res) => {
-    const {order, email, add} = req.body;
+    const {order, email, address, id} = req.body;
 
-    let docName = email + Math.floor(Math.random() * 123819287419824);
+    let docName = email + '-' + id;
     db.collection('order').doc(docName).set(req.body)
         .then(data => {
-            // res.json('done');
             res.json({'alert': 'Your order is placed'});
-        })
+        }).catch(error => {
+        console.error('Error saving order:', error);
+        res.status(500).json({'alert': 'Failed to place the order'});
+    });
 } )
 app.get("/terms", (req, res) => {
     res.sendFile(path.join(staticPath, "terms.html"));
@@ -326,6 +326,7 @@ app.get("/404", (req, res) => {
 app.use((req, res) => {
     res.redirect('/404');
 })
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Server running on port 3000')
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 })

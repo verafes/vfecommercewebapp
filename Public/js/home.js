@@ -122,7 +122,7 @@ const updateItemCount = (type, index, newCount) => {
 
     if (index >= 0 && index < itemCounterElements.length) {
         const itemCountElement = itemCounterElements[index].querySelector('.item-count');
-        console.log("! itemCountElement el", itemCountElement)
+
         if (itemCountElement) {
             itemCountElement.textContent = newCount;
             countErrorMsg.style.display = 'none';
@@ -133,12 +133,10 @@ const updateItemCount = (type, index, newCount) => {
 };
 
 const add_product_to_cart_or_wishlist = (type, product, size) => {
-    console.log("product", product, size)
     let data = JSON.parse(localStorage.getItem(type));
     if(data == null) {
         data = [];
     }
-    console.log("data in", type, data)
 
     // select size
     if (type === 'cart') {
@@ -220,7 +218,8 @@ const add_product_to_cart_or_wishlist = (type, product, size) => {
     }, 2000);
 
     if (type === 'wishlist') {
-        alert('Added to Wishlist');
+        let msg = 'Added to Wishlist'
+        alert(msg);
     }
 
     return 'Added';
