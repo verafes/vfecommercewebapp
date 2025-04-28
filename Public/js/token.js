@@ -8,12 +8,10 @@ const generateToken = (key) => {
         token += char[randomIndex] + char[index - randomIndex];
     }
 
-    console.log(token, key);
     return token;
 }
 
 const compareToken = (token, key) => {
-    console.log('token', token, 'key', key)
     let string = '';
     for (let i = 0; i < token.length; i = i + 2) {
         let index1 = char.indexOf(token[i]);
@@ -62,15 +60,19 @@ const processData = (data) => {
     }
 };
 // alert function
-const showAlert = (msg) => {
+const showAlert = (msg, type) => {
     let alertBox = document.querySelector('.alert-box');
     let alertMsg = document.querySelector('.alert-msg');
     let alertImg = document.querySelector('.alert-img');
+
+    if (typeof msg === 'object' && msg !== null) {
+        msg = msg.message || JSON.stringify(msg);
+    }
     alertMsg.innerHTML = msg;
-    if (alert.type === 'success') {
+    if (type === 'success') {
         alertImg.src = `img/success.png`;
         alertMsg.style.color = "#0ab50a";
-    } else { // means it is an error
+    } else {
         alertImg.src = `img/error.png`;
         alertMsg.style.color = null;
     }
@@ -80,3 +82,4 @@ const showAlert = (msg) => {
     }, 3000);
     return false;
 }
+window.showAlert = showAlert;

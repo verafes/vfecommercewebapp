@@ -32,7 +32,6 @@
             display: block;
             line-height: 50px;
             margin: 30px auto 60px;
-            /*text-transform: capitalize;*/
         }
         .heading span{
             font-weight: 300;
@@ -41,12 +40,17 @@
             width: 200px;
             height: 50px;
             border-radius: 5px;
+            border: none;
             background: #016565;
             color: #fff;
             display: block;
             margin: auto;
             font-size: 18px;
             text-transform: capitalize;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #8dcccc;
         }
         .logo{
             height: 150px;
@@ -60,7 +64,7 @@
     <div>
         <a href="/"><img src="img/logo-green.png" class="logo" role="img" alt="VFShop"></a>
         <h1 class="heading">Dear user, <span>your order is successfully placed</span></h1>
-        <button class="btn" name="button" type="submit" title="Order status">Check Status</button>
+        <button class="btn" name="button" type="submit" title="Home" onclick="window.location.href = '/'">Home Page</button>
     </div>
 </body>
 </html>
