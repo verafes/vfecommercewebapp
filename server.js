@@ -6,7 +6,12 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 //firebase setup
-let serviceAccount = require(process.env.SERVICE_JSON);
+let serviceAccount;
+if (process.env.SERVICE_JSON) {
+    serviceAccount = JSON.parse(process.env.SERVICE_JSON);
+} else {
+    serviceAccount = `./public/credentials/secret-file.json`;
+}
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
