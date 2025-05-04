@@ -13,7 +13,7 @@ firebase-debug.*.log*
 # Firebase config
 config/
 /credentials/
-Public/credentials/
+public/credentials/
 
 # Runtime data
 pids
@@ -66,5 +66,5 @@ node_modules/
 .env/
 
 @other
- Public/img/products/
- Public/img/products
+ public/img/products/
+ public/img/products
