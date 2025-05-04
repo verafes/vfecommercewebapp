@@ -61,7 +61,7 @@ async function generateURL(){
 }
 
 //declare static path
-let staticPath = path.join(__dirname, "public");
+let staticPath = path.resolve(__dirname, "public");
 
 //initializing app express.js
 const app = express();
@@ -73,7 +73,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.get("/", (req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
+    res.sendFile(path.resolve(__dirname, "public", "index.html"));
 })
 app.get("/signup", (req, res) => {
     res.sendFile(path.join(staticPath, "signup.html"));
