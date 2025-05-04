@@ -73,7 +73,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "public", "index.html"));
+    res.sendFile(path.join(staticPath, "index.html"));
 })
 app.get("/signup", (req, res) => {
     res.sendFile(path.join(staticPath, "signup.html"));
